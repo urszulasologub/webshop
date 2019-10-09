@@ -14,10 +14,10 @@ python3 manage.py runserver
 ```
 
 ## Structure of project:
-*project - virtual environment
+* project - virtual environment
 
-*webshop - place where our applications are installed
+* webshop - place where our applications are installed
 
-*shop - our main application
+* shop - our main application
 
 
