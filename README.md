@@ -1,13 +1,6 @@
 # Webshop
 Competence project to my university classes
 
-
-## Requirements
-Just install this:
-```bash
-pip3 install psycopg2
-```
-
 ## Virtual environment
 You should use virtual environment every time you use application locally, so you don't have to care about installing Python packages:
 ```bash
