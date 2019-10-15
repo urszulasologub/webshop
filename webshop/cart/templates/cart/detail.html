@@ -2,20 +2,20 @@
 {% load static %}
 
 {% block title %}
-    Your shopping cart
+    Twój koszyk
 {% endblock %}
 
 {% block content %}
-    <h1>Your shopping cart</h1>
+    <h1>Twój koszyk</h1>
         <table class="cart">
         <thead>
             <tr>
-                <th>Image</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Remove</th>
-                <th>Unit price</th>
-                <th>Price</th>
+                <th>Obraz</th>
+                <th>Produkt</th>
+                <th>Ilość</th>
+                <th>Usuń</th>
+                <th>Cena jednostkowa</th>
+                <th>Cena</th>
             </tr>
         </thead>
         <tbody>
@@ -29,14 +29,14 @@
                         </td>
                         <td>{{ product.name }}</td>
                         <td>{{ item.quantity }}</td>
-                        <td><a href="{% url 'cart:cart_remove' product.id %}">Remove</a></td>
+                        <td><a href="{% url 'cart:cart_remove' product.id %}">Usuń</a></td>
                         <td class="num">${{ item.price }}</td>
                         <td class="num">${{ item.total_price }}</td>
                     </tr>
                 {% endwith %}
             {% endfor %}
             <tr class="total">
-                <td>Total</td>
+                <td>Całość</td>
                 <td colspan="4"></td>
                 <td class="num">${{ cart.get_total_price }}</td>
             </tr>
@@ -44,7 +44,7 @@
     </table>
     <p class="text-right">
         <a href="{% url 'shop:product_list' %}" class="button
-        light">Continue shopping</a>
-        <a href="#" class="button">Checkout</a>
+        light">Kontynuuj zakupy</a>
+        <a href="#" class="button">Zapłać</a>
     </p>
 {% endblock %}
