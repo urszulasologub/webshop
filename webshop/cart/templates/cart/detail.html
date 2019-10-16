@@ -24,21 +24,21 @@
                     <tr>
                         <td>
                             <a href="{{ product.get_absolute_url }}">
-                                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}" height="50" width="50">
                             </a>
                         </td>
                         <td>{{ product.name }}</td>
                         <td>{{ item.quantity }}</td>
                         <td><a href="{% url 'cart:cart_remove' product.id %}">Usuń</a></td>
-                        <td class="num">${{ item.price }}</td>
-                        <td class="num">${{ item.total_price }}</td>
+                        <td class="num">{{ item.price }} PLN</td>
+                        <td class="num">{{ item.total_price }} PLN</td>
                     </tr>
                 {% endwith %}
             {% endfor %}
             <tr class="total">
                 <td>Całość</td>
                 <td colspan="4"></td>
-                <td class="num">${{ cart.get_total_price }}</td>
+                <td class="num">{{ cart.get_total_price }} PLN</td>
             </tr>
         </tbody>
     </table>

@@ -9,10 +9,18 @@
 		<div id="header">
 			<a href="/" class="logo">Mięsne delikatesy</a>
 		</div>
-		<div id="subheader">
-			<div class="cart">
-				Twój koszyk jest pusty.
-			</div>
+		<div id="cart">
+			{% with total_items=cart|length %}
+				{% if cart|length > 0 %}
+					Twój koszyk:
+					<a href="{% url 'cart:cart_detail' %}">
+						{{ total_items }} przedmiot(ów),
+						{{ cart.get_total_price }} PLN
+					</a>
+				{% else %}
+					Twój koszyk jest pusty
+				{% endif %}
+			{% endwith %}
 		</div>
 		<div id="content">
 			{% block content %}
