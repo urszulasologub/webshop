@@ -8,7 +8,7 @@ source project/bin/activate
 ```
 And that's how to do this on Windows:
 ```bash
-python -m venv project
+project/Scripts/activate
 ```
 
 ## Running server
