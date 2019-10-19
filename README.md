@@ -2,9 +2,13 @@
 Competence project to my university classes
 
 ## Virtual environment
-You should use virtual environment every time you use application locally, so you don't have to care about installing Python packages:
+You should use virtual environment every time you use application locally, so you don't have to care about installing Python packages. That's how you do this on Linux/macOS:
 ```bash
 source project/bin/activate
+```
+And that's how to do this on Windows:
+```bash
+python -m venv project
 ```
 
 ## Running server
