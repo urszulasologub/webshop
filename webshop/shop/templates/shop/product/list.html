@@ -30,9 +30,9 @@
 			
 				<div class="item col-md-4 mb-2 mt-4">
 					<div id="img" class="bg-light">
-                        <a href="{{ product.get_absolute_url }}">
-                            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static " img/no-image.png" %} {% endif %}" class="img-fluid p-2">
-                        </a>
+						<a href="{{ product.get_absolute_url }}">
+							<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.png" %} {% endif %}" class="img-fluid p-2">
+						</a>
 					</div>
 					<div id="opis" class="bg-light">
 						<a href="{{ product.get_absolute_url }}" class=" h3 pl-2 ">{{ product.name }}</a>
