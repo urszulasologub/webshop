@@ -6,7 +6,10 @@
 {% endblock %}
 
 {% block content %}
-	<div id="sidebar">
+	
+		<div class="row">
+		
+		<div id="sidebar col-md-2">
 		<h3>Kategorie</h3>
 		<ul>
 			<li {% if not category %}class="selected"{% endif %}>
@@ -19,18 +22,31 @@
 			{% endfor %}
 		</ul>
 	</div>
-	<div id="main" class="product-list">
-		<h1>{% if category %}{{ category.name }}{% else %}Produkty{% endif %}</h1>
-		{% for product in products %}
-			<div class="item">
-				<a href="{{ product.get_absolute_url }}">
-					<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.png" %} {% endif %}" height="50" width="50">
-				</a>
-				<a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-				<br>
-				{{ product.price }} PLN
-			</div>
-		{% endfor %}
-	</div>
+			
+			
+		<div class="product-list row col-md-10" >
+			<!--<h1>{% if category %}{{ category.name }}{% else %}Produkty{% endif %}</h1>-->
+			{% for product in products %}
+			
+				<div class="item col-md-4 mb-2 mt-4">
+					<div id="img" class="bg-light">
+                        <a href="{{ product.get_absolute_url }}">
+                            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static " img/no-image.png" %} {% endif %}" class="img-fluid p-2">
+                        </a>
+					</div>
+					<div id="opis" class="bg-light">
+						<a href="{{ product.get_absolute_url }}" class=" h3 pl-2 ">{{ product.name }}</a>
+					</div>
+					
+					<div id="cena" class="pl-2 border-bottom text-right bg-light">
+						<h4>{{ product.price }} PLN </h4>
+					</div>
+				</div>
+
+			{% endfor %}
+		</div>
+		</div>
+	
+		
 {% endblock %}
 
