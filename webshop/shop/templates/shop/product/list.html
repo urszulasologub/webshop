@@ -9,18 +9,18 @@
 	
 		<div class="row">
 		
-		<div id="sidebar col-md-2">
+		<div id="sidebar" class=" col-md-2 list-group text-center">
 		<h3>Kategorie</h3>
-		<ul>
-			<li {% if not category %}class="selected"{% endif %}>
-				<a href="{% url "shop:product_list" %}">Wszystkie</a>
-			</li>
+		
+			<a href="{% url "shop:product_list" %}" class="list-group-item list-group-item-action" {% if not category %}class="selected"{% endif %}>
+				Wszystkie
+			</a>
 			{% for c in categories %}
-				<li {% if category.slug == c.slug %}class="selected" {% endif %}>
-					<a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-				</li>
+				<a href="{{ c.get_absolute_url }}" class="list-group-item list-group-item-action" {% if category.slug == c.slug %}class="selected" {% endif %}>
+					{{ c.name }}
+				</a>
 			{% endfor %}
-		</ul>
+		
 	</div>
 			
 			
