@@ -1,0 +1,14 @@
+{% extends "shop/base.html" %}
+
+{% block title %}Zarejestruj się{% endblock %}
+
+{% block content %}
+    <h1>Stwórz konto</h1>
+    <p>Zarejestruj się używając poniższego formularza: </p>
+    <form action="." method="post">
+        {{ user_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Stwórz moje konto"></p>
+    </form>
+    <p>Masz już konto. <a href="/account/login/">Zaloguj się</a>.</p>
+{% endblock %}
