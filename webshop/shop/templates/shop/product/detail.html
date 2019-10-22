@@ -6,17 +6,23 @@
 {% endblock %}
 
 {% block content %}
-<div class="product-detail">
-	<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}">
-	<h1>{{ product.name }}</h1>
-	<h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
-	<p class="price">{{ product.price }} PLN</p>
-	<form action="{% url 'cart:cart_add' product.id %}" method="post">
-		{{ cart_product_form }}
-		{% csrf_token %}
-		<input type="submit" value="Dodaj do koszyka">
-	</form>
-	{{ product.description|linebreaks }}
+<div class="product-detail row">
+	<div id="foto" class="col-md-6 img-fluid">
+		<img class="img-fluid text-center" src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %} "  >
+	</div>
+	<div id="tekst" class="col-md-6 pt-5">
+
+		<h1>{{ product.name }}</h1>
+		<h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+		<p class="price">{{ product.price }} PLN</p>
+		<form action="{% url 'cart:cart_add' product.id %}" method="post">
+			{{ cart_product_form }}
+			{% csrf_token %}
+			<input type="submit" class="btn btn-primary" value="Dodaj do koszyka">
+		</form>
+		{{ product.description|linebreaks }}
+	</div>
+
 </div>
 {% endblock %}
 
