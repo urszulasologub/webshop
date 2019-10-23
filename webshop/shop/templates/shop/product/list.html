@@ -6,31 +6,62 @@
 {% endblock %}
 
 {% block content %}
-	<div id="sidebar">
+
+<style>
+       .item {
+        padding: 20px;
+        transition: all .4s;
+        -webkit-transition: all .4s;
+      }
+      .item:hover {
+        transform: scale(1.05);
+        -ms-transform: scale(1.05);
+        -webkit-transform: scale(1.05);
+        box-shadow: 0 0 20px #888;
+        background-color: #fff;
+      }
+ </style>
+	
+		<div class="row">
+		
+		<div id="sidebar" class=" col-md-2 list-group text-center">
 		<h3>Kategorie</h3>
-		<ul>
-			<li {% if not category %}class="selected"{% endif %}>
-				<a href="{% url "shop:product_list" %}">Wszystkie</a>
-			</li>
+		
+			<a href="{% url "shop:product_list" %}" class="list-group-item list-group-item-action" {% if not category %}class="selected"{% endif %}>
+				Wszystkie
+			</a>
 			{% for c in categories %}
-				<li {% if category.slug == c.slug %}class="selected" {% endif %}>
-					<a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-				</li>
-			{% endfor %}
-		</ul>
-	</div>
-	<div id="main" class="product-list">
-		<h1>{% if category %}{{ category.name }}{% else %}Produkty{% endif %}</h1>
-		{% for product in products %}
-			<div class="item">
-				<a href="{{ product.get_absolute_url }}">
-					<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.png" %} {% endif %}" height="50" width="50">
+				<a href="{{ c.get_absolute_url }}" class="list-group-item list-group-item-action" {% if category.slug == c.slug %}class="selected" {% endif %}>
+					{{ c.name }}
 				</a>
-				<a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-				<br>
-				{{ product.price }} PLN
-			</div>
-		{% endfor %}
+			{% endfor %}
+		
 	</div>
+			
+			
+		<div class="product-list row col-md-10 text-center" >
+			<!--<h1>{% if category %}{{ category.name }}{% else %}Produkty{% endif %}</h1>-->
+			{% for product in products %}
+			
+				<div class="item col-md-4 mb-2 mt-4">
+					<div id="img" class="bg-light text-center" >
+						<a href="{{ product.get_absolute_url }}">
+							<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.png" %} {% endif %}" class="img-fluid p-2"  >
+						</a>
+					</div>
+					<div id="opis" class="bg-light">
+						<a href="{{ product.get_absolute_url }}" class=" h3 pl-2 ">{{ product.name }}</a>
+					</div>
+					
+					<div id="cena" class="pl-2 border-bottom  bg-light">
+						<h4>{{ product.price }} PLN </h4>
+					</div>
+				</div>
+
+			{% endfor %}
+		</div>
+		</div>
+	
+		
 {% endblock %}
 
