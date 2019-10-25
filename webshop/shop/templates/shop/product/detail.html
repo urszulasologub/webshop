@@ -22,7 +22,18 @@
 		</form>
 		{{ product.description|linebreaks }}
 	</div>
-
+	<h2>Recenzje </h2>
+	{% for review in reviews %}
+		<div class="comment">
+			<p class="info">
+				Autor: {{ review.user.username }} <br>
+				Ocena: {{ review.rating }} <br>
+			</p>
+			{{ review.body|linebreaks }}
+		</div>
+		{% empty %}
+			<p>Nie ma jeszcze żadnych recenzji tego produktu. </p>
+	{% endfor %}
 </div>
 {% endblock %}
 
