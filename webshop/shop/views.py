@@ -22,8 +22,9 @@ def product_detail(request, id, slug):
 	if request.method == 'POST':
 		review_form = ReviewForm(data=request.POST)
 		if review_form.is_valid:
-			new_review = review_form.save()
+			new_review = review_form.save(commit=False)
 			new_review.product = product
+			new_review.user = request.user
 			new_review.save()
 	else:
 		review_form = ReviewForm()

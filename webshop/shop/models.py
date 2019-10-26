@@ -59,7 +59,7 @@ class Review(models.Model):
 	rating = models.IntegerField(choices=RATING_CHOICES)
 
 	class Meta:
-		ordering = ('created', )
+		ordering = ('created', 'rating', )
 	
 	def __str__(self):
 		return 'Recenzja użytkownika {} produktu {}'.format(self.user, self.product)

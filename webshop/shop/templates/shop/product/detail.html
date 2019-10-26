@@ -22,7 +22,21 @@
 		</form>
 		{{ product.description|linebreaks }}
 	</div>
-	<h2>Recenzje </h2>
+	<h2>Recenzje </h2><br>
+	{% if user.is_authenticated %}
+		{% if new_review %}
+			<h2>Pomyślnie dodano recenzję</h2>
+		{% else %}
+			<h2>Dodaj nową recenzję </h2>
+			<form action="" method="post">
+				{{ review_form.as_p }}
+				{% csrf_token %}
+				<p><input type="submit" value="Dodaj recenzję"></p>
+			</form>
+		{% endif %}
+	{% else %}
+		Aby napisać własną recenzję musisz się zalogować.
+	{% endif %}
 	{% for review in reviews %}
 		<div class="comment">
 			<p class="info">
