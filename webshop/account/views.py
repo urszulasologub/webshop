@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, UserRegistrationForm
 
 
@@ -36,3 +36,8 @@ def register(request):
 	else:
 		user_form = UserRegistrationForm
 	return render(request, 'account/register.html', {'user_form': user_form})
+
+
+def user_logout(request):
+	logout(request)
+	return HttpResponse('Wylogowano pomyślnie')
