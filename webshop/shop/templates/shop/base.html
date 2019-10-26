@@ -40,6 +40,7 @@
 			<div id="login_register" class="col-md-4 text-right">
 				{% if user.is_authenticated %}
 					Zalogowano jako {{ user.username }}
+					<p><a href="account/logout/">Wyloguj się</a></p>
 				{% else %}
 					<a href="/account/login/"><button type="button" class="btn btn-outline-primary">Logowanie</button></a>
 					<a href="/account/register/"><button type="button" class="btn btn-primary">Rejestracja</button></a>
