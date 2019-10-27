@@ -17,11 +17,11 @@ def user_login(request):
 					return HttpResponse('Zalogowano pomyślnie')
 				else:
 					return HttpResponse('Konto dezaktywowane')
-			else: 
+			else:
 				return HttpResponse('Podano nieprawidłowe dane')
 		else:
 			form = LoginForm()
-	return render(request, 'account/login.html', {'form': form})		
+	return render(request, 'account/login.html', {'form': form})
 
 
 def register(request):
