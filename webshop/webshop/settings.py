@@ -58,7 +58,7 @@ ROOT_URLCONF = 'webshop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,7 +139,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CART_SESSION_ID = 'cart'
 
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-#LOGOUT_REDIRECT_URL = 'product_list'
+LOGIN_REDIRECT_URL = 'product_list'
+LOGOUT_REDIRECT_URL = 'product_list'
