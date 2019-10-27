@@ -1,6 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, UserRegistrationForm
 
 
@@ -17,11 +18,11 @@ def user_login(request):
 					return HttpResponse('Zalogowano pomyślnie')
 				else:
 					return HttpResponse('Konto dezaktywowane')
-			else: 
+			else:
 				return HttpResponse('Podano nieprawidłowe dane')
 		else:
 			form = LoginForm()
-	return render(request, 'account/login.html', {'form': form})		
+	return render(request, 'account/login.html', {'form': form})
 
 
 def register(request):
@@ -36,3 +37,9 @@ def register(request):
 	else:
 		user_form = UserRegistrationForm
 	return render(request, 'account/register.html', {'user_form': user_form})
+
+
+def user_logout(request):
+	logout(request)
+	return HttpResponse('Wylogowano pomyślnie')
+

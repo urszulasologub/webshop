@@ -9,5 +9,5 @@
 		{% csrf_token %}
 		<p><input type="submit" value="Zaloguj"></p>
 	</form>
-	<p>Jeśli nie masz jeszcze konta <a href="/account/register" %}" >zarejestruj się</a>.</p>
+	<p>Jeśli nie masz jeszcze konta <a href="{% url 'account:register' %}">zarejestruj się</a>.</p>
 {% endblock %}
