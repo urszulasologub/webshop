@@ -234,7 +234,7 @@ class BufferedIncrementalEncoder(IncrementalEncoder):
         raise NotImplementedError
 
     def encode(self, input, final=False):
-        # encode input (taking the buffer into account)
+        # encode input (taking the buffer into registration)
         data = self.buffer + input
         (result, consumed) = self._buffer_encode(data, self.errors, final)
         # keep unencoded input until the next call
@@ -317,7 +317,7 @@ class BufferedIncrementalDecoder(IncrementalDecoder):
         raise NotImplementedError
 
     def decode(self, input, final=False):
-        # decode input (taking the buffer into account)
+        # decode input (taking the buffer into registration)
         data = self.buffer + input
         (result, consumed) = self._buffer_decode(data, self.errors, final)
         # keep undecoded input until the next call

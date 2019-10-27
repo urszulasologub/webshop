@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +41,6 @@ INSTALLED_APPS = [
 	'shop',
     'cart',
 	'django.contrib.postgres',
-	'account.apps.AccountConfig',
 ]
 
 MIDDLEWARE = [

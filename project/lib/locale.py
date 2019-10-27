@@ -206,7 +206,7 @@ def _format(percent, value, grouping=False, monetary=False, *additional):
 
 def format_string(f, val, grouping=False, monetary=False):
     """Formats a string in the same way that the % formatting would use,
-    but takes the current locale into account.
+    but takes the current locale into registration.
 
     Grouping is applied if the third parameter is true.
     Conversion uses monetary thousands separator and grouping strings if
@@ -302,7 +302,7 @@ def currency(val, symbol=True, grouping=False, international=False):
     return s.replace('<', '').replace('>', '')
 
 def str(val):
-    """Convert float to string, taking the locale into account."""
+    """Convert float to string, taking the locale into registration."""
     return _format("%.12g", val)
 
 def delocalize(string):
