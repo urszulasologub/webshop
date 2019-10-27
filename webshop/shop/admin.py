@@ -17,6 +17,6 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-	list_display = ['body']
-
+	list_display = ['body', ]
 	search_fields = ['body', ]
+	list_filter = ['rating', ]

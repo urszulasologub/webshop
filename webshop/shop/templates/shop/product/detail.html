@@ -23,6 +23,7 @@
 		{{ product.description|linebreaks }}
 	</div>
 	<h2>Recenzje </h2><br>
+	Średnia z recenzji: {{ product.average_rating|floatformat:2 }}
 	{% if user.is_authenticated %}
 		{% if new_review %}
 			<h2>Pomyślnie dodano recenzję</h2>

@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.db.models import Avg
 
 
 class Category(models.Model):
@@ -33,6 +34,10 @@ class Product(models.Model):
 	class Meta:
 		ordering = ('name',)
 		index_together = (('id', 'slug'), )
+
+	@property
+	def average_rating(self):
+		return Review.objects.filter(product=self).aggregate(Avg('rating'))['rating__avg']
 	
 	def __str__(self):
 		return self.name
@@ -51,7 +56,7 @@ class Review(models.Model):
         (5, '5'),
     )
 	user = models.ForeignKey(User, on_delete=models.CASCADE) 
-	rating = models.IntegerField(choices=RATING_CHOICES, default=1)
+	rating = models.IntegerField(choices=RATING_CHOICES, default=3)
 	body = models.TextField()
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
