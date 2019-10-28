@@ -33,7 +33,8 @@ def reviews_by_user_count(request, product):
 
 @login_required
 def delete_review(request):
-	c = 1
+	instance = Review.objects.filter(user=request.user)
+	instance.delete()
 
 
 def product_detail(request, id, slug):
