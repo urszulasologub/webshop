@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.db.models import Avg, Count
+from django.db.models import Avg
 from django.core.validators import MinValueValidator
 from decimal import Decimal
 
@@ -46,10 +46,6 @@ class Product(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("shop:product_detail", args=[self.id, self.slug])
-	
-	@property
-	def reviews_by_user_count(self):
-		return Review.objects.filter(product=self).aggregate(Count('user'))['user__count']
 
 
 class Review(models.Model):

@@ -3,6 +3,7 @@ from .models import Category, Product, Review
 from .forms import ReviewForm
 from cart.forms import CartAddProductForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 
 def product_list(request, category_slug=None):
@@ -26,12 +27,22 @@ def add_review(request, new_review, product):
 	return new_review, review_form
 
 
+def reviews_by_user_count(request, product):
+	return Review.objects.filter(user=request.user, product=product).count()
+
+
+@login_required
+def delete_review(request):
+	c = 1
+
+
 def product_detail(request, id, slug):
 	product = get_object_or_404(Product, id=id, slug=slug, available=True)
 	cart_product_form = CartAddProductForm()
 	reviews = product.review.filter(active=True)
 	new_review = None
-	if request.method == 'POST':
+	users_reviews = reviews_by_user_count(request, product)
+	if request.method == 'POST' and users_reviews < 1:
 		new_review, review_form = add_review(request, new_review, product)
 	else:
 		review_form = ReviewForm()
@@ -39,4 +50,5 @@ def product_detail(request, id, slug):
 														'cart_product_form': cart_product_form, 
 														'reviews' : reviews, 
 														'new_review' : new_review,
-														'review_form' : review_form })
+														'review_form' : review_form,
+														'users_reviews' : users_reviews })

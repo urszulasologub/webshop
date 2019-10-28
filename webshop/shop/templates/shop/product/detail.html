@@ -25,7 +25,7 @@
 	<h2>Recenzje </h2><br>
 	Średnia z recenzji: {{ product.average_rating|floatformat:2 }}
 	{% if user.is_authenticated %}
-		{% if product.reviews_by_user_count >= 1 %}
+		{% if users_reviews %}
 			<br>Już napisałeś recenzję tego produktu.
 		{% else %}
 			{% if new_review %}
@@ -43,6 +43,9 @@
 		Aby napisać własną recenzję musisz się zalogować.
 	{% endif %}
 	{% for review in reviews %}
+		{% if review.user == user %}
+			<a href="">Usuń</a>
+		{% endif %}
 		<div class="comment">
 			<p class="info">
 				Autor: {{ review.user.username }} <br>
