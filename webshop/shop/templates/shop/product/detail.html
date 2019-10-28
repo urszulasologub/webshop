@@ -25,15 +25,19 @@
 	<h2>Recenzje </h2><br>
 	Średnia z recenzji: {{ product.average_rating|floatformat:2 }}
 	{% if user.is_authenticated %}
-		{% if new_review %}
-			<h2>Pomyślnie dodano recenzję</h2>
+		{% if product.reviews_by_user_count >= 1 %}
+			<br>Już napisałeś recenzję tego produktu.
 		{% else %}
-			<h2>Dodaj nową recenzję </h2>
-			<form action="" method="post">
-				{{ review_form.as_p }}
-				{% csrf_token %}
-				<p><input type="submit" value="Dodaj recenzję"></p>
-			</form>
+			{% if new_review %}
+				<h2>Pomyślnie dodano recenzję</h2>
+			{% else %}
+				<h2>Dodaj nową recenzję </h2>
+				<form action="" method="post">
+					{{ review_form.as_p }}
+					{% csrf_token %}
+					<p><input type="submit" value="Dodaj recenzję"></p>
+				</form>
+			{% endif %}
 		{% endif %}
 	{% else %}
 		Aby napisać własną recenzję musisz się zalogować.

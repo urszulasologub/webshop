@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Category, Product, Review
 from .forms import ReviewForm
 from cart.forms import CartAddProductForm
+from django.contrib.auth.decorators import login_required
 
 
 def product_list(request, category_slug=None):
@@ -14,18 +15,24 @@ def product_list(request, category_slug=None):
 	return render(request, 'shop/product/list.html', {'category': category, 'categories': categories, 'products': products})
 
 
+@login_required
+def add_review(request, new_review, product):
+	review_form = ReviewForm(data=request.POST)
+	if review_form.is_valid:
+		new_review = review_form.save(commit=False)
+		new_review.product = product
+		new_review.user = request.user
+		new_review.save()
+	return new_review, review_form
+
+
 def product_detail(request, id, slug):
 	product = get_object_or_404(Product, id=id, slug=slug, available=True)
 	cart_product_form = CartAddProductForm()
 	reviews = product.review.filter(active=True)
 	new_review = None
 	if request.method == 'POST':
-		review_form = ReviewForm(data=request.POST)
-		if review_form.is_valid:
-			new_review = review_form.save(commit=False)
-			new_review.product = product
-			new_review.user = request.user
-			new_review.save()
+		new_review, review_form = add_review(request, new_review, product)
 	else:
 		review_form = ReviewForm()
 	return render(request, 'shop/product/detail.html', {'product': product, 
