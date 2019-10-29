@@ -42,7 +42,9 @@ def product_detail(request, id, slug):
 	cart_product_form = CartAddProductForm()
 	reviews = product.review.filter(active=True)
 	new_review = None
-	users_reviews = reviews_by_user_count(request, product)
+	users_reviews = None
+	if request.user.is_authenticated:
+		users_reviews = reviews_by_user_count(request, product)
 	if request.method == 'POST' and users_reviews < 1:
 		new_review, review_form = add_review(request, new_review, product)
 	else:
