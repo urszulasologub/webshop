@@ -94,6 +94,22 @@
 			text-decoration: none;
 			cursor: pointer;
 		}
+
+
+		.qty {
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+			text-align: center;
+			border-radius: 50%;
+			font-size: 10px;
+			color: #FFF;
+			background-color: #D10024;
+			float: right;
+			margin-top: -8px;
+		}
+
+
 	</style>
 
 </head>
@@ -112,8 +128,18 @@
 				<ul class="navbar-nav ml-auto">
 					<li>
 						<!-- Trigger/Open The Modal -->
-						<a id="myBtn" class="nav-link nav-item fas fa-shopping-cart"></a>
+						<div id="wozek_z_numerkim">					
+							<a id="myBtn" class="nav-link nav-item fas fa-shopping-cart">
 
+								{% with total_items=cart|length %}
+								{% if cart|length > 0 %}
+									<div class="qty">{{ total_items }}</div>
+								{% else %}
+								<div class="qty">{{ total_items }}</div>
+								{% endif %}
+								{% endwith %}
+							</a>
+						</div>	
 						<!-- The Modal -->
 						<div id="myModal" class="modal">
 
@@ -172,10 +198,9 @@
 					<li class="nav-item">
 						<a class="fas fa-user">
 						</a>
-
+						<span class="nav-link float-right">{{ user.username }}</span>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link">{{ user.username }}</a></li>
+
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'account:logout' %}">Wyloguj się</a>
 					</li>
