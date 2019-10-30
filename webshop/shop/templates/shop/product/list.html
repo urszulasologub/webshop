@@ -27,6 +27,20 @@
 		height: 250px;
 	}
 
+	.text-overflow {
+		display: -webkit-box;
+		max-height: 25px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+
+		font-size: 15px;
+		line-height: 25px;
+	}
+
+
+
 	@media (max-width: 991px) {
 		.img-fluid {
 			max-width: 100%;
@@ -35,9 +49,10 @@
 
 
 
+
+
 	}
 </style>
-
 
 
 <div class="row">
@@ -78,7 +93,7 @@
 			<div id="cena" class="pl-2 border-bottom  bg-light">
 				<h4>{{ product.price }} PLN </h4>
 
-				<p class="card-text">{{ product.description|linebreaks }}</p>
+				<string class="text-overflow">{{ product.description|linebreaks }}</string>
 
 			</div>
 		</div>
