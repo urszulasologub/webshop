@@ -44,7 +44,7 @@
 	{% endif %}
 	{% for review in reviews %}
 		{% if review.user == user %}
-			<a href="">Usuń</a>
+			<a class="btn btn-primary" href="{% url 'shop:delete_review' review.id %}">Usuń</a>
 		{% endif %}
 		<div class="comment">
 			<p class="info">

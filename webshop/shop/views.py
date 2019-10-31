@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Product, Review
 from .forms import ReviewForm
 from cart.forms import CartAddProductForm
@@ -31,12 +31,6 @@ def reviews_by_user_count(request, product):
 	return Review.objects.filter(user=request.user, product=product).count()
 
 
-@login_required
-def delete_review(request):
-	instance = Review.objects.filter(user=request.user)
-	instance.delete()
-
-
 def product_detail(request, id, slug):
 	product = get_object_or_404(Product, id=id, slug=slug, available=True)
 	cart_product_form = CartAddProductForm()
@@ -55,3 +49,9 @@ def product_detail(request, id, slug):
 														'new_review' : new_review,
 														'review_form' : review_form,
 														'users_reviews' : users_reviews })
+
+								
+@login_required
+def delete_review(request, id):
+	review = get_object_or_404(Review, id=id).delete()
+	return redirect('shop:product_list')
