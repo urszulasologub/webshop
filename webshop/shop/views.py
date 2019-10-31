@@ -53,5 +53,8 @@ def product_detail(request, id, slug):
 								
 @login_required
 def delete_review(request, id):
-	review = get_object_or_404(Review, id=id).delete()
-	return redirect('shop:product_list')
+	review = get_object_or_404(Review, id=id)
+	product_id = review.product.id
+	product_slug = review.product.slug
+	review.delete()
+	return product_detail(request, product_id, product_slug)
