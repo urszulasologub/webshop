@@ -1,54 +1,93 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<!-- Custom styles for this template -->
+	<link href="css/shop-homepage.css" rel="stylesheet">
+
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	<meta charset="utf-8" />
 	<title>{% block title %}Mięsne delikatesy po okazyjnych cenach {% endblock %} </title>
 
+	<!-- Bootstrap core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/base.css' %}">
 
+	<script src="https://kit.fontawesome.com/7ddcda0d1c.js" crossorigin="anonymous"></script>
+	<style>
+		body {
+			padding-top: 86px;
+		}
+
+		.fa-shopping-cart
+		{
+			font-size: 30px;
+		}
+
+		.fa-user
+		{
+			font-size: 30px;
+			padding: 8px;
+			color: rgba(255,255,255,.5)!important;
+		}
+
+		#user_f{
+			font-family:"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+		}
+	</style>
+
 </head>
+
 <body>
-	<header>
-		<div class="row bg-light p-3 h3" style="margin-right: 0px;">
-			<div class=" col-md-4">
-				<a href="/" class="logo">Mięsne delikatesy</a>
 
-			</div>
-			<div class="col-md-4 h4 pt-1">
-				{% with total_items=cart|length %}
-				{% if cart|length > 0 %}
-				Twój koszyk:
-				<a href="{% url 'cart:cart_detail' %}">
-					{{ total_items }} przedmiot(ów),
-					{{ cart.get_total_price }} PLN
-				</a>
-				{% else %}
-				Twój koszyk jest pusty
-				{% endif %}
-				{% endwith %}
-			</div>
-
-			<div id="login_register" class="col-md-4 text-right">
-				{% if user.is_authenticated %}
-					Zalogowano jako {{ user.username }}
-					<p><a href="{% url 'account:logout' %}">Wyloguj się</a></p>
-				{% else %}
-					<a href="{% url 'account:login' %}"><button type="button" class="btn btn-outline-primary">Logowanie</button></a>
-					<a href="{% url 'account:register' %}"><button type="button" class="btn btn-primary">Rejestracja</button></a>
-				{% endif %}
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="/">Sklep internetowy</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li>
+						<a href="{% url 'cart:cart_detail' %}" class="nav-link nav-item fas fa-shopping-cart"></a>
+					</li>
+					{% if user.is_authenticated %}
+						<li class="nav-item">
+							<a class="fas fa-user">
+							</a>
+	
+						</li>
+						<li class="nav-item">
+						<a class="nav-link">{{ user.username }}</a></li>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'account:logout' %}">Wyloguj się</a>
+						</li>
+					{% else %}
+						<li class="nav-item">
+						<a class="nav-link" href="{% url 'account:login' %}">Logowanie</a>
+						</li>
+						<li class="nav-item">
+						<a class="nav-link" href="{% url 'account:register' %}">Rejestracja</a>
+						</li>
+					{% endif %}
+				</ul>
 			</div>
 		</div>
-
-	</header>
+	</nav>
 
 	<div id="content" class="container">
 
@@ -56,11 +95,142 @@
 		{% endblock %}
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<!-- Footer -->
+	<footer class="py-5 bg-dark mt-4">
+		<div class="container">
+
+			<!-- Footer Links -->
+			<div class="container text-center text-md-left">
+
+				<!-- Grid row -->
+				<div class="row">
+
+					<!-- Grid column -->
+					<div class="col-md-3 mx-auto">
+
+						<!-- Links -->
+						<h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+
+						<ul class="list-unstyled">
+							<li>
+								<a href="#!">Very long link 1</a>
+							</li>
+							<li>
+								<a href="#!">Very long link 2</a>
+							</li>
+							<li>
+								<a href="#!">Very long link 3</a>
+							</li>
+							<li>
+								<a href="#!">Very long link 4</a>
+							</li>
+						</ul>
+
+					</div>
+					<!-- Grid column -->
+
+					<hr class="clearfix w-100 d-md-none">
+
+					<!-- Grid column -->
+					<div class="col-md-3 mx-auto">
+
+						<!-- Links -->
+						<h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+
+						<ul class="list-unstyled">
+							<li>
+								<a href="#!">Link 1</a>
+							</li>
+							<li>
+								<a href="#!">Link 2</a>
+							</li>
+							<li>
+								<a href="#!">Link 3</a>
+							</li>
+							<li>
+								<a href="#!">Link 4</a>
+							</li>
+						</ul>
+
+					</div>
+					<!-- Grid column -->
+
+					<hr class="clearfix w-100 d-md-none">
+
+					<!-- Grid column -->
+					<div class="col-md-3 mx-auto">
+
+						<!-- Links -->
+						<h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+
+						<ul class="list-unstyled">
+							<li>
+								<a href="#!">Link 1</a>
+							</li>
+							<li>
+								<a href="#!">Link 2</a>
+							</li>
+							<li>
+								<a href="#!">Link 3</a>
+							</li>
+							<li>
+								<a href="#!">Link 4</a>
+							</li>
+						</ul>
+
+					</div>
+					<!-- Grid column -->
+
+					<hr class="clearfix w-100 d-md-none">
+
+					<!-- Grid column -->
+					<div class="col-md-3 mx-auto">
+
+						<!-- Links -->
+						<h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+
+						<ul class="list-unstyled">
+							<li>
+								<a href="#!">Link 1</a>
+							</li>
+							<li>
+								<a href="#!">Link 2</a>
+							</li>
+							<li>
+								<a href="#!">Link 3</a>
+							</li>
+							<li>
+								<a href="#!">Link 4</a>
+							</li>
+						</ul>
+
+					</div>
+					<!-- Grid column -->
+
+				</div>
+				<!-- Grid row -->
+
+			</div>
+			<!-- Footer Links -->
+
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+		</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+		</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+		</script>
 </body>
+
 </html>
