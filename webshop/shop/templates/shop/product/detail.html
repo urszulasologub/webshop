@@ -48,37 +48,37 @@
 		
 		{{ product.description|linebreaks }}
 	</div>
-
 	<div id="recenzje" class="col-md-6 border-top mt-4">
 		{% if user.is_authenticated %}
-		{% if new_review %}
-		<h2>Pomyślnie dodano recenzję</h2>
-		{% else %}
-		<h2>Dodaj nową recenzję </h2>
-		<form action="" method="post">
-			{{ review_form.as_p }}
-			{% csrf_token %}
-			<input type="submit" class="btn btn-primary" value="Dodaj recenzję">
-		</form>
+			{% if users_reviews %}
+				<br>Już napisałeś recenzję tego produktu.
+			{% else %}
+				{% if new_review %}
+					<h2>Pomyślnie dodano recenzję</h2>
+				{% else %}
+					<h2>Dodaj nową recenzję </h2>
+					<form action="" method="post">
+						{{ review_form.as_p }}
+						{% csrf_token %}
+						<input type="submit" class="btn btn-primary" value="Dodaj recenzję">
+					</form>
+				{% endif %}
+			{% else %}
+			<h4	class="text-center pt-4">Aby napisać własną recenzję musisz się zalogować.</h4>
 		{% endif %}
-		{% else %}
-		<h4	class="text-center pt-4">Aby napisać własną recenzję musisz się zalogować.</h4>
-		{% endif %}
-		{% for review in reviews %}
-
-		{% endfor %}
 	</div>
 
 	<div id="recenzje" class="col-md-6 border-top mt-4">
 		<h2>Recenzje </h2>
-		{% if user.is_authenticated %}
-		{% endif %}
 		{% for review in reviews %}
 		<div class="comment border-bottom">
+			{% if review.user == user %}
+				<a class="btn btn-primary" href="{% url 'shop:delete_review' review.id %}">Usuń</a>
+			{% endif %}
 
-				<span>Autor: {{ review.user.username }}</span><br>
-				<span>Ocena: {{ review.rating }}</span><br>
-				<span>Komentarz: {{ review.body }}</span>
+			<span>Autor: {{ review.user.username }}</span><br>
+			<span>Ocena: {{ review.rating }}</span><br>
+			<span>Komentarz: {{ review.body }}</span>
 
 		</div>
 		{% empty %}
