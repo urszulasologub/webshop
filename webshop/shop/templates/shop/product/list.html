@@ -35,9 +35,14 @@
 		text-overflow: ellipsis;
 		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical;
-
-		font-size: 15px;
+		margin-bottom: auto;
 		line-height: 25px;
+		padding-bottom: 30px;
+	}
+	
+	#opis{
+		font-size: 20px;
+		font-weight: bold;
 	}
 
 
@@ -89,7 +94,7 @@
 				</a>
 			</div>
 			<div id="opis" class="bg-light">
-				<a href="{{ product.get_absolute_url }}" class=" h3 pl-2 ">{{ product.name }}</a>
+				<a href="{{ product.get_absolute_url }}" class=" pl-2 text-overflow">{{ product.name }}</a>
 			</div>
 
 			<div id="cena" class="pl-2 border-bottom  bg-light">
