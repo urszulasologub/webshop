@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -33,6 +33,7 @@ def register(request):
 			new_user.set_password(
 				user_form.cleaned_data['hasło'])
 			new_user.save()
+			update_profile(request, new_user, user_form.cleaned_data['birthday'])
 			return render(request, 'account/register_done.html', {'new_user': new_user})
 	else:
 		user_form = UserRegistrationForm
@@ -43,3 +44,8 @@ def user_logout(request):
 	logout(request)
 	return HttpResponse('Wylogowano pomyślnie')
 
+
+def update_profile(request, user_id, birthday):
+	user = user_id
+	user.profile.birthday = birthday
+	user.save()
