@@ -28,12 +28,9 @@ def user_login(request):
 def register(request):
 	if request.method == 'POST':
 		user_form = UserRegistrationForm(request.POST)
-		#birthday = user_form.validate_birthday()
 		if user_form.is_valid():
 			birthday = user_form.validate_birthday()
 			if birthday != "01-01-0001":
-			#	user_form = UserRegistrationForm
-			#else:
 				new_user = user_form.save(commit=False)
 				new_user.set_password(
 					user_form.cleaned_data['hasło'])

@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
@@ -18,23 +18,21 @@ class UserRegistrationForm(forms.ModelForm):
 		(1, 'Styczeń'),
 		(2, 'Luty'),
 		(3, 'Marzec'),
-		(4, '4'),  # na razie tyle do tesów
-		(5, '5'),
-		(6, '1'),
-		(7, '1'),
-		(8, '1'),
-		(9, '1'),
-		(10, '1'),
-		(11, '1'),
-		(12, '1'),
+		(4, 'Kwiecień'),
+		(5, 'Maj'),
+		(6, 'Czerwiec'),
+		(7, 'Lipiec'),
+		(8, 'Sierpień'),
+		(9, 'Wrzesień'),
+		(10, 'Październik'),
+		(11, 'Listopad'),
+		(12, 'Grudzień'),
 	)
-	YEARS_CHOICES = [(i, str(i)) for i in range(2000, 2100)]  # tymczasowo
+	YEARS_CHOICES = [(i, str(i)) for i in range(1900, 2100)]  # rok się zmieni
 
 	day = forms.TypedChoiceField(label="Dzień", choices=DAYS_CHOICES)
 	month = forms.TypedChoiceField(label="Miesiąc", choices=MONTHS_CHOICES)
 	year = forms.TypedChoiceField(label="Rok", choices=YEARS_CHOICES)
-
-	birthday = forms.CharField(widget=forms.HiddenInput(), required=False)
 
 	email = forms.EmailField(label="Email", max_length=254, help_text='Wymagane.')
 	hasło = forms.CharField(label='Hasło', widget=forms.PasswordInput, validators=[validate_password])
@@ -51,25 +49,15 @@ class UserRegistrationForm(forms.ModelForm):
 		return cd['hasło2']
 
 	def validate_birthday(self):
-		#birthday = self.cleaned_data['birthday']
 		day = self.cleaned_data['day']
 		month = self.cleaned_data['month']
 		year = self.cleaned_data['year']
-		#self.birthday = year + '-' + month + "-" + day
 		try:
-			self.birthday = datetime(year=int(year), month=int(month), day=int(day))
-			check = True
+			birthday = datetime(year=int(year), month=int(month), day=int(day))
 		except ValueError:
-			check = False
-		if not check:
 			self.add_error('day', 'Wybierz poprawną datę.')
-			#raise forms.ValidationError('Wybierz poprawną datę.')
 			return "01-01-0001"
-		if datetime.today() <= self.birthday:
+		if datetime.today() <= birthday:
 			self.add_error('day', 'Data jest z przyszłości.')
-			#raise forms.ValidationError('Data jest z przyszłości.')
 			return "01-01-0001"
-		return self.birthday
-
-	#birthday = validate_birthday()#forms.CharField(label="Data urodzenia", initial="1969-04-20", widget=forms.HiddenInput())  # , help_text='Wymagane. Format: YYYY-mm-dd'
-
+		return birthday
