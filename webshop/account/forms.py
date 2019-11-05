@@ -61,3 +61,10 @@ class UserRegistrationForm(forms.ModelForm):
 			self.add_error('day', 'Data jest z przyszłości.')
 			return "01-01-0001"
 		return birthday
+
+	def clean_email(self):
+		email = self.cleaned_data['email']
+		exists = User.objects.filter(email=email)
+		if exists:
+			raise forms.ValidationError("Ten adres email jest już zajęty. Wpisz inny adres email.")
+		return email
