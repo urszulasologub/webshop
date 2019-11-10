@@ -150,7 +150,6 @@
 							<div class="modal-content">
 								<span class="close">&times;</span>
 
-								<a href="{% url 'cart:cart_detail' %}">Stary koszyk <--- zostawiam jeszcze testowo</a>
 										<h1>Twój koszyk</h1>
 										<table class="cart" style="width:100%">
 											<thead>
@@ -191,7 +190,7 @@
 										<p class="text-right">
 											<a href="{% url 'shop:product_list' %}" class="button
 					        light btn btn-primary">Kontynuuj zakupy</a>
-											<a href="#" class="button btn btn-primary">Zapłać</a>
+											<a href="{% url 'cart:cart_detail' %}" class="button btn btn-primary">Zapłać</a>
 										</p>
 							</div>
 						</div>
