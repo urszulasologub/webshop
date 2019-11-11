@@ -51,5 +51,12 @@
 		{% endif %}
     </p>
 
+
+	<h3>Sposób dostawy</h3>
+	<form action="" method="post">
+		{% csrf_token %}
+        {{ delivery_form.as_p }}
+    </form>
+
 {% endblock %}
 
