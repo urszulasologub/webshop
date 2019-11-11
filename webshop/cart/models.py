@@ -9,4 +9,4 @@ class DeliveryType(models.Model):
 	description = models.CharField(max_length=300)
 
 	def __str__(self):
-		return self.name
+		return self.name + ' (' + self.description + ')' + ' - ' + str(self.price) + ' PLN'
