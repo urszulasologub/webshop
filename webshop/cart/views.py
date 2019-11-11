@@ -26,7 +26,11 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
 	cart = Cart(request)
-	delivery_form = ChooseDeliveryType()
+	delivery_form = ChooseDeliveryType(request.POST)
+	choice = None
+	if delivery_form.is_valid():		#need to finish this
+		choice = delivery_form.save(commit=False)
+		choice.save()
 	return render(request, 'cart/checkout.html', {'cart': cart, 'delivery_form': delivery_form})
 
 

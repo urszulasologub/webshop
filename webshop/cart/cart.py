@@ -1,6 +1,8 @@
 from decimal import Decimal
 from django.conf import settings
 from shop.models import Product
+from cart.models import DeliveryType
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class Cart(object):
@@ -12,6 +14,10 @@ class Cart(object):
 			# save an empty cart in the session
 			cart = self.session[settings.CART_SESSION_ID] = {}
 		self.cart = cart
+		try:
+			self.delivery_price = DeliveryType.objects.filter()[:1].get().price
+		except ObjectDoesNotExist:
+			self.delivery_price = 0
 
 
 	def __iter__(self):
@@ -74,3 +80,21 @@ class Cart(object):
 		# remove cart from session
 		del self.session[settings.CART_SESSION_ID]
 		self.save()
+
+
+	def set_delivery_price(self, price):
+		self.delivery_price = price
+
+
+	def get_delivery_price(self):
+		return self.delivery_price
+
+	
+	def get_total_price_with_delivery(self):
+		price = self.get_total_price() + self.get_delivery_price()
+		return price
+
+
+	def get_total_price_with_delivery_as_string(self):
+		price = self.get_total_price_with_delivery()
+		return str(price)

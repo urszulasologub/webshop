@@ -15,9 +15,9 @@
 				</tr>
 			{% endwith %}
 		{% endfor %}
-		<h3>Cena produktów: {{ cart.get_total_price }} <h3>
-		<h3>Dostawa: 8,99<h3>
-		<h3>Do zapłaty: <h3>
+		<h3>Cena produktów: {{ cart.get_total_price }} PLN<h3>
+		<h3>Dostawa: {{ cart.get_delivery_price }} PLN<h3>
+		<h3>Do zapłaty: {{ cart.get_total_price_with_delivery }} PLN<h3>
 
 
 		<!-- PAYPAL INTEGRATION -->
@@ -34,7 +34,7 @@
 				return actions.order.create({
 					purchase_units: [{
 						amount: {
-							value: '{{ cart.get_total_price_as_string }}'
+							value: '{{ cart.get_total_price_with_delivery_as_string }}'
 						}
 					}]
 				});
