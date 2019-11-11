@@ -44,7 +44,11 @@
     <p class="text-right">
         <a href="{% url 'shop:product_list' %}" class="button
         light btn btn-primary">Kontynuuj zakupy</a>
-        <a href="{% url 'cart:payment_choice' %}" class="button btn btn-primary">Kupuję i płacę</a>
+		{% if cart.get_total_price > 0 %}
+        	<a href="{% url 'cart:payment_choice' %}" class="button btn btn-primary">Kupuję i płacę</a>
+		{% else %}
+			<button type="button" class="button btn btn-primary" disabled>Kupuję i płacę</button>
+		{% endif %}
     </p>
 
 {% endblock %}
