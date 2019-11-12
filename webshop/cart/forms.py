@@ -14,4 +14,4 @@ class CartAddProductForm(forms.Form):
 
 
 class ChooseDeliveryType(forms.Form):
-	sposób_dostawy = forms.ModelChoiceField(queryset=DeliveryType.objects.all(), widget=forms.RadioSelect, required=True, initial=1)
+	delivery_type = forms.ModelChoiceField(queryset=DeliveryType.objects.all(), widget=forms.RadioSelect, required=True, initial=1)

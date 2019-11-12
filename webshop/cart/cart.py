@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class Cart(object):
-	def __init__(self, request):
+	def __init__(self, request, id=1):
 		# Initialize the cart
 		self.session = request.session
 		cart = self.session.get(settings.CART_SESSION_ID)
@@ -15,9 +15,9 @@ class Cart(object):
 			cart = self.session[settings.CART_SESSION_ID] = {}
 		self.cart = cart
 		try:
-			self.delivery_price = DeliveryType.objects.filter()[:1].get().price
+			self.delivery_price = DeliveryType.objects.get(pk=id).price
 		except ObjectDoesNotExist:
-			self.delivery_price = 0
+			self.delivery_price = 0.0
 
 
 	def __iter__(self):
