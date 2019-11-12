@@ -4,7 +4,6 @@ from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm, ChooseDeliveryType
 from cart.models import DeliveryType
-from django.http import HttpResponseRedirect
 
 @require_POST
 def cart_add(request, product_id):
