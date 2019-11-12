@@ -41,29 +41,28 @@
 			</tr>
 		</tbody>
 	</table>
-	<p class="text-right">
-		<a href="{% url 'shop:product_list' %}" class="button
-		light btn btn-primary">Kontynuuj zakupy</a>
-		{% if cart.get_total_price > 0 %}
-			<button type="submit" class="button btn btn-primary">Kupuję i płacę</button>
-		{% else %}
-			<button type="button" class="button btn btn-primary" disabled>Kupuję i płacę</button>
-		{% endif %}
-	</p>
+	<form action="" method="post">
+		<p class="text-right">
+			<a href="{% url 'shop:product_list' %}" class="button
+			light btn btn-primary">Kontynuuj zakupy</a>
+			{% if cart.get_total_price > 0 %}
+				<button type="submit" class="button btn btn-primary">Kupuję i płacę</button>
+			{% else %}
+				<button type="button" class="button btn btn-primary" disabled>Kupuję i płacę</button>
+			{% endif %}
+		</p>
 
-	{% if cart.get_total_price > 0 %}
-		<h3>Sposób dostawy</h3>
-		<form action="" method="post">
-			{% csrf_token %}
-			{% for radio in delivery_form.delivery_type %}
-				<label for="{{ radio.name }}">
+		{% if cart.get_total_price > 0 %}
+			<h3>Sposób dostawy</h3>
+				{% csrf_token %}
+				{% for radio in delivery_form.delivery_type %}
+					<label for="{{ radio.name }}">
 					{{ radio }}
 					<span class="radio">{{ radio.name }}</span>
 				</label>
 				<br>
 			{% endfor %}
-			<!--<button type="submit" class="save btn btn-default">Save</button>-->
-		</form>
+	</form>
 	{% else %}
 		<h5> Twój koszyk jest obecnie pusty. </h5>
 		<!-- Insert recommended products here -->

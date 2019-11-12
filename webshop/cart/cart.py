@@ -15,8 +15,10 @@ class Cart(object):
 			cart = self.session[settings.CART_SESSION_ID] = {}
 		self.cart = cart
 		try:
+			self.delivery = DeliveryType.objects.get(pk=id)
 			self.delivery_price = DeliveryType.objects.get(pk=id).price
 		except ObjectDoesNotExist:
+			self.delivery = None
 			self.delivery_price = 0.0
 
 
@@ -82,8 +84,9 @@ class Cart(object):
 		self.save()
 
 
-	def set_delivery_price(self, price):
-		self.delivery_price = price
+	def set_delivery(self, id):
+		self.delivery = DeliveryType.objects.get(pk=id)
+		self.delivery_price = self.delivery.price
 
 
 	def get_delivery_price(self):

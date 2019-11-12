@@ -32,11 +32,8 @@ def cart_detail(request):
 	if delivery_form.is_valid():
 		choice = request.POST.copy()
 		choice = int(choice.get('delivery_type'))
-		delivery = DeliveryType.objects.get(pk=choice)
-		price = delivery.price
-		cart.set_delivery_price(price)
-		print('CHUJ\n\n\n')
-		print(cart.get_delivery_price())
+		cart.set_delivery(choice)
+		#print(cart.get_delivery_price())
 		return render(request, 'cart/pay.html', {'cart': cart})
 	return render(request, 'cart/checkout.html', {'cart': cart, 'delivery_form': delivery_form})
 
