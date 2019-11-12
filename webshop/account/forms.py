@@ -28,7 +28,7 @@ class UserRegistrationForm(forms.ModelForm):
 		(11, 'Listopad'),
 		(12, 'Grudzień'),
 	)
-	YEARS_CHOICES = [(i, str(i)) for i in range(1900, 2100)]  # rok się zmieni
+	YEARS_CHOICES = [(i, str(i)) for i in range(datetime.now().year-13, 1900, -1)]
 
 	day = forms.TypedChoiceField(label="Dzień", choices=DAYS_CHOICES)
 	month = forms.TypedChoiceField(label="Miesiąc", choices=MONTHS_CHOICES)
