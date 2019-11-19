@@ -41,6 +41,7 @@
 				},
 				onApprove: function(data, actions) {
 				return actions.order.capture().then(function(details) {
+					var url = window.location.href
 					alert('Transaction completed by ' + details.payer.name.given_name);
 					// Call your server to save the transaction
 					return fetch('/paypal-transaction-complete', {
