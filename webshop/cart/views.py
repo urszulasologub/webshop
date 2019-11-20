@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse, HttpResponseRedirect
 from django.views.decorators.http import require_POST
 from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm, ChooseDeliveryType
 from cart.models import DeliveryType
+from cart.order import Delivery
+from cart.paypal_payment import PaypalPayment
+from cart.models import Payments
 
 @require_POST
 def cart_add(request, product_id):
@@ -31,12 +34,20 @@ def cart_detail(request):
 	if delivery_form.is_valid():
 		choice = request.POST.copy()
 		choice = int(choice.get('delivery_type'))
-		cart.set_delivery(choice)
-		#print(cart.get_delivery_price())
-		return render(request, 'cart/pay.html', {'cart': cart})
+		delivery = Delivery(cart.get_total_price())
+		delivery.set_delivery(choice)
+		return cart_checkout(request, cart, delivery)
 	return render(request, 'cart/checkout.html', {'cart': cart, 'delivery_form': delivery_form})
 
 
-def payment_choice(request):
-	cart = Cart(request)
-	return render(request, 'cart/pay.html', {'cart': cart})
+def cart_checkout(request, cart, delivery):
+	#cart = Cart(request)
+	return render(request, 'cart/pay.html', {'cart': cart, 'delivery': delivery})
+
+
+def buy_now(request):
+	payment = PaypalPayment(request)
+	payment.make_payment()
+	redirection = payment.authorize_payment()
+	return redirect(redirection)
+

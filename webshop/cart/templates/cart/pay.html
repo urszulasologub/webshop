@@ -15,48 +15,16 @@
 				</tr>
 			{% endwith %}
 		{% endfor %}
-		<h3>Cena produktów: {{ cart.get_total_price }} PLN<h3>
-		<h3>Dostawa: {{ cart.get_delivery_price }} PLN<h3>
-		<h3>Do zapłaty: {{ cart.get_total_price_with_delivery }} PLN<h3>
+		<h3>Cena produktów: {{ delivery.get_price }} PLN<h3>
+		<h3>Dostawa: {{ delivery.get_delivery_price }} PLN<h3>
+		<h3>Do zapłaty: {{ delivery.get_total_price }} PLN<h3>
 
 
 		<!-- PAYPAL INTEGRATION -->
+		<form action="{% url 'cart:buy_now' %}">
+			<input class="btn btn-primary-custom" id="submit" type="submit" value="Kup teraz">
+		</form>
 
-		<script
-			src="https://www.paypal.com/sdk/js?client-id=AfNoHbwXRtAOBeEcOzPvXLQDsW9ZwQY_2kYRlnmmaHlm1q770zLrxUPZHlmbPwIZXzvM4zmEo63Q7dGs&currency=PLN">
-		</script>
-
-		<div id="paypal-button-container"></div>
-
-		<script>
-			paypal.Buttons({
-				createOrder: function(data, actions) {
-				return actions.order.create({
-					purchase_units: [{
-						amount: {
-							value: '{{ cart.get_total_price_with_delivery_as_string }}'
-						}
-					}]
-				});
-				},
-				onApprove: function(data, actions) {
-				return actions.order.capture().then(function(details) {
-					var url = window.location.href
-					alert('Transaction completed by ' + details.payer.name.given_name);
-					// Call your server to save the transaction
-					return fetch('/paypal-transaction-complete', {
-					method: 'post',
-						headers: {
-							'content-type': 'application/json'
-						},
-						body: JSON.stringify({
-							orderID: data.orderID
-						})
-					});
-				});
-				}
-			}).render('#paypal-button-container');
-		</script>
 	{% else %}
 		<h3>Nie wybrano produktów do zakupu!</h3>
 	{% endif %}

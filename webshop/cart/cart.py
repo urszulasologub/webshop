@@ -14,12 +14,6 @@ class Cart(object):
 			# save an empty cart in the session
 			cart = self.session[settings.CART_SESSION_ID] = {}
 		self.cart = cart
-		try:
-			self.delivery = DeliveryType.objects.get(pk=id)
-			self.delivery_price = DeliveryType.objects.get(pk=id).price
-		except ObjectDoesNotExist:
-			self.delivery = None
-			self.delivery_price = 0.0
 
 
 	def __iter__(self):
@@ -82,22 +76,3 @@ class Cart(object):
 		# remove cart from session
 		del self.session[settings.CART_SESSION_ID]
 		self.save()
-
-
-	def set_delivery(self, id):
-		self.delivery = DeliveryType.objects.get(pk=id)
-		self.delivery_price = self.delivery.price
-
-
-	def get_delivery_price(self):
-		return self.delivery_price
-
-	
-	def get_total_price_with_delivery(self):
-		price = self.get_total_price() + self.get_delivery_price()
-		return price
-
-
-	def get_total_price_with_delivery_as_string(self):
-		price = self.get_total_price_with_delivery()
-		return str(price)
