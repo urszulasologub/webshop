@@ -13,7 +13,7 @@ class DeliveryType(models.Model):
 		return self.name + ' (' + self.description + ')' + ' - ' + str(self.price) + ' PLN'
 
 
-class Payments(models.Model):
+class Order(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE) 
 	is_confirmed = models.BooleanField(default=False)
 	price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
@@ -21,4 +21,10 @@ class Payments(models.Model):
 
 	@property
 	def total_price(self):
-		return price + delivery_price
+		return self.price + self.delivery_price
+
+	@classmethod
+	def create_order(cls, user, price, delivery_price):
+		cls.user = user
+		cls.price = price
+		cls.delivery_price = delivery_price

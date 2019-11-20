@@ -4,9 +4,10 @@ from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm, ChooseDeliveryType
 from cart.models import DeliveryType
-from cart.order import Delivery
+from cart.delivery import Delivery
 from cart.paypal_payment import PaypalPayment
-from cart.models import Payments
+from cart.models import Order
+from django.http import Http404
 
 @require_POST
 def cart_add(request, product_id):
@@ -36,17 +37,26 @@ def cart_detail(request):
 		choice = int(choice.get('delivery_type'))
 		delivery = Delivery(cart.get_total_price())
 		delivery.set_delivery(choice)
-		return cart_checkout(request, cart, delivery)
+		new_order = Order(user=request.user, is_confirmed=False, price=cart.get_total_price(), delivery_price=delivery.get_delivery_price())
+		new_order.save()
+		order_id = new_order.id
+		return redirect('cart:cart_checkout', order_id)
 	return render(request, 'cart/checkout.html', {'cart': cart, 'delivery_form': delivery_form})
 
 
-def cart_checkout(request, cart, delivery):
-	#cart = Cart(request)
-	return render(request, 'cart/pay.html', {'cart': cart, 'delivery': delivery})
+def cart_checkout(request, id):
+	cart = Cart(request)
+	order = get_object_or_404(Order, id=id)
+	if request.method == 'POST':
+		return buy_now(request, id)
+	return render(request, 'cart/pay.html', {'cart': cart, 'order': order})
 
 
-def buy_now(request):
-	payment = PaypalPayment(request)
+def buy_now(request, id):
+	order = get_object_or_404(Order, id=id)
+	if (order.user != request.user):
+		raise Http404
+	payment = PaypalPayment(request, order.total_price)
 	payment.make_payment()
 	redirection = payment.authorize_payment()
 	return redirect(redirection)

@@ -15,14 +15,15 @@
 				</tr>
 			{% endwith %}
 		{% endfor %}
-		<h3>Cena produktów: {{ delivery.get_price }} PLN<h3>
-		<h3>Dostawa: {{ delivery.get_delivery_price }} PLN<h3>
-		<h3>Do zapłaty: {{ delivery.get_total_price }} PLN<h3>
+		<h3>Cena produktów: {{ order.price }} PLN<h3>
+		<h3>Dostawa: {{ order.delivery_price }} PLN<h3>
+		<h3>Do zapłaty: {{ order.total_price }} PLN<h3>
 
 
-		<!-- PAYPAL INTEGRATION -->
-		<form action="{% url 'cart:buy_now' %}">
-			<input class="btn btn-primary-custom" id="submit" type="submit" value="Kup teraz">
+		<!-- PAYPAL -->
+		<form method="post" action="">
+			{% csrf_token %}
+			<button type="submit">Kup teraz</button>
 		</form>
 
 	{% else %}

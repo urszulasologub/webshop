@@ -3,7 +3,9 @@ import logging
 from .cart import Cart
 
 class PaypalPayment():
-	def __init__(self, request):
+	def __init__(self, request, total_price):
+		self.price = str(total_price)
+		print("\n\n\n\n\n" + self.price + '\n\n\n\n')
 		self.request = request
 		#self.cart = cart
 		paypalrestsdk.configure({
@@ -15,20 +17,20 @@ class PaypalPayment():
 			"payer": {
 				"payment_method": "paypal"},
 			"redirect_urls": {
-				"return_url": "http://127.0.0.1:8000/8/apple-macbook-pro-i5-23ghz8gb128iris-640-silver/",
+				"return_url": "http://wykop.pl/",
 				"cancel_url": "http://127.0.0.1:8000/"},
 			"transactions": [{
 				"item_list": {
 					"items": [{
 						"name": "Zakupy",
 						"sku": "Zakupy",
-						"price": "5.0",
+						"price": self.price,
 						"currency": "PLN",
 						"quantity": 1}]},
 				"amount": {
-					"total": "5.0",
+					"total": self.price,
 					"currency": "PLN"},
-				"description": "This is the payment transaction description."}]})
+				"description": "Zakup w sklepie internetowym"}]})
 	
 
 	def make_payment(self):
