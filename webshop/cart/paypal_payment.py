@@ -5,7 +5,6 @@ from .cart import Cart
 class PaypalPayment():
 	def __init__(self, request, total_price):
 		self.price = str(total_price)
-		print("\n\n\n\n\n" + self.price + '\n\n\n\n')
 		self.request = request
 		#self.cart = cart
 		paypalrestsdk.configure({
@@ -17,7 +16,7 @@ class PaypalPayment():
 			"payer": {
 				"payment_method": "paypal"},
 			"redirect_urls": {
-				"return_url": "http://wykop.pl/",
+				"return_url": "http://127.0.0.1:8000/cart/finalize",
 				"cancel_url": "http://127.0.0.1:8000/"},
 			"transactions": [{
 				"item_list": {
@@ -45,13 +44,16 @@ class PaypalPayment():
 			if link.rel == "approval_url":
 				approval_url = str(link.href)
 				print("Redirect for approval: %s" % (approval_url))
-		return (approval_url)
+				return (approval_url), self.payment.id
+		return None
 
 	
-	def execute_payment(self):
-		payment = paypalrestsdk.Payment.find(str(self.request.GET.get('paymentId', None)))
-		if payment.execute({"payer_id": str(self.request.GET.get('PayerID', None))}):
-			print("Payment execute successfully")
-		else:
-			print(payment.error)
+def execute_payment(request):
+	payment_id = str(request.GET.get('paymentId', None))
+	payer_id =  str(request.GET.get('PayerID', None))
+	payment = paypalrestsdk.Payment.find(payment_id)
+	if payment.execute({"payer_id": payer_id }):
+		return True
+	else:
+		return False
 
