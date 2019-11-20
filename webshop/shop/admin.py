@@ -1,17 +1,15 @@
 from django.contrib import admin
+from .forms import DescriptionForm
 from .models import Category, Product, Review, Parameter, Description
 
 
-#def update_parameters(obj): #i to będzie w category
-
-#def update_description(obj): #a to w product
-#	return
-
-
-#@admin.register(Parameter)
 class ParameterInline(admin.StackedInline):
 	model = Parameter
-	#list_display = ['category', 'name']
+
+
+class DescriptionAdmin(admin.StackedInline):
+	model = Description
+	#form = DescriptionForm #jeszcze nie działa xd
 
 
 @admin.register(Category)
@@ -27,6 +25,7 @@ class ProductAdmin(admin.ModelAdmin):
 	list_filter = ['available', 'created', 'updated']
 	list_editable = ['price', 'available']
 	prepopulated_fields = {'slug': ('name',)}
+	inlines = [DescriptionAdmin]
 
 
 @admin.register(Review)
@@ -34,11 +33,3 @@ class ReviewAdmin(admin.ModelAdmin):
 	list_display = ['body', ]
 	search_fields = ['body', ]
 	list_filter = ['rating', ]
-
-
-
-
-@admin.register(Description)
-class DescriptionAdmin(admin.ModelAdmin):
-	list_display = ['parameter', 'product', 'description']
-	list_editable = ['description']

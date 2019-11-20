@@ -18,11 +18,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from shop import views
+
 urlpatterns = [
 	path('admin/', admin.site.urls),
 	path('checkout/', include('cart.urls', namespace='cart')),
 	path('', include('shop.urls', namespace='shop')),
 	path('account/', include('account.urls')),
+	path('parameter-autocomplete/', views.ParameterAutocomplete, name='parameter-autocomplete'),
 
 ]
 

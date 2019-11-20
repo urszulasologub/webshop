@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -85,6 +86,11 @@ class Description(models.Model):
 	parameter = models.ForeignKey(Parameter, related_name='description', on_delete=models.CASCADE)
 	product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='descript') #dorobić moliwość wybrania tylko produktu z kategorii określonego parametru
 	description = models.CharField(max_length=200)
-	#może walidacja cleanem, jeśli product i parameter nie mają tego samego category
+
+	# może walidacja cleanem, jeśli product i parameter nie mają tego samego category
+	def clean(self):
+		if not self.parameter.category == self.product.category:
+			raise ValidationError('Kategorie produktu i parametru różnią się.')
+
 	def __str__(self):
 		return 'Parametr {} produktu {} o opisie {}'.format(self.parameter, self.product, self.description)
