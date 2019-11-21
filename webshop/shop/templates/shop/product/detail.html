@@ -35,7 +35,7 @@
 		<img class="img-fluid text-center"
 			src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %} ">
 	</div>
-	<div id="tekst" class="col-md-6 pt-5">
+	<div id="tekst" class="col-md-6">
 
 		<h1>{{ product.name }}</h1>
 		<!--<h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>-->
