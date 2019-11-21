@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Lista produktów do skompletowania - strona pracownika</title>
+	</head>
+	<body>	
+		<a href="{% url 'staff:manage_orders' %}">Powrót</a>
+		<br><br><b>Produkty do skompletowania:</b>
+		<br>Mozna skompletowac tylko te zamowienia, które są opłacone.<br>
+		{% for component in components %}
+			{% if component.is_completed == False and component.order.is_confirmed %}
+				<br>ID komponentu: {{component.id }}
+				<br>Produkt: {{ component.product.name }}
+				<br>ID Produktu: {{ component.product.id }}
+				<br>Numer zamówienia: <a href="{% url 'staff:show_order' component.order.id %}">{{ component.order.id|stringformat:"06d" }}</a>
+				<br><br>
+			{% endif %}
+		{% endfor %}
+	</body>
+</html>

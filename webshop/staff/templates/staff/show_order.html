@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<title>{{ order.id|stringformat:"06d" }}: Szczegóły - strona pracownika</title>
 	</head>
 	<body>
+		<a href="{% url 'staff:manage_orders' %}">Powrót</a>
 		<h4>Zamówienie numer {{ order.id|stringformat:"06d" }}</h4>
 		{% if order.is_confirmed %}
 			<br><h3>Opłacone</h3>

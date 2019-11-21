@@ -32,6 +32,8 @@ def manage_orders(request):
 				orders = Order.objects.all()
 			elif val == 'Wysłane zamówienia':
 				orders = Order.objects.filter(is_sent=True)
+			elif val == 'Lista produktów do skompletowania':
+				return show_products(request)
 	else:
 		form = OrderButtons()
 	return render(request, 'staff/manage_orders.html', {'orders': orders})
@@ -42,3 +44,9 @@ def show_order(request, id):
 	order = get_object_or_404(Order, id=id)
 	components = OrderComponent.objects.filter(order=order)
 	return render(request, 'staff/show_order.html', {'order': order, 'components': components})
+
+
+@staff_member_required
+def show_products(request):
+	components = OrderComponent.objects.all()
+	return render(request, 'staff/component_list.html', {'components': components})
