@@ -40,7 +40,7 @@ def cart_detail(request):
 			choice = int(choice.get('delivery_type'))
 			delivery = Delivery(cart.get_total_price())
 			delivery.set_delivery(choice)
-			new_order = Order(user=request.user, is_confirmed=False, price=cart.get_total_price(), delivery_price=delivery.get_delivery_price(), delivery_type=delivery.delivery_name)
+			new_order = Order(user=request.user, is_confirmed=False, delivery_price=delivery.get_delivery_price(), delivery_type=delivery.delivery_name)
 			new_order.save()
 			order_id = new_order.id
 			return redirect('cart:choose_address', order_id)
@@ -60,15 +60,16 @@ def choose_address(request, id):
 			order.surname = str(address_form['surname'])
 			order.address = str(address_form['street']) + '/' + str(address_form['number'])
 			order.city = str(address_form['city'])
-			print(str(address_form['postal_code_1']).zfill(2) + '-' + str(address_form['postal_code_2']).zfill(3) + '\n\n\n')
 			order.postal_code = str(address_form['postal_code_1']).zfill(2) + '-' + str(address_form['postal_code_2']).zfill(3)
-			order.save()
 			cart = Cart(request)
-			for item in cart:
-				for amount in range(0, item['quantity']):
-					product = item['product']
-					comp = OrderComponent(order=order, product=product, price=product.price)
-					comp.save()
+			if order.are_products == False:
+				order.are_products = True
+				for item in cart:
+					for amount in range(0, item['quantity']):
+						product = item['product']
+						comp = OrderComponent(order=order, product=product, price=product.price)
+						comp.save()
+			order.save()
 			return redirect('cart:cart_checkout', id)
 	return render(request, 'cart/address.html', {'address_form': address_form, 'order': order})
 
@@ -92,12 +93,12 @@ def buy_now(request, id):
 	redirection, payment_id = payment.authorize_payment()
 	order.payment_id = payment_id
 	order.save()
+	Cart(request).clear()
 	return redirect(redirection)
 
 
 @login_required
 def finalize(request):
-	cart = Cart(request)
 	order = None
 	message = 'Pomyślnie sfinalizowano transakcję'
 	if execute_payment(request) == False:
@@ -106,5 +107,4 @@ def finalize(request):
 		order = get_object_or_404(Order, user=request.user, payment_id=str(request.GET.get('paymentId', None)))
 		order.is_confirmed = True
 		order.save()
-		cart.clear()
 	return render(request, 'cart/finalize.html', {'message': message, 'order': order})

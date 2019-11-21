@@ -17,7 +17,7 @@ class DeliveryType(models.Model):
 class Order(models.Model):
 	user = models.ForeignKey(User, on_delete=models.DO_NOTHING) 
 	is_confirmed = models.BooleanField(default=False)
-	price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
+	#price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
 	delivery_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))])
 	delivery_type = models.CharField(max_length=100)
 	payment_id = models.CharField(max_length=1000, null=True)
@@ -27,13 +27,26 @@ class Order(models.Model):
 	city = models.CharField(max_length=100, default="None")
 	postal_code = models.CharField(max_length=6, default="00-000")
 	is_sent = models.BooleanField(default=False)
+	are_products = models.BooleanField(default=False)
+
+
+	@property
+	def price(self):
+		price = 0
+		components = OrderComponent.objects.filter(order=self)
+		for component in components:
+			price += component.price
+		return price
+
 
 	@property
 	def total_price(self):
 		return self.price + self.delivery_price
 
+
 	def __str__(self):
 		return "#" + str(self.id).zfill(6) + ": " + str(self.user) + ' - ' + str(self.price + self.delivery_price) + " PLN"
+
 
 	@property
 	def is_completed(self):
@@ -49,3 +62,7 @@ class OrderComponent(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
 	price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
 	is_completed = models.BooleanField(default=False)
+
+	
+	def __str__(self):
+		return "#" + str(self.order.id) + ": "  + str(self.product.name)
