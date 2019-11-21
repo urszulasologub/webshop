@@ -39,6 +39,8 @@ def reviews_by_user_count(request, product):
 
 def product_detail(request, id, slug):
 	product = get_object_or_404(Product, id=id, slug=slug, available=True)
+	descriptions = Description.objects.all()
+	descriptions = descriptions.filter(product=product)
 	cart_product_form = CartAddProductForm()
 	reviews = product.review.filter(active=True)
 	new_review = None
@@ -51,6 +53,7 @@ def product_detail(request, id, slug):
 		review_form = ReviewForm()
 	return render(request, 'shop/product/detail.html', {'product': product,
 														'cart_product_form': cart_product_form,
+														'descriptions': descriptions,
 														'reviews': reviews,
 														'new_review': new_review,
 														'review_form': review_form,
