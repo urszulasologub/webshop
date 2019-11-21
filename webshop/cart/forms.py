@@ -18,6 +18,8 @@ class ChooseDeliveryType(forms.Form):
 
 
 class AddressForm(forms.Form):
+	name = forms.CharField(label='Name', max_length=100)
+	surname = forms.CharField(label='Surname', max_length=100)
 	street = forms.CharField(label='Street', max_length=170)
 	number = forms.CharField(label='Number', max_length=15)
 	city = forms.CharField(label='City', max_length=100)

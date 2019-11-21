@@ -6,7 +6,7 @@ from .forms import CartAddProductForm, ChooseDeliveryType, AddressForm
 from cart.models import DeliveryType
 from cart.delivery import Delivery
 from cart.paypal_payment import *
-from cart.models import Order
+from cart.models import Order, OrderComponent
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 
@@ -40,7 +40,7 @@ def cart_detail(request):
 			choice = int(choice.get('delivery_type'))
 			delivery = Delivery(cart.get_total_price())
 			delivery.set_delivery(choice)
-			new_order = Order(user=request.user, is_confirmed=False, price=cart.get_total_price(), delivery_price=delivery.get_delivery_price())
+			new_order = Order(user=request.user, is_confirmed=False, price=cart.get_total_price(), delivery_price=delivery.get_delivery_price(), delivery_type=delivery.delivery_name)
 			new_order.save()
 			order_id = new_order.id
 			return redirect('cart:choose_address', order_id)
@@ -56,11 +56,19 @@ def choose_address(request, id):
 	else:
 		if request.method == "POST" and address_form.is_valid():
 			address_form = address_form.cleaned_data
+			order.name = str(address_form['name'])
+			order.surname = str(address_form['surname'])
 			order.address = str(address_form['street']) + '/' + str(address_form['number'])
 			order.city = str(address_form['city'])
 			print(str(address_form['postal_code_1']).zfill(2) + '-' + str(address_form['postal_code_2']).zfill(3) + '\n\n\n')
 			order.postal_code = str(address_form['postal_code_1']).zfill(2) + '-' + str(address_form['postal_code_2']).zfill(3)
 			order.save()
+			cart = Cart(request)
+			for item in cart:
+				for amount in range(0, item['quantity']):
+					product = item['product']
+					comp = OrderComponent(order=order, product=product, price=product.price)
+					comp.save()
 			return redirect('cart:cart_checkout', id)
 	return render(request, 'cart/address.html', {'address_form': address_form, 'order': order})
 
