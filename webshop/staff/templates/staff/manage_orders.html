@@ -7,9 +7,11 @@
 	<body>
 		<form method="POST">
 			{% csrf_token %}
-			<input type="submit" name="btn" value="Opłacone zamówienia">
+			<input type="submit" name="btn" value="Wszystkie zamówienia">
+			<br><input type="submit" name="btn" value="Opłacone zamówienia">
 			<br><input type="submit" name="btn" value="Skompletowane zamówienia">
 			<br><input type="submit" name="btn" value="Lista produktów do skompletowania">
+			<br><input type="submit" name="btn" value="Wysłane zamówienia">
 		</form>
 		<h3>Historia zamówień:</h3>
 		{% for order in orders %}

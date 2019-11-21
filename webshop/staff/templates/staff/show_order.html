@@ -27,6 +27,7 @@
 		<br><br><b>Sposób dostawy:</b> {{ order.delivery_type }}
 		<br><br><b>Status zamówienia:</b> 
 		<br>Czy opłacone? {% if order.is_confirmed %}Tak{% else %}<u>Nie</u>{% endif %}
+		<br>ID płatności: {{ order.payment_id }}
 		<br>Czy skompletowane? {% if order.is_completed %}Tak{% else %}<u>Nie</u>{% endif %}
 		<br>Czy wysłane? {% if order.is_sent %}Tak{% else %}<u>Nie</u>{% endif %}
 		
