@@ -8,4 +8,5 @@ class DeliveryTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
+	list_filter = ['is_sent', 'is_confirmed', 'is_sent']
 	pass

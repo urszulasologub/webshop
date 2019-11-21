@@ -22,6 +22,8 @@ class Order(models.Model):
 	address = models.CharField(max_length=200, default="None")
 	city = models.CharField(max_length=100, default="None")
 	postal_code = models.CharField(max_length=6, default="00-000")
+	is_completed = models.BooleanField(default=False)
+	is_sent = models.BooleanField(default=False)
 
 	@property
 	def total_price(self):
