@@ -1,0 +1,13 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    Zamówienie zostało sfinalizowane
+{% endblock %}
+
+{% block content %}
+	{{ message }}
+	<br>dopiszcie coś, bo ja juz rzygam htmlem na dziś
+
+	<h2>Twój numer zamówienia to: {{ order.id|stringformat:"06d" }}</h2>
+{% endblock %}

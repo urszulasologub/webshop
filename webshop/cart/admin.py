@@ -1,3 +1,11 @@
 from django.contrib import admin
+from .models import DeliveryType, Order
 
-# Register your models here.
+@admin.register(DeliveryType)
+class DeliveryTypeAdmin(admin.ModelAdmin):
+	pass
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+	pass

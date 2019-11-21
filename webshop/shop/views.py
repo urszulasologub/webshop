@@ -8,6 +8,7 @@ from .forms import ReviewForm#, DescriptionForm
 from cart.forms import CartAddProductForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
+from django.http import HttpResponseRedirect
 
 
 def product_list(request, category_slug=None):
@@ -62,7 +63,7 @@ def delete_review(request, id):
 	product_id = review.product.id
 	product_slug = review.product.slug
 	review.delete()
-	return product_detail(request, product_id, product_slug)
+  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 class ParameterAutocomplete(autocomplete.Select2QuerySetView):

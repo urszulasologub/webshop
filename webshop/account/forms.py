@@ -1,9 +1,7 @@
-from datetime import date
+from datetime import datetime
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
-
-from .models import Profile
 
 
 class LoginForm(forms.Form):
@@ -14,15 +12,35 @@ class LoginForm(forms.Form):
 class UserRegistrationForm(forms.ModelForm):
 	first_name = forms.CharField(label="Imię", max_length=30, help_text='Wymagane.')
 	last_name = forms.CharField(label="Nazwisko", max_length=30, help_text='Wymagane.')
-	email = forms.EmailField(label="Email", max_length=254, help_text='Wymagane.')
-	birthday = forms.DateField(label="Data urodzenia", help_text='Wymagane. Format: YYYY-mm-dd')  # chyba
 
+	DAYS_CHOICES = [(i, str(i)) for i in range(1, 32)]
+	MONTHS_CHOICES = (
+		(1, 'Styczeń'),
+		(2, 'Luty'),
+		(3, 'Marzec'),
+		(4, 'Kwiecień'),
+		(5, 'Maj'),
+		(6, 'Czerwiec'),
+		(7, 'Lipiec'),
+		(8, 'Sierpień'),
+		(9, 'Wrzesień'),
+		(10, 'Październik'),
+		(11, 'Listopad'),
+		(12, 'Grudzień'),
+	)
+	YEARS_CHOICES = [(i, str(i)) for i in range(datetime.now().year-13, 1900, -1)]
+
+	day = forms.TypedChoiceField(label="Dzień", choices=DAYS_CHOICES)
+	month = forms.TypedChoiceField(label="Miesiąc", choices=MONTHS_CHOICES)
+	year = forms.TypedChoiceField(label="Rok", choices=YEARS_CHOICES)
+
+	email = forms.EmailField(label="Email", max_length=254, help_text='Wymagane.')
 	hasło = forms.CharField(label='Hasło', widget=forms.PasswordInput, validators=[validate_password])
 	hasło2 = forms.CharField(label='Powtórz hasło', widget=forms.PasswordInput, validators=[validate_password])
 
 	class Meta:
 		model = User
-		fields = ('username', 'first_name', 'last_name', 'birthday', 'email')
+		fields = ('username', 'first_name', 'last_name', 'day', 'month', 'year', 'email')
 
 	def clean_hasło2(self):
 		cd = self.cleaned_data
@@ -30,13 +48,23 @@ class UserRegistrationForm(forms.ModelForm):
 			raise forms.ValidationError('Hasła są różne.')
 		return cd['hasło2']
 
-	def clean_birthday(self):
-		birthday = self.cleaned_data['birthday']
-		'''try:
-			birthday = datetime.strptime(date, '%d-%m-%Y')
+	def validate_birthday(self):
+		day = self.cleaned_data['day']
+		month = self.cleaned_data['month']
+		year = self.cleaned_data['year']
+		try:
+			birthday = datetime(year=int(year), month=int(month), day=int(day))
 		except ValueError:
-			raise forms.ValidationError('Podaj poprawną datę.')
-		'''
-		if date.today() <= birthday:
-			raise forms.ValidationError('Data jest z przyszłości.')
+			self.add_error('day', 'Wybierz poprawną datę.')
+			return "01-01-0001"
+		if datetime.today() <= birthday:
+			self.add_error('day', 'Data jest z przyszłości.')
+			return "01-01-0001"
 		return birthday
+
+	def clean_email(self):
+		email = self.cleaned_data['email']
+		exists = User.objects.filter(email=email)
+		if exists:
+			raise forms.ValidationError("Ten adres email jest już zajęty. Wpisz inny adres email.")
+		return email

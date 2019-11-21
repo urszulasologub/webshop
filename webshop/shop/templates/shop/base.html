@@ -95,7 +95,6 @@
 			cursor: pointer;
 		}
 
-
 		.qty {
 			width: 20px;
 			height: 20px;
@@ -107,7 +106,15 @@
 			background-color: #D10024;
 			float: right;
 			margin-top: -8px;
+			font-family: "arial";
 		}
+		
+		@media (max-width: 991px) {
+			#user_nav
+			{
+				position: absolute;
+			}
+		{
 
 
 	</style>
@@ -200,11 +207,11 @@
 					<li class="nav-item">
 						<a class="fas fa-user">
 						</a>
-						<span class="nav-link float-right">{{ user.username }}</span>
+						<span id="user_nav" class="h3 color-white float-right" style="color:white; padding-top: 3px" >{{ user.username }}</span>
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'account:logout' %}">Wyloguj się</a>
+						<a class="nav-link h4" href="{% url 'account:logout' %}">Wyloguj się</a>
 					</li>
 					{% else %}
 					<li class="nav-item">

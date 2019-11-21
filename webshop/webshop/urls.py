@@ -22,11 +22,10 @@ from shop import views
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
-	path('checkout/', include('cart.urls', namespace='cart')),
 	path('', include('shop.urls', namespace='shop')),
+	path('cart/', include('cart.urls', namespace='cart')),
 	path('account/', include('account.urls')),
 	path('parameter-autocomplete/', views.ParameterAutocomplete, name='parameter-autocomplete'),
-
 ]
 
 if settings.DEBUG:

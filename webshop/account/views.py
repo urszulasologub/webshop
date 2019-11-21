@@ -29,12 +29,14 @@ def register(request):
 	if request.method == 'POST':
 		user_form = UserRegistrationForm(request.POST)
 		if user_form.is_valid():
-			new_user = user_form.save(commit=False)
-			new_user.set_password(
-				user_form.cleaned_data['hasło'])
-			new_user.save()
-			update_profile(request, new_user, user_form.cleaned_data['birthday'])
-			return render(request, 'account/register_done.html', {'new_user': new_user})
+			birthday = user_form.validate_birthday()
+			if birthday != "01-01-0001":
+				new_user = user_form.save(commit=False)
+				new_user.set_password(
+					user_form.cleaned_data['hasło'])
+				new_user.save()
+				update_profile(request, new_user, birthday)
+				return render(request, 'account/register_done.html', {'new_user': new_user})
 	else:
 		user_form = UserRegistrationForm
 	return render(request, 'account/register.html', {'user_form': user_form})

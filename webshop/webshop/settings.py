@@ -144,3 +144,7 @@ AUTHENTICATION_BACKENDS = (
 	'account.backends.EmailOrUsernameModelBackend',
 	'django.contrib.auth.backends.ModelBackend'
 )
+
+SITE_URL = "http://127.0.0.1:8000"
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
