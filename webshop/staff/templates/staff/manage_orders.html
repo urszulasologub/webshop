@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Zarządzanie zamówieniami - strona pracownika</title>
+	</head>
+	<body>
+		<form method="POST">
+			{% csrf_token %}
+			<input type="submit" name="btn" value="Opłacone zamówienia">
+			<br><input type="submit" name="btn" value="Skompletowane zamówienia">
+			<br><input type="submit" name="btn" value="Lista produktów do skompletowania">
+		</form>
+		<h3>Historia zamówień:</h3>
+		{% for order in orders %}
+			<br>Numer: {{ order.id|stringformat:"06d" }}
+			<br>Czy opłacono?: 
+				{% if order.is_confirmed %}
+					Tak 
+				{% else %}
+					Nie
+				{% endif %}
+			<br>Całkowita cena: {{ order.total_price }}
+			<br><a class="btn btn-primary" href="{% url 'staff:show_order' order.id %}">Szczegóły</a>
+			<br><br>
+		{% endfor %}
+	</body>
+</html>

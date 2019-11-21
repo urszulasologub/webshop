@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>{{ order.id|stringformat:"06d" }}: Szczegóły - strona pracownika</title>
+	</head>
+	<body>
+		<h4>Zamówienie numer {{ order.id|stringformat:"06d" }}</h4>
+		{% if order.is_confirmed %}
+			<br><h3>Opłacone</h3>
+			<br>Mozna rozpocząć kompletowanie zamówienia!<br>
+		{% else %}
+			<br><h3>Nieopłacone!</h3>
+		{% endif %}
+		<br><b>Dane kupującego</b>
+		<br>Uzytkownik: {{ order.user }}
+		<br>Imię: {{ order.name }}
+		<br>Nazwisko: {{ order.surname }}
+		<br>Adres: 
+			<br><i>{{ order.address }}
+			<br>{{ order.city }}
+			<br>{{ order.postal_code }}</i>
+		<br><br><b>Opłaty</b>
+		<br>Produkty: {{ order.price }} PLN
+		<br>Dostawa: {{ order.delivery_price }} PLN
+		<br>Całościowy koszt: {{ order.total_price }} PLN
+		<br><br><b>Sposób dostawy:</b> {{ order.delivery_type }}
+		<br><br><b>Status zamówienia:</b> 
+		<br>Czy opłacone? {% if order.is_confirmed %}Tak{% else %}<u>Nie</u>{% endif %}
+		<br>Czy skompletowane? {% if order.is_completed %}Tak{% else %}<u>Nie</u>{% endif %}
+		<br>Czy wysłane? {% if order.is_sent %}Tak{% else %}<u>Nie</u>{% endif %}
+		
+		{% if order.is_confirmed %}
+			{% if order.is_completed == False %}
+				<br><br><b>Produkty do skompletowania:</b>
+				{% for component in components %}
+					{% if component.is_completed == False %}
+						<br>Produkt: {{ component.product.name }}
+						<br>ID Produktu: {{ component.product.id }}
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+			<br><br><b>Produkty skompletowane:</b>
+			{% for component in components %}
+				{% if component.is_completed %}
+					<br>Produkt: {{ component.product.name }}
+					<br>ID Produktu: {{ component.product.id }}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
+	</body>
+</html>
