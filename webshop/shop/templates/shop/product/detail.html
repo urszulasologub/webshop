@@ -35,7 +35,7 @@
 		<img class="img-fluid text-center"
 			src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %} ">
 	</div>
-	<div id="tekst" class="col-md-6">
+	<div id="tekst" class="col-md-6 pt-5">
 
 		<h1>{{ product.name }}</h1>
 		<!--<h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>-->
@@ -47,6 +47,13 @@
 		</form>
 		
 		{{ product.description|linebreaks }}
+
+		{% for description in descriptions %}
+
+		<p>{{ description.parameter }} | {{ description.description }}</p>
+
+		{% endfor %}
+
 	</div>
 	<div id="recenzje" class="col-md-6 border-top mt-4">
 		{% if user.is_authenticated %}
