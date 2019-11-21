@@ -13,6 +13,7 @@
 				<br>Produkt: {{ component.product.name }}
 				<br>ID Produktu: {{ component.product.id }}
 				<br>Numer zamówienia: <a href="{% url 'staff:show_order' component.order.id %}">{{ component.order.id|stringformat:"06d" }}</a>
+				<br><a href="{% url 'staff:completed_component' component.id %}" class="btn btn-primary">Dodałem do zamówienia</a>
 				<br><br>
 			{% endif %}
 		{% endfor %}

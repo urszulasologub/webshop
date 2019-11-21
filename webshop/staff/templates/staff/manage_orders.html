@@ -9,22 +9,35 @@
 			{% csrf_token %}
 			<input type="submit" name="btn" value="Wszystkie zamówienia">
 			<br><input type="submit" name="btn" value="Opłacone zamówienia">
+			<br><input type="submit" name="btn" value="Opłacone zamówienia do skompletowania">
 			<br><input type="submit" name="btn" value="Skompletowane zamówienia">
 			<br><input type="submit" name="btn" value="Lista produktów do skompletowania">
 			<br><input type="submit" name="btn" value="Wysłane zamówienia">
 		</form>
 		<h3>Historia zamówień:</h3>
+		<h4>Biezace zamówienia:</h4>
 		{% for order in orders %}
-			<br>Numer: {{ order.id|stringformat:"06d" }}
-			<br>Czy opłacono?: 
-				{% if order.is_confirmed %}
-					Tak 
-				{% else %}
-					Nie
-				{% endif %}
-			<br>Całkowita cena: {{ order.total_price }}
-			<br><a class="btn btn-primary" href="{% url 'staff:show_order' order.id %}">Szczegóły</a>
-			<br><br>
+			{% if order.is_sent == False %}
+				<br>Numer: {{ order.id|stringformat:"06d" }}
+				<br>Czy opłacono?: {% if order.is_confirmed %}Tak{% else %}Nie{% endif %}
+				<br>Czy skompletowano?: {% if order.is_completed %}Tak{% else %}Nie{% endif %}
+				<br>Czy wysłano?: {% if order.is_sent %}Tak{% else %}Nie{% endif %}
+				<br>Całkowita cena: {{ order.total_price }}
+				<br><a class="btn btn-primary" href="{% url 'staff:show_order' order.id %}">Szczegóły</a>
+				<br><br>
+			{% endif %}
+		{% endfor %}
+		<h4>Wysłane zamówienia:</h4>
+		{% for order in orders %}
+			{% if order.is_sent %}
+				<br>Numer: {{ order.id|stringformat:"06d" }}
+				<br>Czy opłacono?: {% if order.is_confirmed %}Tak{% else %}Nie{% endif %}
+				<br>Czy skompletowano?: {% if order.is_completed %}Tak{% else %}Nie{% endif %}
+				<br>Czy wysłano?: {% if order.is_sent %}Tak{% else %}Nie{% endif %}
+				<br>Całkowita cena: {{ order.total_price }}
+				<br><a class="btn btn-primary" href="{% url 'staff:show_order' order.id %}">Szczegóły</a>
+				<br><br>
+			{% endif %}
 		{% endfor %}
 	</body>
 </html>

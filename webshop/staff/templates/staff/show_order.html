@@ -6,11 +6,15 @@
 	<body>
 		<a href="{% url 'staff:manage_orders' %}">Powrót</a>
 		<h4>Zamówienie numer {{ order.id|stringformat:"06d" }}</h4>
-		{% if order.is_confirmed %}
+		{% if order.is_confirmed and order.is_completed == False %}
 			<br><h3>Opłacone</h3>
 			<br>Mozna rozpocząć kompletowanie zamówienia!<br>
-		{% else %}
+		{% elif order.is_confirmed == False %}
 			<br><h3>Nieopłacone!</h3>
+		{% elif order.is_completed and order.is_sent == False%}
+			<br><h3>Zamówienie zostało opłacone i skompletowane.
+			<br>Czy wysłałeś zamówienie?
+			<br><a class="btn btn-primary" href="{% url 'staff:send_order' order.id %}">Tak, zamówienie zostało wysłane</a></h3>
 		{% endif %}
 		<br><b>Dane kupującego</b>
 		<br>Uzytkownik: {{ order.user }}
@@ -36,16 +40,21 @@
 				<br><br><b>Produkty do skompletowania:</b>
 				{% for component in components %}
 					{% if component.is_completed == False %}
+						<br>ID Komponentu: {{component.id }}
 						<br>Produkt: {{ component.product.name }}
 						<br>ID Produktu: {{ component.product.id }}
+						<br><a href="{% url 'staff:completed_component' component.id %}" class="btn btn-primary">Dodałem do zamówienia</a>
+						<br><br>
 					{% endif %}
 				{% endfor %}
 			{% endif %}
 			<br><br><b>Produkty skompletowane:</b>
 			{% for component in components %}
 				{% if component.is_completed %}
+					<br>ID Komponentu: {{component.id }}
 					<br>Produkt: {{ component.product.name }}
 					<br>ID Produktu: {{ component.product.id }}
+					<br><br>
 				{% endif %}
 			{% endfor %}
 		{% endif %}
