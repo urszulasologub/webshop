@@ -63,7 +63,7 @@ def delete_review(request, id):
 	product_id = review.product.id
 	product_slug = review.product.slug
 	review.delete()
-  return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 class ParameterAutocomplete(autocomplete.Select2QuerySetView):
