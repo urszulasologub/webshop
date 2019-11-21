@@ -1,0 +1,15 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+    Adres do wysyłki
+{% endblock %}
+
+{% block content %}
+	<h5>Podaj adres do wysylki</h5>
+	<form action="" method="post">
+		{{ address_form.as_p }}
+		{% csrf_token %}
+		<input type="submit" class="btn btn-primary" value="Przejdź dalej">
+	</form>
+{% endblock %}

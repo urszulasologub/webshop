@@ -19,6 +19,9 @@ class Order(models.Model):
 	price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
 	delivery_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))])
 	payment_id = models.CharField(max_length=1000, null=True)
+	address = models.CharField(max_length=200, default="None")
+	city = models.CharField(max_length=100, default="None")
+	postal_code = models.CharField(max_length=6, default="00-000")
 
 	@property
 	def total_price(self):
