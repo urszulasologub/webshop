@@ -4,6 +4,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import OrderButtons, FilterButton, AddDeliverySearchingCode
 from django.http import HttpResponseRedirect
+from django.utils import timezone
 
 def are_components_completed(components):
 	if components != None:
@@ -15,6 +16,10 @@ def are_components_completed(components):
 
 @staff_member_required
 def manage_orders(request):
+	orders = Order.objects.all()
+	for order in orders:
+		if (order.is_confirmed == False and order.expiration_date < timezone.now()) or order.are_products == False:
+			order.delete()
 	orders = Order.objects.all()
 	if request.method == 'POST':
 		form = OrderButtons(request.POST)
@@ -76,18 +81,6 @@ def completed_component(request, id):
 	component.is_completed = True
 	component.save()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-'''@staff_member_required
-def send_order(request, id):
-	order = get_object_or_404(Order, id=id)
-	if request.method == 'POST':
-		form = AddDeliverySearchingCode(request.POST)
-		if form.is_valid():
-			order.is_sent = True
-			order.delivery_searching_code = form.cleaned_data.get('delivery_searching_code')
-			order.save()
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))'''
 
 
 @staff_member_required
