@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Lista produktów do skompletowania - strona pracownika</title>
+	</head>
+	<body>	
+		<a href="{% url 'staff:manage_orders' %}">Powrót</a>
+		<br><b>Wyszukaj: </b></br>
+		<form action="" method="post">
+			{{ form.as_p }}
+			{% csrf_token %}
+			<input type="submit" class="btn btn-primary" value="Wyszukaj">
+		</form>
+		<br><br><b>Znalezione zamówienia:</b>
+		{% for order in orders %}
+			<br>Numer: {{ order.id|stringformat:"06d" }}
+			<br>Czy opłacono?: {% if order.is_confirmed %}Tak{% else %}Nie{% endif %}
+			<br>Czy skompletowano?: {% if order.is_completed %}Tak{% else %}Nie{% endif %}
+			<br>Czy wysłano?: {% if order.is_sent %}Tak{% else %}Nie{% endif %}
+			<br>Całkowita cena: {{ order.total_price }}
+			<br><a class="btn btn-primary" href="{% url 'staff:show_order' order.id %}">Szczegóły</a>
+			<br><br>
+		{% endfor %}
+	</body>
+</html>

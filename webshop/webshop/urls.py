@@ -26,6 +26,7 @@ urlpatterns = [
 	path('cart/', include('cart.urls', namespace='cart')),
 	path('account/', include('account.urls')),
 	path('parameter-autocomplete/', views.ParameterAutocomplete, name='parameter-autocomplete'),
+	path('staff/', include('staff.urls', namespace='staff')),
 ]
 
 if settings.DEBUG:
