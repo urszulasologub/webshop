@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 	'cart',
 	'django.contrib.postgres',
 	'staff',
+	'django_celery_beat',
 ]
 
 MIDDLEWARE = [

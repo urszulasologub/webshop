@@ -29,6 +29,8 @@ class Order(models.Model):
 	is_sent = models.BooleanField(default=False)
 	delivery_searching_code = models.CharField(max_length=200, null=True)
 	are_products = models.BooleanField(default=False)
+	created_at = models.DateTimeField(auto_now_add=True)
+	expiration_date = models.DateTimeField()
 
 
 	@property
