@@ -27,6 +27,7 @@ class Order(models.Model):
 	city = models.CharField(max_length=100, default="None")
 	postal_code = models.CharField(max_length=6, default="00-000")
 	is_sent = models.BooleanField(default=False)
+	delivery_searching_code = models.CharField(max_length=200, null=True)
 	are_products = models.BooleanField(default=False)
 
 

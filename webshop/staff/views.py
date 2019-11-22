@@ -2,7 +2,7 @@ from django.shortcuts import render
 from cart.models import Order, OrderComponent
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import OrderButtons
+from .forms import OrderButtons, FilterButton, AddDeliverySearchingCode
 from django.http import HttpResponseRedirect
 
 def are_components_completed(components):
@@ -11,6 +11,7 @@ def are_components_completed(components):
 			if component.is_completed == False:
 				return False
 	return True
+
 
 @staff_member_required
 def manage_orders(request):
@@ -51,8 +52,16 @@ def manage_orders(request):
 @staff_member_required
 def show_order(request, id):
 	order = get_object_or_404(Order, id=id)
+	if request.method == 'POST':
+		form = AddDeliverySearchingCode(request.POST)
+		if form.is_valid():
+			order.is_sent = True
+			order.delivery_searching_code = form.cleaned_data.get('delivery_searching_code')
+			order.save()
+	else:
+		form = AddDeliverySearchingCode()
 	components = OrderComponent.objects.filter(order=order)
-	return render(request, 'staff/show_order.html', {'order': order, 'components': components})
+	return render(request, 'staff/show_order.html', {'order': order, 'components': components, 'form': form })
 
 
 @staff_member_required
@@ -69,9 +78,27 @@ def completed_component(request, id):
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-@staff_member_required
+'''@staff_member_required
 def send_order(request, id):
 	order = get_object_or_404(Order, id=id)
-	order.is_sent = True
-	order.save()
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+	if request.method == 'POST':
+		form = AddDeliverySearchingCode(request.POST)
+		if form.is_valid():
+			order.is_sent = True
+			order.delivery_searching_code = form.cleaned_data.get('delivery_searching_code')
+			order.save()
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))'''
+
+
+@staff_member_required
+def find_order(request):
+	form = None
+	orders = None
+	if request.method == 'POST':
+		form = FilterButton(request.POST)
+		if form.is_valid():
+			order_id = form.cleaned_data.get("order_id")
+			orders = Order.objects.filter(id=order_id)
+	else:
+		form = FilterButton()
+	return render(request, 'staff/finder.html', {'form': form, 'orders': orders})

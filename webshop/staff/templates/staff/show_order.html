@@ -13,8 +13,12 @@
 			<br><h3>Nieopłacone!</h3>
 		{% elif order.is_completed and order.is_sent == False%}
 			<br><h3>Zamówienie zostało opłacone i skompletowane.
-			<br>Czy wysłałeś zamówienie?
-			<br><a class="btn btn-primary" href="{% url 'staff:send_order' order.id %}">Tak, zamówienie zostało wysłane</a></h3>
+			<br>Czy wysłałeś zamówienie? Podaj kod do śledzenia paczki.
+			<form action="" method="post">
+				{{ form.as_p }}
+				{% csrf_token %}
+				<input type="submit" class="btn btn-primary" value="Potwierdzam wysłanie zamówienia">
+			</form>
 		{% endif %}
 		<br><b>Dane kupującego</b>
 		<br>Uzytkownik: {{ order.user }}
@@ -34,6 +38,7 @@
 		<br>ID płatności: {{ order.payment_id }}
 		<br>Czy skompletowane? {% if order.is_completed %}Tak{% else %}<u>Nie</u>{% endif %}
 		<br>Czy wysłane? {% if order.is_sent %}Tak{% else %}<u>Nie</u>{% endif %}
+		<br>Kod do śledzenia paczki: {{ order.delivery_searching_code }}
 		
 		{% if order.is_confirmed %}
 			{% if order.is_completed == False %}
