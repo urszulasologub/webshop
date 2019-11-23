@@ -204,22 +204,22 @@
 					</li>
 
 					{% if user.is_authenticated %}
-					<li class="nav-item">
-						<a class="fas fa-user">
-						</a>
-						<span id="user_nav" class="h3 color-white float-right" style="color:white; padding-top: 3px" >{{ user.username }}</span>
-					</li>
+						<li class="nav-item">
+							<a class="fas fa-user">
+							</a>
+							<a href="{% url 'profile:show_profile' %}"><span id="user_nav" class="h3 color-white float-right" style="color:white; padding-top: 3px" >{{ user.username }}</span></a>
+						</li>
 
-					<li class="nav-item">
-						<a class="nav-link h4" href="{% url 'account:logout' %}">Wyloguj się</a>
-					</li>
+						<li class="nav-item">
+							<a class="nav-link h4" href="{% url 'account:logout' %}">Wyloguj się</a>
+						</li>
 					{% else %}
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'account:login' %}">Logowanie</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'account:register' %}">Rejestracja</a>
-					</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'account:login' %}">Logowanie</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'account:register' %}">Rejestracja</a>
+						</li>
 					{% endif %}
 				</ul>
 			</div>

@@ -1,12 +1,10 @@
 import paypalrestsdk
 import logging
-from .cart import Cart
 
 class PaypalPayment():
 	def __init__(self, request, total_price):
 		self.price = str(total_price)
 		self.request = request
-		#self.cart = cart
 		paypalrestsdk.configure({
 			"mode": "sandbox", # sandbox or live
 			"client_id": "AfNoHbwXRtAOBeEcOzPvXLQDsW9ZwQY_2kYRlnmmaHlm1q770zLrxUPZHlmbPwIZXzvM4zmEo63Q7dGs",
