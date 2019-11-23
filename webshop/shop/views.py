@@ -54,6 +54,7 @@ def product_detail(request, id, slug):
 	else:
 		review_form = ReviewForm()
 	recommendations = choose_recommended(request, product.category, 5)
+	print (recommendations)
 	return render(request, 'shop/product/detail.html', {'product': product,
 														'cart_product_form': cart_product_form,
 														'descriptions': descriptions,
