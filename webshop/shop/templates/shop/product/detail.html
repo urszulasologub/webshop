@@ -60,8 +60,9 @@
 		<div id="recommend" class="">
 		<h3>Rekomendowane produkty</h3>
 			{% for item in recommendations %}
-				<br><img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}" height=200 width=250>
-				<br>{{ item.name }}
+				<br><a href="{% url 'shop:product_detail' item.id item.slug %}">
+					<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}" height=200 width=250>
+				<br>{{ item.name }}</a>
 				<br>{{ item.price }}
 
 				<br>
