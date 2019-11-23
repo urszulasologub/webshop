@@ -10,4 +10,4 @@ def delete_old_orders():
     for order in orders:
         if order.expiration_date < timezone.now():
             order.delete()
-    print("completed deleting foos at {}".format(timezone.now()))
+    print("completed deleting objects at {}".format(timezone.now()))
