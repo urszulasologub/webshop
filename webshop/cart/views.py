@@ -72,17 +72,18 @@ def choose_address(request, id):
 						comp = OrderComponent(order=order, product=product, price=product.price)
 						comp.save()
 			order.save()
+			cart.clear()
 			return redirect('cart:cart_checkout', id)
 	return render(request, 'cart/address.html', {'address_form': address_form, 'order': order})
 
 
 @login_required
 def cart_checkout(request, id):
-	cart = Cart(request)
 	order = get_object_or_404(Order, id=id)
+	components = OrderComponent.objects.filter(order=order)
 	if request.method == 'POST':
 		return buy_now(request, id)
-	return render(request, 'cart/pay.html', {'cart': cart, 'order': order})
+	return render(request, 'cart/pay.html', {'order': order, 'components': components })
 
 
 @login_required
@@ -95,7 +96,6 @@ def buy_now(request, id):
 	redirection, payment_id = payment.authorize_payment()
 	order.payment_id = payment_id
 	order.save()
-	Cart(request).clear()
 	return redirect(redirection)
 
 

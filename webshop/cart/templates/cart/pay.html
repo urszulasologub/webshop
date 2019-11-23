@@ -2,16 +2,15 @@
 {% load static %}
 
 {% block content %}
-	{% if cart.get_total_price > 0 %}
-		{% for item in cart %}
-			{% with product=item.product %}
+	{% if order.price > 0 %}
+		{% for component in components %}
+			{% with product=component.product %}
 				<tr>
 					<td>
 						<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}" height="50" width="50">
 					</td>
 					<td>{{ product.name }}</td>
-					<td>{{ item.quantity }}</td>
-					<td class="num text-right">{{ item.total_price }} PLN</td>
+					<td class="num text-right">{{ product.price }} PLN</td>
 				</tr>
 			{% endwith %}
 		{% endfor %}

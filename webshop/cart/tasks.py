@@ -5,7 +5,7 @@ from .models import Order
 
 
 @periodic_task(run_every=crontab(minute='*/5'))
-def delete_old_foos():
+def delete_old_orders():
     orders = Order.objects.filter(is_confirmed=False)
     for order in orders:
         if order.expiration_date < timezone.now():
