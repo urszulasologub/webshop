@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
 from shop import views
 
 urlpatterns = [
@@ -27,6 +26,7 @@ urlpatterns = [
 	path('account/', include('account.urls')),
 	path('parameter-autocomplete/', views.ParameterAutocomplete, name='parameter-autocomplete'),
 	path('staff/', include('staff.urls', namespace='staff')),
+	path('profile/', include('customer.urls', namespace='profile')),
 ]
 
 if settings.DEBUG:

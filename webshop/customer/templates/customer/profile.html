@@ -1,0 +1,14 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+	Twój profil
+{% endblock %}
+
+{% block content %}
+	Imię: {{ user.first_name }}
+	<br>Nazwisko: {{ user.last_name }}
+	<br>Email: {{ user.email }}
+	<br>Ostatnie logowanie: {{ user.last_login }}
+	<br><br><a href="{% url 'profile:show_orders' %}"><b>Pokaz historię zamówień</b></a>
+{% endblock %}
