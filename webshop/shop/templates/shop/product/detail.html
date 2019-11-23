@@ -56,17 +56,18 @@
 
 	</div>
 
+	{% if recommendations != None %}
+		<div id="recommend" class="">
+		<h3>Rekomendowane produkty</h3>
+			{% for item in recommendations %}
+				<br><img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}" height=200 width=250>
+				<br>{{ item.name }}
+				<br>{{ item.price }}
 
-	<div id="recommend" class="">
-	<h3>Rekomendowane produkty</h3>
-		{% for item in recommendations %}
-			<br><img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}" height=200 width=250>
-			<br>{{ item.name }}
-			<br>{{ item.price }}
-
-			<br>
-		{% endfor %}
-	</div>
+				<br>
+			{% endfor %}
+		</div>
+	{% endif %}
 
 
 	<div id="recenzje" class="col-md-6 border-top mt-4">

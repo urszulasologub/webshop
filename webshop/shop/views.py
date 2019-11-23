@@ -101,7 +101,8 @@ def choose_recommended(request, category, amount):
 	products = Product.objects.filter(category=category)
 	dictionary = OrderedDict()
 	for product in products:
-		dictionary[product] = product.average_rating
+		if product.average_rating != None and product.average_rating > 2.5:
+			dictionary[product] = product.average_rating
 	recommended_products = []
 	i = 0
 	for product in dictionary:
