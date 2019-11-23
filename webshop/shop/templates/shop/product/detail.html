@@ -50,11 +50,25 @@
 
 		{% for description in descriptions %}
 
-		<p>{{ description.parameter }} | {{ description.description }}</p>
+			<p>{{ description.parameter }} | {{ description.description }}</p>
 
 		{% endfor %}
 
 	</div>
+
+
+	<div id="recommend" class="">
+	<h3>Rekomendowane produkty</h3>
+		{% for item in recommendations %}
+			<br><img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}" height=200 width=250>
+			<br>{{ item.name }}
+			<br>{{ item.price }}
+
+			<br>
+		{% endfor %}
+	</div>
+
+
 	<div id="recenzje" class="col-md-6 border-top mt-4">
 		{% if user.is_authenticated %}
 			{% if users_reviews %}

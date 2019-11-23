@@ -9,6 +9,8 @@ from cart.forms import CartAddProductForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import HttpResponseRedirect
+from statistics import mean
+from collections import OrderedDict
 
 
 def product_list(request, category_slug=None):
@@ -51,13 +53,15 @@ def product_detail(request, id, slug):
 		new_review, review_form = add_review(request, new_review, product)
 	else:
 		review_form = ReviewForm()
+	recommendations = choose_recommended(request, product.category, 5)
 	return render(request, 'shop/product/detail.html', {'product': product,
 														'cart_product_form': cart_product_form,
 														'descriptions': descriptions,
 														'reviews': reviews,
 														'new_review': new_review,
 														'review_form': review_form,
-														'users_reviews': users_reviews})
+														'users_reviews': users_reviews,
+														'recommendations': recommendations})
 
 
 @login_required
@@ -91,3 +95,20 @@ class ParameterAutocomplete(autocomplete.Select2QuerySetView):
 			qs = qs.filter(parameter__name__startswith=self.q)
 
 		return qs
+
+
+def choose_recommended(request, category, amount):
+	products = Product.objects.filter(category=category)
+	dictionary = OrderedDict()
+	for product in products:
+		dictionary[product] = product.average_rating
+	recommended_products = []
+	i = 0
+	for product in dictionary:
+		recommended_products.append(product)
+		i += 1
+		if (i == amount):
+			break
+	return recommended_products
+
+		
