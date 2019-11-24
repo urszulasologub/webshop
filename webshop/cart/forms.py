@@ -18,10 +18,10 @@ class ChooseDeliveryType(forms.Form):
 
 
 class AddressForm(forms.Form):
-	name = forms.CharField(label='Name', max_length=100)
-	surname = forms.CharField(label='Surname', max_length=100)
-	street = forms.CharField(label='Street', max_length=170)
-	number = forms.CharField(label='Number', max_length=15)
-	city = forms.CharField(label='City', max_length=100)
-	postal_code_1 = forms.IntegerField(label='Postal_Code_1', min_value=0, max_value=99)
-	postal_code_2 = forms.IntegerField(label='Postal_Code_2', min_value=0, max_value=999)
+	name = forms.CharField(label='Imię', max_length=100)
+	surname = forms.CharField(label='Nazwisko', max_length=100)
+	street = forms.CharField(label='Ulica', max_length=170)
+	number = forms.CharField(label='Numer', max_length=15)
+	city = forms.CharField(label='Miasto', max_length=100)
+	postal_code_1 = forms.IntegerField(label='Kod pocztowy 1', min_value=0, max_value=99)
+	postal_code_2 = forms.IntegerField(label='Kod pocztowy 2', min_value=0, max_value=999)
