@@ -6,9 +6,27 @@
 {% endblock %}
 
 {% block content %}
-	Imię: {{ user.first_name }}
-	<br>Nazwisko: {{ user.last_name }}
-	<br>Email: {{ user.email }}
-	<br>Ostatnie logowanie: {{ user.last_login }}
-	<br><br><a href="{% url 'profile:show_orders' %}"><b>Pokaz historię zamówień</b></a>
+	<table class="table table-borderless">
+		<tbody>
+			<tr>
+				<th scope="row">Imię:</th>
+				<th><p>{{ user.first_name }}</p></th>
+			</tr>
+			<tr>
+				<th scope="row">Nazwisko:</th>
+				<th>{{ user.last_name }}</th>
+			</tr>
+			<tr>
+				<th scope="row">Email:</th>
+				<th>{{ user.email }}</th>
+			</tr>
+			<tr>
+				<th scope="row">Ostatnie logowanie:</th>
+				<th>{{ user.last_login }}</th>
+			</tr>
+		</tbody>
+	</table>
+	
+	<p class="border-top"><a href="{% url 'profile:show_orders' %}">
+	<button type="button" class="btn btn-primary btn-lg mt-4">Pokaz historię zamówień</button></a>
 {% endblock %}
