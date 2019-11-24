@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Adres do wysyłki
+Adres do wysyłki
 {% endblock %}
 
 {% block content %}
@@ -114,25 +114,23 @@
 
 	ul {
 		list-style-type: none;
-		
+
 	}
 
 	li {
-		
+
 		text-align: left;
 	}
-	
-	.btn{
-		color: white!important;
-		background-color: #007bff!important;
-	}
-	
-	.btn:hover{
-		color: black!important;
-		background-color: #f2f2f2!important;
+
+	.btn {
+		color: white !important;
+		background-color: #007bff !important;
 	}
 
-
+	.btn:hover {
+		color: black !important;
+		background-color: #f2f2f2 !important;
+	}
 </style>
 
 <script>
@@ -144,20 +142,21 @@
 	});
 </script>
 
-	
-    <div class="login-page">
 
-            <div class="form">
-                <form class="register-form">
+<div class="login-page">
 
-                </form>
-                <form action="" method="post" class="login-form">
-					{{ address_form.as_p }}
-					{% csrf_token %}
-                    <input type="submit" class="btn" value="Przejdź dalej">                  
-                </form>
-            </div>
-        </div>
+	<div class="form">
+		<form class="register-form">
+
+		</form>
+		<form action="" method="post" class="login-form">
+			{{ address_form.as_p }}
+			{% csrf_token %}
+
+			<input type="submit" class="btn" value="Przejdź dalej">
+		</form>
+	</div>
+</div>
 
 
 
