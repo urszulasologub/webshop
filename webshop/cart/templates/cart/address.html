@@ -146,15 +146,31 @@ Adres do wysyłki
 <div class="login-page">
 
 	<div class="form">
-		<form class="register-form">
 
-		</form>
-		<form action="" method="post" class="login-form">
-			{{ address_form.as_p }}
+
+		<form action="" method="post" class="address_form">
 			{% csrf_token %}
 
-			<input type="submit" class="btn" value="Przejdź dalej">
+			<div class="fieldWrapper">
+				{{ address_form.postal_code_1.errors }}
+				{{ address_form.postal_code_1.label_tag }} {{ address_form.postal_code_1 }}
+				{% if address_form.postal_code_1.help_text %}
+				<p class="help">{{ address_form.postal_code_1.help_text|safe }}</p>
+				{% endif %}
+			</div>
+
+			<div class="fieldWrapper">
+				{{ address_form.postal_code_2.errors }}
+				{{ address_form.postal_code_2.label_tag }} {{ address_form.postal_code_2 }}
+				{% if address_form.postal_code_2.help_text %}
+				<p class="help">{{ address_form.postal_code_2.help_text|safe }}</p>
+				{% endif %}
+			</div>
+
+
 		</form>
+
+		
 	</div>
 </div>
 
