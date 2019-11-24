@@ -8,30 +8,90 @@
 {% block content %}
 
 <style>
-	  .img-fluid
-	  {
+	.img-fluid {
 		max-width: 100%;
 		height: 250px;
-	  }
-	  
-	  #rozmiar-tekstu{
+	}
+
+	#rozmiar-tekstu {
 		font-size: 20px;
-	  }
-	  
-	  @media (max-width: 991px) {
-		.img-fluid
-		{
+
+	}
+
+	#autor {
+
+		font-size: 17px;
+		border-radius: 15px;
+		width: 20%;
+		max-width: 15%;
+		padding-left: 20px;
+
+	}
+
+	#ocena {
+
+		font-size: 25px;
+		border-radius: 15px;
+		color: gold;
+		width: 20%;
+		max-width: 15%;
+	}
+
+	#komentarz {
+
+		padding-right: 25px;
+		font-size: 17px;
+		border-radius: 15px;
+		width: 60%;
+	}
+
+
+	#recenzja {
+
+		padding: 10px;
+		border-radius: 10px;
+		display: flex;
+		/*justify-content: center; */
+		align-items: center;
+		/*
+		border-right-style: groove;
+		border-left-style: groove;
+		*/
+		border-top-style: groove;
+		border-bottom-style: groove;
+	}
+
+	#specyfikacja {
+		padding: 40px;
+	}
+
+	@media (max-width: 991px) {
+		.img-fluid {
 			max-width: 100%;
-			height: 200px;		
-		}
-	  
-		#foto
-		{
-			text-align: center!important;
+			height: 200px;
 		}
 
-		
-	  }
+		#foto {
+			text-align: center !important;
+		}
+
+		#recenzja {
+			padding: 10px;
+			display: block;
+			border-radius: 10px;
+			align-items: center;
+			border-top-style: groove;
+			border-bottom-style: groove;
+		}
+
+		#komentarz {
+			padding-right: 25px;
+			font-size: 17px;
+			border-radius: 15px;
+			width: 100%
+		}
+
+	}
 </style>
 
 <div class="product-detail row">
@@ -47,78 +107,74 @@
 		<form action="{% url 'cart:cart_add' product.id %}" method="post">
 			{{ cart_product_form }}
 			{% csrf_token %}
-		</br><input type="submit" class="btn btn-primary mt-2" value="Dodaj do koszyka">
+			</br><input type="submit" class="btn btn-primary mt-2" value="Dodaj do koszyka">
 		</form>
 
 	</div>
 
-	<div class="col-md-12 border-top">
+	<div id="specyfikacja" class="col-md-12 border-top">
 		<p class="display-4">Opis</p>
 		<div id="rozmiar-tekstu">
 			{{ product.description|linebreaks }}
 		</div>
 		<p class="display-4">Specyfikacja</p>
-		
+
 
 		<table id="rozmiar-tekstu" class="table table-hover text-center">
 			<tbody>
 				{% for description in descriptions %}
 				<td>{{ description.parameter }}</td>
-				<td>{{ description.description }}</td>			
-			  </tbody>
-			{% endfor %}				  
+				<td>{{ description.description }}</td>
+			</tbody>
+			{% endfor %}
 		</table>
 
-		
-	</div>
-	
-	{% if recommendations %}
-		<div id="recommend" class="">
-		<h3>Rekomendowane produkty</h3>
-			{% for item in recommendations %}
-				<br><a href="{% url 'shop:product_detail' item.id item.slug %}">
-					<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}" height=200 width=250>
-				<br>{{ item.name }}</a>
-				<br>{{ item.price }}
 
-				<br>
-			{% endfor %}
-		</div>
+	</div>
+
+	{% if recommendations %}
+	<div id="recommend" class="col-md-12 border-top mt-4">
+		<h3>Rekomendowane produkty</h3>
+		{% for item in recommendations %}
+		<br><a href="{% url 'shop:product_detail' item.id item.slug %}">
+			<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
+				height=200 width=250>
+			<br>{{ item.name }}</a>
+		<br>{{ item.price }}
+
+		<br>
+		{% endfor %}
+	</div>
 	{% endif %}
 
-
-	<div id="recenzje" class="col-md-6 border-top mt-4">
-		{% if user.is_authenticated %}
-			{% if users_reviews %}
-				<br>Już napisałeś recenzję tego produktu.
-			{% else %}
-				{% if new_review %}
-					<h2>Pomyślnie dodano recenzję</h2>
-				{% else %}
-					<p class="display-4">Dodaj nową recenzję </p>
-					<form action="" method="post">
-						{{ review_form.as_p }}
-						{% csrf_token %}
-						<input type="submit" class="btn btn-primary" value="Dodaj recenzję">
-					</form>
-				{% endif %}
-			{% endif %}
-		{% else %}
-			<h4	class="text-center pt-4">Aby napisać własną recenzję musisz się zalogować.</h4>
-		{% endif %}
-	</div>
-
-	<div id="recenzje" class="col-md-6 border-top mt-4">
+	<div id="recenzje" class="col-md-12 border-top mt-4">
 		<p class="display-4">Recenzje </p>
 		{% for review in reviews %}
-		<div class="comment border-bottom">
-			{% if review.user == user %}
-				<a class="btn btn-primary" href="{% url 'shop:delete_review' review.id %}">Usuń</a>
+		<div id="recenzja">
+
+			<div id="autor"> {{ review.user.username }} </div><br>
+
+			{% if review.rating == 1 %}
+			<div id="ocena">★</div><br>
+			{% endif %}
+			{% if review.rating == 2 %}
+			<div id="ocena">★★</div><br>
+			{% endif %}
+			{% if review.rating == 3 %}
+			<div id="ocena">★★★</div><br>
+			{% endif %}
+			{% if review.rating == 4 %}
+			<div id="ocena">★★★★</div><br>
+			{% endif %}
+			{% if review.rating == 5 %}
+			<div id="ocena">★★★★★</div><br>
 			{% endif %}
 
-			<span>Autor: {{ review.user.username }}</span><br>
-			<span>Ocena: {{ review.rating }}</span><br>
-			<span>Komentarz: {{ review.body }}</span>
+			<div id="komentarz"> {{ review.body }}</div>
+
+			{% if review.user == user %}
+			<a class="btn btn-primary" href="{% url 'shop:delete_review' review.id %}">Usuń</a>
+			{% endif %}
 
 		</div>
 		{% empty %}
@@ -127,5 +183,28 @@
 		{% endfor %}
 
 	</div>
+
+	<div id="recenzje" class="col-md-12 border-top mt-4">
+		{% if user.is_authenticated %}
+		{% if users_reviews %}
+		<!-- <br>Już napisałeś recenzję tego produktu. -->
+		{% else %}
+		{% if new_review %}
+		<!-- <h2>Pomyślnie dodano recenzję</h2> -->
+		{% else %}
+		<p class="display-4">Dodaj nową recenzję </p>
+		<form action="" method="post">
+			{{ review_form.as_p }}
+			{% csrf_token %}
+			<input type="submit" class="btn btn-primary" value="Dodaj recenzję">
+		</form>
+		{% endif %}
+		{% endif %}
+		{% else %}
+		<h4 class="text-center pt-4">Aby napisać własną recenzję musisz się zalogować.</h4>
+		{% endif %}
+	</div>
+
+
 </div>
 {% endblock %}
