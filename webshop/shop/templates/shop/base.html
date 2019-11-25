@@ -108,11 +108,39 @@
 			margin-top: -8px;
 			font-family: "arial";
 		}
+
+		.map-responsive{
+			overflow:hidden;
+			padding-bottom:15%;
+			position:relative;
+			height:0;
+			-webkit-filter: grayscale(100%);
+			-moz-filter: grayscale(100%);
+			-ms-filter: grayscale(100%);
+			-o-filter: grayscale(100%);
+			filter: grayscale(100%);
+		}
+	
+		.map-responsive iframe{
+			left:0;
+			top:0;
+			height:100%;
+			width:100%;
+			position:absolute;
+		}
+
+		#newsletter{
+			padding: 50px 0 50px 0;
+		}
 		
 		@media (max-width: 991px) {
 			#user_nav
 			{
 				position: absolute;
+			}
+
+			.map-responsive{
+				padding-bottom:30%;
 			}
 		{
 
@@ -232,6 +260,39 @@
 		{% endblock %}
 	</div>
 
+	<div id="newsletter" class="container-box bg-light">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col">
+					
+					<h2 class="text-center">Newsletter</h2>
+					<div class="row justify-content-center"><div class="col-6">
+						<p class="text-center pt-4 pb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam illo praesentium sequi in cum, beatae maiores quae qui.</p>
+					</div>
+					</div>
+					<div class="container"><div class="row justify-content-center">
+						<div class="col-4">
+							<input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="Email address">
+						</div>
+						<div class="col-1">
+							<button type="submit" class="btn btn-primary" id="mc-embedded-subscribe">
+							Subscribe
+							</button>
+						</div>
+					</div>
+					</div> 	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+	<div class="container-box">
+		<div class="map-responsive">
+			<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+		</div>
+	</div>
 
 	<!-- Footer -->
 	<footer class="py-5 bg-dark mt-4">
