@@ -3,7 +3,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
-#from .recent import Recent
 from .models import Category, Product, Review, Description, Parameter
 from .forms import ReviewForm#, DescriptionForm
 from cart.forms import CartAddProductForm
@@ -25,10 +24,7 @@ def product_list(request, category_slug=None):
 	#del request.session['recent'] #usuwa sesję
 
 	if 'recent' in request.session:
-		#recent = request.session['recent']
-		#recent = Product.objects.filter(id=request.session['recent'])
 		recent = [Product.objects.get(id=id) for id in request.session['recent']]
-		#recent = Product.objects.filter(id__in=request.session.get('recent', []))
 	else:
 		recent = None
 	return render(request, 'shop/product/list.html',
@@ -66,15 +62,13 @@ def product_detail(request, id, slug):
 		review_form = ReviewForm()
 	recommendations = choose_recommended(request, product.category, 5)
 
-	#self.session = request.session
-	#recent = Recent(request)
-	#recent.add(product)
-
 	if not 'recent' in request.session or not request.session['recent']:
 		request.session['recent'] = [id]
 	else:
 		recent = request.session['recent']
-		recent.append(id)
+		if id in recent:
+			recent.remove(id)
+		recent.insert(0, id)
 		request.session['recent'] = recent
 
 	return render(request, 'shop/product/detail.html', {'product': product,
