@@ -65,6 +65,28 @@
 		padding: 40px;
 	}
 
+	.item {
+		padding-top: 5px;
+		transition: all .4s;
+		-webkit-transition: all .4s;
+	}
+
+	.item:hover {
+		transform: scale(1.15);
+		-ms-transform: scale(1.15);
+		-webkit-transform: scale(1.15);
+		box-shadow: 0 0 0 #888;
+		background-color: #fff;
+	}
+
+	.img-recommend{
+		width: 222;
+		height: 200;
+	}
+
+	
+
+
 	@media (max-width: 991px) {
 		.img-fluid {
 			max-width: 100%;
@@ -111,6 +133,7 @@
 		</form>
 
 	</div>
+</div>
 
 	<div id="specyfikacja" class="col-md-12 border-top">
 		<p class="display-4">Opis</p>
@@ -133,18 +156,20 @@
 	</div>
 
 	{% if recommendations %}
-	<div id="recommend" class="col-md-12 border-top mt-4">
-		<h3>Rekomendowane produkty</h3>
+	<h3>Rekomendowane produkty</h3><br>
+	<div id="recommend" class="product-list row col-md-12 mb-2 mt-4 text-center">
 		{% for item in recommendations %}
+		<div class="item bg-light text-center">
 		<br><a href="{% url 'shop:product_detail' item.id item.slug %}">
 			<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
-				height=200 width=250>
-			<br>{{ item.name }}</a>
+			width="215" height="200" class="img-recommend">	
+			<br>{{ item.name }}</a> 
 		<br>{{ item.price }}
-
+		</div>
 		<br>
 		{% endfor %}
 	</div>
+
 	{% endif %}
 
 	<div id="recenzje" class="col-md-12 border-top mt-4">
