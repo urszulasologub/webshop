@@ -1,21 +1,57 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Lista produktów do skompletowania - strona pracownika</title>
-	</head>
-	<body>	
-		<a href="{% url 'staff:manage_orders' %}">Powrót</a>
-		<br><br><b>Produkty do skompletowania:</b>
-		<br>Mozna skompletowac tylko te zamowienia, które są opłacone.<br>
-		{% for component in components %}
-			{% if component.is_completed == False and component.order.is_confirmed %}
-				<br>ID komponentu: {{component.id }}
-				<br>Produkt: {{ component.product.name }}
-				<br>ID Produktu: {{ component.product.id }}
-				<br>Numer zamówienia: <a href="{% url 'staff:show_order' component.order.id %}">{{ component.order.id|stringformat:"06d" }}</a>
-				<br><a href="{% url 'staff:completed_component' component.id %}" class="btn btn-primary">Dodałem do zamówienia</a>
-				<br><br>
-			{% endif %}
-		{% endfor %}
-	</body>
-</html>
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ product.name }}
+{% endblock %}
+
+{% block content %}
+<style>
+	.center {
+		margin-left: auto;
+		margin-right: auto;
+		align-content: center;
+		align-self: center;
+		text-align: center;
+	}
+</style>
+
+<head>
+	<title>Lista produktów do skompletowania - strona pracownika</title>
+</head>
+
+<div class="center">
+
+	<a href="{% url 'staff:manage_orders' %}">Powrót</a>
+	<br><br><b>Produkty do skompletowania:</b>
+	<br>Mozna skompletowac tylko te zamowienia, które są opłacone.<br><br><br>
+
+	{% for component in components %}
+	{% if component.is_completed == False and component.order.is_confirmed %}
+
+	<table class="center" border="5" cellpadding="6">
+		<tr>
+			<th>ID komponentu:</th>
+			<th>Produkt:</th>
+			<th>ID Produktu:</th>
+			<th>Numer zamówienia:</th>
+
+		</tr>
+		<tr>
+			<td> {{component.id }}</td>
+			<td>{{ component.product.name }}</td>
+			<td>{{ component.product.id }}</td>
+			<td><a
+					href="{% url 'staff:show_order' component.order.id %}">{{ component.order.id|stringformat:"06d" }}</a>
+			</td>
+		</tr>
+	</table>
+	<a href="{% url 'staff:completed_component' component.id %}" class="btn btn-primary">Dodałem do zamówienia</a>
+	<br><br><br><br>
+
+
+
+	{% endif %}
+	{% endfor %}
+</div>
+{% endblock %}

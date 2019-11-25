@@ -157,7 +157,7 @@
 
 	{% if recommendations %}
 	<h3>Rekomendowane produkty</h3><br>
-	<div id="recommend" class="product-list row col-md-12 mb-2 mt-4 text-center">
+	<div id="recommend" class="product-list row col-md- mb-2 mt-4 text-center">
 		{% for item in recommendations %}
 		<div class="item bg-light text-center">
 		<br><a href="{% url 'shop:product_detail' item.id item.slug %}">
