@@ -24,130 +24,12 @@
 
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/base.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'shop/style.css' %}">
 
 	<script src="https://kit.fontawesome.com/7ddcda0d1c.js" crossorigin="anonymous"></script>
-	<style>
-		body {
-			padding-top: 86px;
-		}
 
-		.fa-shopping-cart {
-			font-size: 30px;
-		}
-
-		.fa-user {
-			font-size: 30px;
-			padding: 8px;
-			color: rgba(255, 255, 255, .5) !important;
-		}
-
-		#user_f {
-			font-family: "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-		}
-
-
-
-		/* The Modal (background) */
-		.modal {
-			display: none;
-			/* Hidden by default */
-			position: fixed;
-			/* Stay in place */
-			z-index: 1;
-			/* Sit on top */
-			padding-top: 100px;
-			/* Location of the box */
-			left: 0;
-			top: 0;
-			width: 100%;
-			/* Full width */
-			height: 100%;
-			/* Full height */
-			overflow: auto;
-			/* Enable scroll if needed */
-			background-color: rgb(0, 0, 0);
-			/* Fallback color */
-			background-color: rgba(0, 0, 0, 0.4);
-			/* Black w/ opacity */
-		}
-
-		/* Modal Content */
-		.modal-content {
-			background-color: #fefefe;
-			margin: auto;
-			padding: 20px;
-			border: 1px solid #888;
-			width: 80%;
-		}
-
-		/* The Close Button */
-		.close {
-			color: #aaaaaa;
-			float: right;
-			font-size: 28px;
-			font-weight: bold;
-		}
-
-		.close:hover,
-		.close:focus {
-			color: #000;
-			text-decoration: none;
-			cursor: pointer;
-		}
-
-		.qty {
-			width: 20px;
-			height: 20px;
-			line-height: 20px;
-			text-align: center;
-			border-radius: 50%;
-			font-size: 10px;
-			color: #FFF;
-			background-color: #D10024;
-			float: right;
-			margin-top: -8px;
-			font-family: "arial";
-		}
-
-		.map-responsive{
-			overflow:hidden;
-			padding-bottom:15%;
-			position:relative;
-			height:0;
-			-webkit-filter: grayscale(100%);
-			-moz-filter: grayscale(100%);
-			-ms-filter: grayscale(100%);
-			-o-filter: grayscale(100%);
-			filter: grayscale(100%);
-		}
-	
-		.map-responsive iframe{
-			left:0;
-			top:0;
-			height:100%;
-			width:100%;
-			position:absolute;
-		}
-
-		#newsletter{
-			padding: 50px 0 50px 0;
-		}
-		
-		@media (max-width: 991px) {
-			#user_nav
-			{
-				position: absolute;
-			}
-
-			.map-responsive{
-				padding-bottom:30%;
-			}
-		{
-
-
-	</style>
-
-	<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Ensures optimal rendering on mobile devices. -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Ensures optimal rendering on mobile devices. -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
 
 </head>
@@ -166,18 +48,18 @@
 				<ul class="navbar-nav ml-auto">
 					<li>
 						<!-- Trigger/Open The Modal -->
-						<div id="wozek_z_numerkim">					
+						<div id="wozek_z_numerkim">
 							<a id="myBtn" class="nav-link nav-item fas fa-shopping-cart">
 
 								{% with total_items=cart|length %}
 								{% if cart|length > 0 %}
-									<div class="qty">{{ total_items }}</div>
+								<div class="qty">{{ total_items }}</div>
 								{% else %}
 								<div class="qty">{{ total_items }}</div>
 								{% endif %}
 								{% endwith %}
 							</a>
-						</div>	
+						</div>
 						<!-- The Modal -->
 						<div id="myModal" class="modal">
 
@@ -185,69 +67,72 @@
 							<div class="modal-content">
 								<span class="close">&times;</span>
 
-										<h1>Twój koszyk</h1>
-										<table class="cart" style="width:100%">
-											<thead>
-												<tr class="border-bottom">
-													<th>Obraz</th>
-													<th>Produkt</th>
-													<th>Ilość</th>
-													<th>Usuń</th>
-													<th>Cena jednostkowa</th>
-													<th class="num text-right">Cena</th>
-												</tr>
-											</thead>
-											<tbody>
-												{% for item in cart %}
-												{% with product=item.product %}
-												<tr>
-													<td>
-														<a href="{{ product.get_absolute_url }}">
-															<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
-																height="50" width="50">
-														</a>
-													</td>
-													<td>{{ product.name }}</td>
-													<td>{{ item.quantity }}</td>
-													<td><a href="{% url 'cart:cart_remove' product.id %}">Usuń</a></td>
-													<td class="num">{{ item.price }} PLN</td>
-													<td class="num text-right">{{ item.total_price }} PLN</td>
-												</tr>
-												{% endwith %}
-												{% endfor %}
-												<tr>
-													<td colspan="5"></td>
-													<td class="num border-top text-right">Wartość zakupów:
-														{{ cart.get_total_price }} PLN</td>
-												</tr>
-											</tbody>
-										</table>
-										<p class="text-right">
-											<a href="{% url 'shop:product_list' %}" class="button
+								<h1>Twój koszyk</h1>
+								<table class="cart" style="width:100%">
+									<thead>
+										<tr class="border-bottom">
+											<th>Obraz</th>
+											<th>Produkt</th>
+											<th>Ilość</th>
+											<th>Usuń</th>
+											<th>Cena jednostkowa</th>
+											<th class="num text-right">Cena</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for item in cart %}
+										{% with product=item.product %}
+										<tr>
+											<td>
+												<a href="{{ product.get_absolute_url }}">
+													<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
+														height="50" width="50">
+												</a>
+											</td>
+											<td>{{ product.name }}</td>
+											<td>{{ item.quantity }}</td>
+											<td><a href="{% url 'cart:cart_remove' product.id %}">Usuń</a></td>
+											<td class="num">{{ item.price }} PLN</td>
+											<td class="num text-right">{{ item.total_price }} PLN</td>
+										</tr>
+										{% endwith %}
+										{% endfor %}
+										<tr>
+											<td colspan="5"></td>
+											<td class="num border-top text-right">Wartość zakupów:
+												{{ cart.get_total_price }} PLN</td>
+										</tr>
+									</tbody>
+								</table>
+								<p class="text-right">
+									<a href="{% url 'shop:product_list' %}" class="button
 					        light btn btn-primary">Kontynuuj zakupy</a>
-											<a href="{% url 'cart:cart_detail' %}" class="button btn btn-primary">Przejdź do podsumowania</a>
-										</p>
+									<a href="{% url 'cart:cart_detail' %}" class="button btn btn-primary">Przejdź do
+										podsumowania</a>
+								</p>
 							</div>
 						</div>
 					</li>
 
 					{% if user.is_authenticated %}
-						<li class="nav-item">
-							<a class="fas fa-user">
-							</a>
-							<a href="{% url 'profile:show_profile' %}"><span id="user_nav" class="h3 color-white float-right" style="color:white; padding-top: 3px" >{{ user.username }}</span></a>
-						</li>
+					<li class="nav-item">
+						<a class="fas fa-user">
+						</a>
+						<a href="{% url 'profile:show_profile' %}"><span id="user_nav"
+								class="h3 color-white float-right"
+								style="color:white; padding-top: 3px">{{ user.username }}</span></a>
+					</li>
 
-						<li class="nav-item">
-							<a class="nav-link h4" href="{% url 'account:logout' %}">Wyloguj się</a>
-						</li>
+					<li class="nav-item">
+						<a class="nav-link h4" href="{% url 'account:logout' %}">Wyloguj się</a>
+					</li>
 					{% else %}
-						<li class="nav-item">
-							<a class="nav-link" href="{% url 'account:login' %}">Logowanie</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{% url 'account:register' %}">Rejestracja</a>
-						</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'account:login' %}">Logowanie</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'account:register' %}">Rejestracja</a>
+					</li>
 					{% endif %}
 				</ul>
 			</div>
@@ -264,33 +149,39 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col">
-					
+
 					<h2 class="text-center">Newsletter</h2>
-					<div class="row justify-content-center"><div class="col-6">
-						<p class="text-center pt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam illo praesentium sequi in cum, beatae maiores quae qui.</p>
-					</div>
-					</div>
-					<div class="container"><div class="row justify-content-center">
-						<div class="col-4">
-							<input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="Email address">
-						</div>
-						<div class="col-1">
-							<button type="submit" class="btn btn-primary" id="mc-embedded-subscribe">
-							Subscribe
-							</button>
+					<div class="row justify-content-center">
+						<div class="col-6">
+							<p class="text-center pt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+								Quisquam illo praesentium sequi in cum, beatae maiores quae qui.</p>
 						</div>
 					</div>
-					</div> 	
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-4">
+								<input type="email" value="" name="EMAIL" class="required email form-control"
+									id="mce-EMAIL" placeholder="Email address">
+							</div>
+							<div class="col-1">
+								<button type="submit" class="btn btn-primary" id="mc-embedded-subscribe">
+									Subscribe
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 
 
 	<div class="container-box">
 		<div class="map-responsive">
-			<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+			<iframe
+				src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France"
+				width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 		</div>
 	</div>
 
@@ -300,7 +191,9 @@
 			<div class="row">
 				<div class="col-md-4">
 					<h6 class="mb-4 text-primary">O nas</h6>
-					<p class="text-white-50">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae tempora consectetur, sunt quia illo ipsa nihil totam eos rerum minus nesciunt quasi sapiente unde ex odit earum eius iusto consequuntur.</p>
+					<p class="text-white-50">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae tempora
+						consectetur, sunt quia illo ipsa nihil totam eos rerum minus nesciunt quasi sapiente unde ex
+						odit earum eius iusto consequuntur.</p>
 				</div>
 
 				<div class="col-md-4">
@@ -308,18 +201,18 @@
 					<p class="text-white-50"><i class="fas fa-map-marker-alt h4"></i> Champ de Mars, 5 France</p>
 					<p class="text-white-50"><i class="fas fa-phone-alt h4"></i>
 
-					+1 987 654 3210</>
-					<p class="text-white-50"><i class="fas fa-envelope h4"></i>
+						+1 987 654 3210</>
+						<p class="text-white-50"><i class="fas fa-envelope h4"></i>
 
-					shop@shop.com</p>
+							shop@shop.com</p>
 				</div>
 
 				<div class="col-md-4">
 					<h6 class="mb-4 text-primary">Social Media</h6>
 					<p class="text-white-50"><i class="fab fa-facebook-square h4"></i>
-					Facebook</p>
+						Facebook</p>
 					<p class="text-white-50"><i class="fab fa-instagram h4"></i>
-					Instagram</p>
+						Instagram</p>
 					<p class="text-white-50"><i class="fab fa-twitter-square h4"></i>
 						Twitter
 					</p>
@@ -363,13 +256,13 @@
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-		</script>
+	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-		</script>
+	</script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-		</script>
+	</script>
 </body>
 
 </html>
