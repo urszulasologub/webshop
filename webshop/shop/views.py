@@ -69,6 +69,8 @@ def product_detail(request, id, slug):
 		if id in recent:
 			recent.remove(id)
 		recent.insert(0, id)
+		if len(recent) > 5:
+			recent.pop()
 		request.session['recent'] = recent
 
 	return render(request, 'shop/product/detail.html', {'product': product,
