@@ -1,68 +1,154 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ product.name }}
+{% endblock %}
+
+{% block content %}
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>{{ order.id|stringformat:"06d" }}: Szczegóły - strona pracownika</title>
-	</head>
-	<body>
-		<a href="{% url 'staff:manage_orders' %}">Powrót</a>
-		<h4>Zamówienie numer {{ order.id|stringformat:"06d" }}</h4>
-		{% if order.is_confirmed and order.is_completed == False %}
-			<br><h3>Opłacone</h3>
-			<br>Mozna rozpocząć kompletowanie zamówienia!<br>
-		{% elif order.is_confirmed == False %}
-			<br><h3>Nieopłacone!</h3>
-		{% elif order.is_completed and order.is_sent == False%}
-			<br><h3>Zamówienie zostało opłacone i skompletowane.
-			<br>Czy wysłałeś zamówienie? Podaj kod do śledzenia paczki.
-			<form action="" method="post">
-				{{ form.as_p }}
-				{% csrf_token %}
-				<input type="submit" class="btn btn-primary" value="Potwierdzam wysłanie zamówienia">
-			</form>
-		{% endif %}
-		<br><b>Dane kupującego</b>
-		<br>Uzytkownik: {{ order.user }}
-		<br>Imię: {{ order.name }}
-		<br>Nazwisko: {{ order.surname }}
-		<br>Adres: 
-			<br><i>{{ order.address }}
-			<br>{{ order.city }}
-			<br>{{ order.postal_code }}</i>
-		<br><br><b>Opłaty</b>
-		<br>Produkty: {{ order.price }} PLN
-		<br>Dostawa: {{ order.delivery_price }} PLN
-		<br>Całościowy koszt: {{ order.total_price }} PLN
-		<br><br><b>Sposób dostawy:</b> {{ order.delivery_type }}
-		<br><br><b>Status zamówienia:</b> 
-		<br>Czy opłacone? {% if order.is_confirmed %}Tak{% else %}<u>Nie</u>{% endif %}
-		<br>ID płatności: {{ order.payment_id }}
-		<br>Czy skompletowane? {% if order.is_completed %}Tak{% else %}<u>Nie</u>{% endif %}
-		<br>Czy wysłane? {% if order.is_sent %}Tak{% else %}<u>Nie</u>{% endif %}
-		<br>Kod do śledzenia paczki: {{ order.delivery_searching_code }}
-		
-		{% if order.is_confirmed %}
-			{% if order.is_completed == False %}
-				<br><br><b>Produkty do skompletowania:</b>
-				{% for component in components %}
-					{% if component.is_completed == False %}
-						<br>ID Komponentu: {{component.id }}
-						<br>Produkt: {{ component.product.name }}
-						<br>ID Produktu: {{ component.product.id }}
-						<br><a href="{% url 'staff:completed_component' component.id %}" class="btn btn-primary">Dodałem do zamówienia</a>
-						<br><br>
-					{% endif %}
-				{% endfor %}
-			{% endif %}
-			<br><br><b>Produkty skompletowane:</b>
-			{% for component in components %}
-				{% if component.is_completed %}
-					<br>ID Komponentu: {{component.id }}
-					<br>Produkt: {{ component.product.name }}
-					<br>ID Produktu: {{ component.product.id }}
-					<br><br>
-				{% endif %}
-			{% endfor %}
-		{% endif %}
 
-	</body>
+<style>
+	.center {
+		margin-left: auto;
+		margin-right: auto;
+		align-content: center;
+		align-self: center;
+		text-align: center;
+	}
+</style>
+
+<head>
+	<title>{{ order.id|stringformat:"06d" }}: Szczegóły - strona pracownika</title>
+</head>
+
+<body class="center">
+	<a href="{% url 'staff:manage_orders' %}">Powrót</a>
+	<h4>Zamówienie numer {{ order.id|stringformat:"06d" }}</h4>
+	{% if order.is_confirmed and order.is_completed == False %}
+	<br>
+	<h3>Opłacone</h3>
+	<br>Mozna rozpocząć kompletowanie zamówienia!<br>
+	{% elif order.is_confirmed == False %}
+	<br>
+	<h3>Nieopłacone!</h3>
+	{% elif order.is_completed and order.is_sent == False%}
+	<br>
+	<h3>Zamówienie zostało opłacone i skompletowane.</h3>
+	<br>Czy wysłałeś zamówienie? Podaj kod do śledzenia paczki.
+	<form action="" method="post">
+		{{ form.as_p }}
+		{% csrf_token %}
+		<input type="submit" class="btn btn-primary" value="Potwierdzam wysłanie zamówienia">
+	</form>
+	{% endif %}
+
+	<br><b>Dane kupującego</b>
+
+	<table class="center" border="5" cellpadding="6">
+		<tr>
+			<th>Uzytkownik:</th>
+			<th>Imię: </th>
+			<th>Nazwisko:</th>
+			<th>Adres:</th>
+			<th>Miasto:</th>
+			<th>Kod pocztowy:</th>
+
+		</tr>
+		<tr>
+			<td>{{ order.user }}</td>
+			<td>{{ order.name }}</td>
+			<td>{{ order.surname }}</td>
+			<td>{{ order.address }}</td>
+			<td>{{ order.city }}</td>
+			<td>{{ order.postal_code }}</td>
+		</tr>
+	</table>
+
+	<br><br><b>Opłaty</b>
+
+	<table class="center" border="5" cellpadding="6">
+		<tr>
+			<th>Produkty:</th>
+			<th>Dostawa: </th>
+			<th>Całościowy koszt:</th>
+		</tr>
+		<tr>
+			<td>{{ order.price }} PLN</td>
+			<td>{{ order.delivery_price }} PLN</td>
+			<td>{{ order.total_price }} PLN</td>
+		</tr>
+	</table>
+
+	<br><br><b>Sposób dostawy:</b> {{ order.delivery_type }}
+
+
+	<br><br><br><b>Status zamówienia:</b>
+
+	<table class="center" border="5" cellpadding="6">
+		<tr>
+			<th>Czy opłacone? </th>
+			<th>ID płatności:</th>
+			<th>Czy skompletowane?</th>
+			<th>Czy wysłane?</th>
+			<th>Kod do śledzenia paczki:</th>
+
+		</tr>
+		<tr>
+			<td>{% if order.is_confirmed %}Tak{% else %}<u>Nie</u>{% endif %}</td>
+			<td>{{ order.payment_id }}</td>
+			<td>{% if order.is_completed %}Tak{% else %}<u>Nie</u>{% endif %}</td>
+			<td>{% if order.is_sent %}Tak{% else %}<u>Nie</u>{% endif %}</td>
+			<td>{{ order.delivery_searching_code }}</td>
+		</tr>
+	</table>
+
+	{% if order.is_confirmed %}
+	{% if order.is_completed == False %}
+	<br><br><b>Produkty do skompletowania:</b>
+	{% for component in components %}
+	{% if component.is_completed == False %}
+	<br><br>
+	<table class="center" border="5" cellpadding="6">
+		<tr>
+			<th>ID Komponentu: </th>
+			<th>Produkt: </th>
+			<th>ID Produktu:</th>
+
+		</tr>
+		<tr>
+			<td>{{component.id }}</td>
+			<td>{{ component.product.name }}</td>
+			<td>{{ component.product.id }}</td>
+		</tr>
+	</table>
+	<a href="{% url 'staff:completed_component' component.id %}" class="btn btn-primary">Dodałem do zamówienia</a>
+	<br>
+	{% endif %}
+	{% endfor %}
+	{% endif %}
+	<br><br><b>Produkty skompletowane:</b>
+	{% for component in components %}
+	{% if component.is_completed %}
+	<table class="center" border="5" cellpadding="6">
+		<tr>
+			<th>ID Komponentu: </th>
+			<th>Produkt: </th>
+			<th>ID Produktu:</th>
+
+		</tr>
+		<tr>
+			<td>{{component.id }}</td>
+			<td>{{ component.product.name }}</td>
+			<td>{{ component.product.id }}</td>
+		</tr>
+	</table>
+	{% endif %}
+	{% endfor %}
+	{% endif %}
+
+</body>
+
 </html>
+{% endblock %}
