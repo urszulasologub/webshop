@@ -219,7 +219,11 @@
 		{% else %}
 		<p class="display-4">Dodaj nową recenzję </p>
 		<form action="" method="post">
-			{{ review_form.as_p }}
+			<!--{{ review_form.as_p }}
+			{{ review_form.rating.label_tag }} -->
+			{{ review_form.body}} <br>
+			{{ review_form.rating}} <br> <br>
+			
 			{% csrf_token %}
 			<input type="submit" class="btn btn-primary" value="Dodaj recenzję">
 		</form>
