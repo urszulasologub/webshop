@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
+#from .recent import Recent
 from .models import Category, Product, Review, Description, Parameter
 from .forms import ReviewForm#, DescriptionForm
 from cart.forms import CartAddProductForm
@@ -20,8 +21,18 @@ def product_list(request, category_slug=None):
 	if category_slug:
 		category = get_object_or_404(Category, slug=category_slug)
 		products = products.filter(category=category)
+
+	#del request.session['recent'] #usuwa sesję
+
+	if 'recent' in request.session:
+		#recent = request.session['recent']
+		#recent = Product.objects.filter(id=request.session['recent'])
+		recent = [Product.objects.get(id=id) for id in request.session['recent']]
+		#recent = Product.objects.filter(id__in=request.session.get('recent', []))
+	else:
+		recent = None
 	return render(request, 'shop/product/list.html',
-				  {'category': category, 'categories': categories, 'products': products})
+				  {'category': category, 'categories': categories, 'products': products, 'recent': recent})
 
 
 @login_required
@@ -54,6 +65,18 @@ def product_detail(request, id, slug):
 	else:
 		review_form = ReviewForm()
 	recommendations = choose_recommended(request, product.category, 5)
+
+	#self.session = request.session
+	#recent = Recent(request)
+	#recent.add(product)
+
+	if not 'recent' in request.session or not request.session['recent']:
+		request.session['recent'] = [id]
+	else:
+		recent = request.session['recent']
+		recent.append(id)
+		request.session['recent'] = recent
+
 	return render(request, 'shop/product/detail.html', {'product': product,
 														'cart_product_form': cart_product_form,
 														'descriptions': descriptions,
@@ -79,7 +102,7 @@ class ParameterAutocomplete(autocomplete.Select2QuerySetView):
 		#	return Description.objects.none()
 
 		qs = Description.objects.all()
-		#pqs = Parameter.objects.all()
+		'''#pqs = Parameter.objects.all()
 
 		#product = self.forwarded.get('product', None)
 		#parameters = self.forward.get('category', None)
@@ -88,7 +111,7 @@ class ParameterAutocomplete(autocomplete.Select2QuerySetView):
 
 		#if product:
 		#	pqs = pqs.filter(category)
-		#	qs = qs.filter(product)
+		#	qs = qs.filter(product)'''
 
 		if self.q:
 			#pqs = pqs.filter()
@@ -111,5 +134,3 @@ def choose_recommended(request, category, amount):
 		if (i == amount):
 			break
 	return recommended_products
-
-		

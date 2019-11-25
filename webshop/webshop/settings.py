@@ -150,3 +150,6 @@ AUTHENTICATION_BACKENDS = (
 SITE_URL = "http://127.0.0.1:8000"
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+#SESSION_COOKIE_AGE = 30 * 60 #ustawione na 30 min (ustawia się w sekundach)
