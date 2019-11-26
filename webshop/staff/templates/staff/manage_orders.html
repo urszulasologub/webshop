@@ -62,7 +62,7 @@
 			</tr>
 			<tr>
 				<td>{{ order.id|stringformat:"06d" }}</td>
-				<td>{% if order.is_confirmed %}Tak{% else %}Nie{% endif %}</td>
+				<td>{% if order.is_confirmed %}<u>Tak</u>{% else %}Nie{% endif %}</td>
 				<td>{% if order.is_completed %}Tak{% else %}Nie{% endif %}</td>
 				<td>{% if order.is_sent %}Tak{% else %}Nie{% endif %}</td>
 				<td>{{ order.total_price }}</td>
