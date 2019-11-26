@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Adres do wysyłki
+Adres do wysyłki
 {% endblock %}
 
 {% block content %}
@@ -10,7 +10,6 @@
 <style>
 	.login-page {
 		width: 500px;
-		padding: 8% 0 0;
 		margin: auto;
 	}
 
@@ -19,7 +18,6 @@
 		z-index: 1;
 		background: #FFFFFF;
 		max-width: 500px;
-		margin: 0 auto 100px;
 		padding: 45px;
 		text-align: center;
 		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -114,25 +112,23 @@
 
 	ul {
 		list-style-type: none;
-		
+
 	}
 
 	li {
-		
+
 		text-align: left;
 	}
-	
-	.btn{
-		color: white!important;
-		background-color: #007bff!important;
-	}
-	
-	.btn:hover{
-		color: black!important;
-		background-color: #f2f2f2!important;
+
+	.btn {
+		color: white !important;
+		background-color: #007bff !important;
 	}
 
-
+	.btn:hover {
+		color: black !important;
+		background-color: #f2f2f2 !important;
+	}
 </style>
 
 <script>
@@ -144,20 +140,75 @@
 	});
 </script>
 
-	
-    <div class="login-page">
 
-            <div class="form">
-                <form class="register-form">
+<div class="login-page">
 
-                </form>
-                <form action="" method="post" class="login-form">
-					{{ address_form.as_p }}
-					{% csrf_token %}
-                    <input type="submit" class="btn" value="Przejdź dalej">                  
-                </form>
-            </div>
-        </div>
+	<div class="form">
+
+
+		<form action="" method="post" class="address_form">
+			{% csrf_token %}
+
+			<div class="fieldWrapper">
+				{{ address_form.name.label_tag }} {{ address_form.name }}
+				{% if address_form.name.help_text %}
+				<p class="help">{{ address_form.name.help_text|safe }}</p>
+				{% endif %}
+			</div>
+
+			<div class="fieldWrapper">
+					{{ address_form.surname.label_tag }} {{ address_form.surname }}
+					{% if address_form.surname.help_text %}
+					<p class="help">{{ address_form.surname.help_text|safe }}</p>
+					{% endif %}
+			</div>
+
+			<div class="fieldWrapper">
+					{{ address_form.street.label_tag }} {{ address_form.street }}
+					{% if address_form.street.help_text %}
+					<p class="help">{{ address_form.street.help_text|safe }}</p>
+					{% endif %}
+			</div>
+
+			<div class="fieldWrapper">
+					{{ address_form.number.label_tag }} {{ address_form.number }}
+					{% if address_form.number.help_text %}
+					<p class="help">{{ address_form.number.help_text|safe }}</p>
+					{% endif %}
+			</div>
+
+			<div class="fieldWrapper">
+					{{ address_form.city.label_tag }} {{ address_form.city }}
+					{% if address_form.city.help_text %}
+					<p class="help">{{ address_form.city.help_text|safe }}</p>
+					{% endif %}
+			</div>
+			
+			<div class="row">
+				<p class="col-12">Kod Pocztowy:</p>
+				<div class="fieldWrapper col-5">					
+					{{ address_form.postal_code_1 }}
+					{% if address_form.postal_code_1.help_text %}
+					
+					<p class="help">{{ address_form.postal_code_1.help_text|safe }}</p>
+					{% endif %}
+				</div>
+				<div class="fieldWrapper p-0 col-1">					
+					<p class="h1">-</p>
+				</div>
+				<div class="fieldWrapper col-6">
+					{{ address_form.postal_code_2 }}
+					{% if address_form.postal_code_2.help_text %}
+					<p class="help">{{ address_form.postal_code_2.help_text|safe }}</p>
+					{% endif %}
+				</div>
+			</div>
+
+			<input type="submit" class="btn" value="Przejdź dalej">
+		</form>
+		
+	</div>
+</div>
 
 
 
