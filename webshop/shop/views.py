@@ -23,12 +23,12 @@ def product_list(request, category_slug=None):
 
 	#del request.session['recent'] #usuwa sesję
 
-	if 'recent' in request.session:
+	'''if 'recent' in request.session:
 		recent = [Product.objects.get(id=id) for id in request.session['recent']]
 	else:
-		recent = None
+		recent = None'''
 	return render(request, 'shop/product/list.html',
-				  {'category': category, 'categories': categories, 'products': products, 'recent': recent})
+				  {'category': category, 'categories': categories, 'products': products})
 
 
 @login_required
@@ -64,7 +64,9 @@ def product_detail(request, id, slug):
 
 	if not 'recent' in request.session or not request.session['recent']:
 		request.session['recent'] = [id]
+		show_recent = None
 	else:
+		show_recent = [Product.objects.get(id=id) for id in request.session['recent']]
 		recent = request.session['recent']
 		if id in recent:
 			recent.remove(id)
@@ -80,7 +82,8 @@ def product_detail(request, id, slug):
 														'new_review': new_review,
 														'review_form': review_form,
 														'users_reviews': users_reviews,
-														'recommendations': recommendations})
+														'recommendations': recommendations,
+														'recent': show_recent})
 
 
 @login_required
