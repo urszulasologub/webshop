@@ -79,12 +79,28 @@
 		background-color: #fff;
 	}
 
-	.img-recommend{
-		width: 222;
-		height: 200;
+	.img-fluid {
+		max-width: 100%;
+		height: 250px;
 	}
 
-	
+	.text-overflow {
+		display: -webkit-box;
+		max-height: 50px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		margin-bottom: auto;
+		line-height: 25px;
+	}
+
+	#opis {
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+
 
 
 	@media (max-width: 991px) {
@@ -135,104 +151,112 @@
 	</div>
 </div>
 
-	<div id="specyfikacja" class="col-md-12 border-top">
-		<p class="display-4">Opis</p>
-		<div id="rozmiar-tekstu">
-			{{ product.description|linebreaks }}
-		</div>
-		<p class="display-4">Specyfikacja</p>
-
-
-		<table id="rozmiar-tekstu" class="table table-hover text-center">
-			<tbody>
-				{% for description in descriptions %}
-				<td>{{ description.parameter }}</td>
-				<td>{{ description.description }}</td>
-			</tbody>
-			{% endfor %}
-		</table>
-
-
+<div id="specyfikacja" class="col-md-12 border-top">
+	<p class="display-4">Opis</p>
+	<div id="rozmiar-tekstu">
+		{{ product.description|linebreaks }}
 	</div>
+	<p class="display-4">Specyfikacja</p>
 
-	{% if recommendations %}
-	<h3>Rekomendowane produkty</h3><br>
-	<div id="recommend" class="product-list row col-md- mb-2 mt-4 text-center">
-			{% for item in recommendations %}
-			<div class="item bg-light text-center">
-				<br><a href="{% url 'shop:product_detail' item.id item.slug %}">
-					<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
-					width="215" height="200" class="img-recommend">	
-					<br>{{ item.name }}</a> 
-				<br>{{ item.price }}
-			</div>
-			<br>
+
+	<table id="rozmiar-tekstu" class="table table-hover text-center">
+		<tbody>
+			{% for description in descriptions %}
+			<td>{{ description.parameter }}</td>
+			<td>{{ description.description }}</td>
+		</tbody>
 		{% endfor %}
-	</div>
+	</table>
 
-	{% endif %}
 
-	<div id="recenzje" class="col-md-12 border-top mt-4">
-		<p class="display-4">Recenzje </p>
-		{% for review in reviews %}
-		<div id="recenzja">
+</div>
 
-			<div id="autor"> {{ review.user.username }} </div><br>
+{% if recommendations %}
+<h3>Rekomendowane produkty</h3><br>
 
-			{% if review.rating == 1 %}
-			<div id="ocena">★</div><br>
-			{% endif %}
-			{% if review.rating == 2 %}
-			<div id="ocena">★★</div><br>
-			{% endif %}
-			{% if review.rating == 3 %}
-			<div id="ocena">★★★</div><br>
-			{% endif %}
-			{% if review.rating == 4 %}
-			<div id="ocena">★★★★</div><br>
-			{% endif %}
-			{% if review.rating == 5 %}
-			<div id="ocena">★★★★★</div><br>
-			{% endif %}
-
-			<div id="komentarz"> {{ review.body }}</div>
-
-			{% if review.user == user %}
-			<a class="btn btn-primary" href="{% url 'shop:delete_review' review.id %}">Usuń</a>
-			{% endif %}
-
+<div id="recommend" class="product-list row  col-md-12 mb-2 mt-4 text-center">
+	{% for item in recommendations %}
+	<div class="item col-md-3 mb-2 mt-4">
+		<div id="img" class="bg-light text-center">
+			<a href="{% url 'shop:product_detail' item.id item.slug %}">
+				<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
+					class="img-fluid p-2">
+				<div id="opis" class="bg-light">
+					<p class=" pl-2 text-overflow">{{ item.name }} </p>
+				</div>
+			</a>
 		</div>
-		{% empty %}
-
-		<p>Nie ma jeszcze żadnych recenzji tego produktu. </p>
-		{% endfor %}
-
+		<div id="cena" class="pl-2 border-bottom  bg-light">
+			<h4> {{ item.price }} PLN</h4>
+		</div>
 	</div>
 
-	<div id="recenzje" class="col-md-12 border-top mt-4">
-		{% if user.is_authenticated %}
-		{% if users_reviews %}
-		<!-- <br>Już napisałeś recenzję tego produktu. -->
-		{% else %}
-		{% if new_review %}
-		<!-- <h2>Pomyślnie dodano recenzję</h2> -->
-		{% else %}
-		<p class="display-4">Dodaj nową recenzję </p>
-		<form action="" method="post">
-			<!--{{ review_form.as_p }}
+	{% endfor %}
+</div>
+
+{% endif %}
+
+<div id="recenzje" class="col-md-12 border-top mt-4">
+	<p class="display-4">Recenzje </p>
+	{% for review in reviews %}
+	<div id="recenzja">
+
+		<div id="autor"> {{ review.user.username }} </div><br>
+
+		{% if review.rating == 1 %}
+		<div id="ocena">★</div><br>
+		{% endif %}
+		{% if review.rating == 2 %}
+		<div id="ocena">★★</div><br>
+		{% endif %}
+		{% if review.rating == 3 %}
+		<div id="ocena">★★★</div><br>
+		{% endif %}
+		{% if review.rating == 4 %}
+		<div id="ocena">★★★★</div><br>
+		{% endif %}
+		{% if review.rating == 5 %}
+		<div id="ocena">★★★★★</div><br>
+		{% endif %}
+
+		<div id="komentarz"> {{ review.body }}</div>
+
+		{% if review.user == user %}
+		<a class="btn btn-primary" href="{% url 'shop:delete_review' review.id %}">Usuń</a>
+		{% endif %}
+
+	</div>
+	{% empty %}
+
+	<p>Nie ma jeszcze żadnych recenzji tego produktu. </p>
+	{% endfor %}
+
+</div>
+
+<div id="recenzje" class="col-md-12 border-top mt-4">
+	{% if user.is_authenticated %}
+	{% if users_reviews %}
+	<!-- <br>Już napisałeś recenzję tego produktu. -->
+	{% else %}
+	{% if new_review %}
+	<!-- <h2>Pomyślnie dodano recenzję</h2> -->
+	{% else %}
+	<p class="display-4">Dodaj nową recenzję </p>
+	<form action="" method="post">
+		<!--{{ review_form.as_p }}
 			{{ review_form.rating.label_tag }} -->
-			{{ review_form.body}} <br>
-			{{ review_form.rating}} <br> <br>
-			
-			{% csrf_token %}
-			<input type="submit" class="btn btn-primary" value="Dodaj recenzję">
-		</form>
-		{% endif %}
-		{% endif %}
-		{% else %}
-		<h4 class="text-center pt-4">Aby napisać własną recenzję musisz się zalogować.</h4>
-		{% endif %}
-	</div>
+		{{ review_form.body}} <br>
+		{{ review_form.rating}} <br> <br>
+
+		{% csrf_token %}
+		<input type="submit" class="btn btn-primary" value="Dodaj recenzję">
+	</form>
+	{% endif %}
+	{% endif %}
+	{% else %}
+	<h4 class="text-center pt-4">Aby napisać własną recenzję musisz się zalogować.</h4>
+	{% endif %}
+</div>
 
 
 </div>
