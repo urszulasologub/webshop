@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import HttpResponseRedirect
 from statistics import mean
+import operator
 from collections import OrderedDict
 
 
@@ -105,10 +106,11 @@ class ParameterAutocomplete(autocomplete.Select2QuerySetView):
 
 def choose_recommended(request, category, amount):
 	products = Product.objects.filter(category=category)
-	dictionary = OrderedDict()
+	dict = {}
 	for product in products:
 		if product.average_rating != None and product.average_rating > 2.5:
-			dictionary[product] = product.average_rating
+			dict[product] = product.average_rating
+	dictionary = OrderedDict(sorted(dict.items(), key=operator.itemgetter(1), reverse=True))
 	recommended_products = []
 	i = 0
 	for product in dictionary:

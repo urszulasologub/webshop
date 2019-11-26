@@ -158,15 +158,15 @@
 	{% if recommendations %}
 	<h3>Rekomendowane produkty</h3><br>
 	<div id="recommend" class="product-list row col-md- mb-2 mt-4 text-center">
-		{% for item in recommendations %}
-		<div class="item bg-light text-center">
-		<br><a href="{% url 'shop:product_detail' item.id item.slug %}">
-			<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
-			width="215" height="200" class="img-recommend">	
-			<br>{{ item.name }}</a> 
-		<br>{{ item.price }}
-		</div>
-		<br>
+			{% for item in recommendations %}
+			<div class="item bg-light text-center">
+				<br><a href="{% url 'shop:product_detail' item.id item.slug %}">
+					<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
+					width="215" height="200" class="img-recommend">	
+					<br>{{ item.name }}</a> 
+				<br>{{ item.price }}
+			</div>
+			<br>
 		{% endfor %}
 	</div>
 
