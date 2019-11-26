@@ -1,44 +1,106 @@
-<!DOCTYPE html>
-<html>
+{% extends "shop/base.html" %}
+{% load static %}
 
-	<head>
-		<title>Zarządzanie zamówieniami - strona pracownika</title>
-	</head>
-	<body>
-		<form method="POST">
-			{% csrf_token %}
-			<input type="submit" name="btn" value="Wszystkie zamówienia">
-			<br><input type="submit" name="btn" value="Opłacone zamówienia">
-			<br><input type="submit" name="btn" value="Opłacone zamówienia do skompletowania">
-			<br><input type="submit" name="btn" value="Skompletowane zamówienia">
-			<br><input type="submit" name="btn" value="Lista produktów do skompletowania">
-			<br><input type="submit" name="btn" value="Wysłane zamówienia">
-			<br><a class="btn" href="{% url 'staff:find_order' %}">Wyszukaj zamówienie po ID</a>
-		</form>
-		<h3>Historia zamówień:</h3>
+
+{% block content %}
+
+<style>
+	.center {
+		margin-left: auto;
+		margin-right: auto;
+		align-content: center;
+		align-self: center;
+		text-align: center;
+	}
+</style>
+
+<div class="center">
+
+
+	<form method="POST">
+		{% csrf_token %}
+		<br>
+		<h2>Panel Obsługi</h2>
+
+
+		<br>
+
+
+		<table class="center">
+
+			<tr>
+				<td><input type="submit" name="btn" value="Wszystkie zamówienia"></td>
+				<td><input type="submit" name="btn" value="Opłacone zamówienia"></td>
+				<td><input type="submit" name="btn" value="Opłacone zamówienia do skompletowania"></td>
+				<td><input type="submit" name="btn" value="Skompletowane zamówienia"></td>
+				<td><input type="submit" name="btn" value="Wysłane zamówienia"></td>
+			</tr>
+		</table>
+
+		<br><input type="submit" name="btn" value="Lista produktów do skompletowania">
+		<br><br>
+		<a class="btn btn-primary" href="{% url 'staff:find_order' %}">Wyszukaj zamówienie po ID</a>
+
+	</form>
+	<br>
+	<h2>Historia zamówień:</h3>
+		<br>
 		<h4>Biezace zamówienia:</h4>
 		{% for order in orders %}
-			{% if order.is_sent == False %}
-				<br>Numer: {{ order.id|stringformat:"06d" }}
-				<br>Czy opłacono?: {% if order.is_confirmed %}Tak{% else %}Nie{% endif %}
-				<br>Czy skompletowano?: {% if order.is_completed %}Tak{% else %}Nie{% endif %}
-				<br>Czy wysłano?: {% if order.is_sent %}Tak{% else %}Nie{% endif %}
-				<br>Całkowita cena: {{ order.total_price }}
-				<br><a class="btn btn-primary" href="{% url 'staff:show_order' order.id %}">Szczegóły</a>
-				<br><br>
-			{% endif %}
+		{% if order.is_sent == False %}
+
+
+		<table class="center" border="5" cellpadding="6">
+			<tr>
+				<th>Numer</th>
+				<th>Czy opłacono?</th>
+				<th>Czy skompletowano?</th>
+				<th>Czy wysłano?</th>
+				<th>Cena całkowita</th>
+				<th>Więcej</th>
+
+			</tr>
+			<tr>
+				<td>{{ order.id|stringformat:"06d" }}</td>
+				<td>{% if order.is_confirmed %}Tak{% else %}Nie{% endif %}</td>
+				<td>{% if order.is_completed %}Tak{% else %}Nie{% endif %}</td>
+				<td>{% if order.is_sent %}Tak{% else %}Nie{% endif %}</td>
+				<td>{{ order.total_price }}</td>
+				<td><a class="btn btn-primary" href="{% url 'staff:show_order' order.id %}">Szczegóły</a></td>
+			</tr>
+		</table>
+
+
+		{% endif %}
 		{% endfor %}
+		<br>
 		<h4>Wysłane zamówienia:</h4>
 		{% for order in orders %}
-			{% if order.is_sent %}
-				<br>Numer: {{ order.id|stringformat:"06d" }}
-				<br>Czy opłacono?: {% if order.is_confirmed %}Tak{% else %}Nie{% endif %}
-				<br>Czy skompletowano?: {% if order.is_completed %}Tak{% else %}Nie{% endif %}
-				<br>Czy wysłano?: {% if order.is_sent %}Tak{% else %}Nie{% endif %}
-				<br>Całkowita cena: {{ order.total_price }}
-				<br><a class="btn btn-primary" href="{% url 'staff:show_order' order.id %}">Szczegóły</a>
-				<br><br>
-			{% endif %}
+		{% if order.is_sent %}
+		<table border="5" cellpadding="6">
+			<tr>
+				<th>Numer</th>
+				<th>Czy opłacono?</th>
+				<th>Czy skompletowano?</th>
+				<th>Czy wysłano?</th>
+				<th>Cena całkowita</th>
+				<th>Więcej</th>
+				<th>Cena całkowita</th>
+				<th>Cena całkowita</th>
+				<th>Cena całkowita</th>
+
+			</tr>
+			<tr>
+				<td>{{ order.id|stringformat:"06d" }}</td>
+				<td>{% if order.is_confirmed %}Tak{% else %}Nie{% endif %}</td>
+				<td>{% if order.is_completed %}Tak{% else %}Nie{% endif %}</td>
+				<td>{% if order.is_sent %}Tak{% else %}Nie{% endif %}</td>
+				<td>{{ order.total_price }}</td>
+				<td><a class="btn btn-primary" href="{% url 'staff:show_order' order.id %}">Szczegóły</a></td>
+			</tr>
+		</table>
+
+		{% endif %}
 		{% endfor %}
-	</body>
-</html>
+</div>
+{% endblock %}
