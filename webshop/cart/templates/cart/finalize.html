@@ -6,8 +6,11 @@
 {% endblock %}
 
 {% block content %}
-	{{ message }}
-	<br>dopiszcie coś, bo ja juz rzygam htmlem na dziś
-
-	<h2>Twój numer zamówienia to: {{ order.id|stringformat:"06d" }}</h2>
+	<div >
+		<h3>Dziękujemy za zakupy w naszym sklepie!</h3><br>
+		{{ message }}
+		<br><br><h3>Twój numer zamówienia to: {{ order.id|stringformat:"06d" }}</h3><br>
+		<a href="{% url 'profile:show_orders' %}"><b>Pokaz historię zamówień</b></a>
+		<p>Powrót do <a href="/">strony głownej.</a></p>
+	</div>
 {% endblock %}

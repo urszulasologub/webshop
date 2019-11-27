@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import HttpResponseRedirect
 from statistics import mean
+import operator
 from collections import OrderedDict
 
 
@@ -17,6 +18,12 @@ def product_list(request, category_slug=None):
 	category = None
 	categories = Category.objects.all()
 	products = Product.objects.filter(available=True)
+	dictionary = None
+	dictionary = {}
+	for product in products:
+		parameters = Description.objects.filter(product=product)
+		dictionary[product] = parameters
+	print(dictionary)
 	if category_slug:
 		category = get_object_or_404(Category, slug=category_slug)
 		products = products.filter(category=category)
@@ -28,7 +35,7 @@ def product_list(request, category_slug=None):
 	else:
 		recent = None'''
 	return render(request, 'shop/product/list.html',
-				  {'category': category, 'categories': categories, 'products': products})
+				  {'category': category, 'categories': categories, 'products': products, 'dictionary': dictionary })
 
 
 @login_required
@@ -121,10 +128,11 @@ class ParameterAutocomplete(autocomplete.Select2QuerySetView):
 
 def choose_recommended(request, category, amount):
 	products = Product.objects.filter(category=category)
-	dictionary = OrderedDict()
+	dict = {}
 	for product in products:
 		if product.average_rating != None and product.average_rating > 2.5:
-			dictionary[product] = product.average_rating
+			dict[product] = product.average_rating
+	dictionary = OrderedDict(sorted(dict.items(), key=operator.itemgetter(1), reverse=True))
 	recommended_products = []
 	i = 0
 	for product in dictionary:
