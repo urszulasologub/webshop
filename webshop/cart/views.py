@@ -12,6 +12,10 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.utils import timezone
 
+
+FREE_DELIVERY_PRICE = 500
+
+
 @require_POST
 def cart_add(request, product_id):
 	cart = Cart(request)
