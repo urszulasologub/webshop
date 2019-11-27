@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
-from .models import Category, Product, Review, Description, Parameter
+from .models import Category, Product, Review, Description, Parameter, ExtraPhoto
 from .forms import ReviewForm#, DescriptionForm
 from cart.forms import CartAddProductForm
 from django.contrib.auth.decorators import login_required
@@ -82,6 +82,8 @@ def product_detail(request, id, slug):
 			recent.pop()
 		request.session['recent'] = recent
 
+	extra_photos = ExtraPhoto.objects.filter(product=product)
+	
 	return render(request, 'shop/product/detail.html', {'product': product,
 														'cart_product_form': cart_product_form,
 														'descriptions': descriptions,
@@ -90,7 +92,8 @@ def product_detail(request, id, slug):
 														'review_form': review_form,
 														'users_reviews': users_reviews,
 														'recommendations': recommendations,
-														'recent': show_recent})
+														'recent': show_recent,
+														'extra_photos': extra_photos})
 
 
 @login_required

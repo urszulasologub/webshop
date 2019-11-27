@@ -94,3 +94,8 @@ class Description(models.Model):
 
 	def __str__(self):
 		return 'Parametr {} produktu {} o opisie {}'.format(self.parameter, self.product, self.description)
+
+
+class ExtraPhoto(models.Model):
+	product = models.ForeignKey(Product, related_name='extra_photo', on_delete=models.CASCADE)
+	image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
