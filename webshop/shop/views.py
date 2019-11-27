@@ -27,6 +27,13 @@ def product_list(request, category_slug=None):
 	if category_slug:
 		category = get_object_or_404(Category, slug=category_slug)
 		products = products.filter(category=category)
+
+	#del request.session['recent'] #usuwa sesję
+
+	'''if 'recent' in request.session:
+		recent = [Product.objects.get(id=id) for id in request.session['recent']]
+	else:
+		recent = None'''
 	return render(request, 'shop/product/list.html',
 				  {'category': category, 'categories': categories, 'products': products, 'dictionary': dictionary })
 
@@ -61,6 +68,20 @@ def product_detail(request, id, slug):
 	else:
 		review_form = ReviewForm()
 	recommendations = choose_recommended(request, product.category, 5)
+
+	if not 'recent' in request.session or not request.session['recent']:
+		request.session['recent'] = [id]
+		show_recent = None
+	else:
+		show_recent = [Product.objects.get(id=id) for id in request.session['recent']]
+		recent = request.session['recent']
+		if id in recent:
+			recent.remove(id)
+		recent.insert(0, id)
+		if len(recent) > 5:
+			recent.pop()
+		request.session['recent'] = recent
+
 	return render(request, 'shop/product/detail.html', {'product': product,
 														'cart_product_form': cart_product_form,
 														'descriptions': descriptions,
@@ -68,7 +89,8 @@ def product_detail(request, id, slug):
 														'new_review': new_review,
 														'review_form': review_form,
 														'users_reviews': users_reviews,
-														'recommendations': recommendations})
+														'recommendations': recommendations,
+														'recent': show_recent})
 
 
 @login_required
@@ -86,7 +108,7 @@ class ParameterAutocomplete(autocomplete.Select2QuerySetView):
 		#	return Description.objects.none()
 
 		qs = Description.objects.all()
-		#pqs = Parameter.objects.all()
+		'''#pqs = Parameter.objects.all()
 
 		#product = self.forwarded.get('product', None)
 		#parameters = self.forward.get('category', None)
@@ -95,7 +117,7 @@ class ParameterAutocomplete(autocomplete.Select2QuerySetView):
 
 		#if product:
 		#	pqs = pqs.filter(category)
-		#	qs = qs.filter(product)
+		#	qs = qs.filter(product)'''
 
 		if self.q:
 			#pqs = pqs.filter()
@@ -119,5 +141,3 @@ def choose_recommended(request, category, amount):
 		if (i == amount):
 			break
 	return recommended_products
-
-		
