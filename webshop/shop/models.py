@@ -65,7 +65,7 @@ class Review(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	active = models.BooleanField(default=True)
-	rating = models.IntegerField(choices=RATING_CHOICES)
+	#rating = models.IntegerField(choices=RATING_CHOICES)
 
 	class Meta:
 		ordering = ('created', 'rating',)
@@ -94,3 +94,11 @@ class Description(models.Model):
 
 	def __str__(self):
 		return 'Parametr {} produktu {} o opisie {}'.format(self.parameter, self.product, self.description)
+
+
+class ExtraPhoto(models.Model):
+	product = models.ForeignKey(Product, related_name='extra_photo', on_delete=models.CASCADE)
+	image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
+
+	def __str__(self):
+		return str(self.id) + ": " + self.product.name

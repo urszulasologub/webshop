@@ -51,12 +51,16 @@
 		<form action="" method="post" class="border-top">
 			{% if user.is_authenticated %}
 				{% if cart.get_total_price > 0 %}
+					<center><i>Dla zamówień powyzej {{ free_delivery_price }}PLN dostawa jest darmowa<br></i></center>
+					{% if cart.get_total_price >= free_delivery_price %}
+						<center><i>Przysługuje Ci darmowa dostawa. Koszt dostawy nie zostanie doliczony do zamówienia.</i></center>
+					{% endif %}
 					<h3><i class="fas fa-truck mt-4 mb-2"></i> Sposób dostawy</h3>
 					{% csrf_token %}
 					{% for radio in delivery_form.delivery_type %}
 						<label for="{{ radio.name }}">
 							<span class=" blockquote ml-4">{{ radio }}</span>
-							{{ radio.name }}
+							{{ radio.name }}<br>
 						</label>
 						<br>
 					{% endfor %}

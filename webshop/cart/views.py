@@ -12,6 +12,10 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.utils import timezone
 
+
+FREE_DELIVERY_PRICE = 500
+
+
 @require_POST
 def cart_add(request, product_id):
 	cart = Cart(request)
@@ -40,13 +44,13 @@ def cart_detail(request):
 		if delivery_form.is_valid():
 			choice = request.POST.copy()
 			choice = int(choice.get('delivery_type'))
-			delivery = Delivery(cart.get_total_price())
+			delivery = Delivery(cart.get_total_price(), FREE_DELIVERY_PRICE)
 			delivery.set_delivery(choice)
 			new_order = Order(user=request.user, is_confirmed=False, delivery_price=delivery.get_delivery_price(), delivery_type=delivery.delivery_name, expiration_date=timezone.now() + datetime.timedelta(days=1))
 			new_order.save()
 			order_id = new_order.id
 			return redirect('cart:choose_address', order_id)
-	return render(request, 'cart/checkout.html', {'cart': cart, 'delivery_form': delivery_form})
+	return render(request, 'cart/checkout.html', {'cart': cart, 'delivery_form': delivery_form, 'free_delivery_price': FREE_DELIVERY_PRICE})
 
 
 @login_required
