@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .forms import DescriptionForm
-from .models import Category, Product, Review, Parameter, Description
+from .models import Category, Product, Review, Parameter, Description, ExtraPhoto
 
 
 class ParameterInline(admin.StackedInline):
@@ -33,3 +33,8 @@ class ReviewAdmin(admin.ModelAdmin):
 	list_display = ['body', ]
 	search_fields = ['body', ]
 	list_filter = ['rating', ]
+
+
+@admin.register(ExtraPhoto)
+class PhotoAdmin(admin.ModelAdmin):
+	pass

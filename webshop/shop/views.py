@@ -81,9 +81,7 @@ def product_detail(request, id, slug):
 		if len(recent) > 5:
 			recent.pop()
 		request.session['recent'] = recent
-
 	extra_photos = ExtraPhoto.objects.filter(product=product)
-	
 	return render(request, 'shop/product/detail.html', {'product': product,
 														'cart_product_form': cart_product_form,
 														'descriptions': descriptions,

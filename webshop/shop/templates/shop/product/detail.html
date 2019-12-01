@@ -136,6 +136,9 @@
 	<div id="foto" class="col-md-6 text-center">
 		<img class="img-fluid text-center mb-4"
 			src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %} ">
+			{% for photo in extra_photos %}
+				<img src="{{ photo.image.url }}">
+			{% endfor %}
 	</div>
 	<div id="tekst" class="col-md-6 ">
 
