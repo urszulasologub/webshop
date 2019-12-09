@@ -80,7 +80,7 @@ def product_detail(request, id, slug):
 		if id in recent:
 			recent.remove(id)
 		recent.insert(0, id)
-		if len(recent) > 5:
+		if len(recent) > 4:
 			recent.pop()
 		request.session['recent'] = recent
 	extra_photos = ExtraPhoto.objects.filter(product=product)
