@@ -175,7 +175,7 @@
 </div>
 
 {% if recommendations %}
-<p class="display-4">Rekomendowane produkty</p>
+<h3>Rekomendowane produkty</h3>
 
 <div id="recommend" class="product-list row  col-md-12 mb-2 mt-4 text-center">
 	{% for item in recommendations %}
@@ -199,18 +199,32 @@
 
 {% endif %}
 
+<br>
+
 {% if similar %}
-	<div id="similar" class="product-list row col-md-10 text-center">
-	<h3>Podobne produkty</h3>
-		{% for item in similar %}
-			<br><a href="{% url 'shop:product_detail' item.id item.slug %}">
-				<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}" height=200 width=250>
-			<br>{{ item.name }}</a>
-			<br>{{ item.price }}
-			<br>
-		{% endfor %}
+<h3>Podobne produkty</h3>
+
+<div id="recommend" class="product-list row  col-md-12 mb-2 mt-4 text-center">
+	{% for item in similar %}
+	<div class="item col-md-3 mb-2 mt-4">
+		<div id="img" class="bg-light text-center">
+			<a href="{% url 'shop:product_detail' item.id item.slug %}">
+				<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
+					class="img-fluid p-2">
+				<div id="opis" class="bg-light">
+					<p class=" pl-2 text-overflow">{{ item.name }} </p>
+				</div>
+			</a>
+		</div>
+		<div id="cena" class="pl-2 border-bottom  bg-light">
+			<h4> {{ item.price }} PLN</h4>
+		</div>
 	</div>
+
+	{% endfor %}
+</div>
 {% endif %}
+
 
 {% if recent %}
 	<div id="recent" class="product-list row col-md-10 text-center">
@@ -224,6 +238,10 @@
 		{% endfor %}
 	</div>
 {% endif %}
+
+
+
+
 
 <div id="recenzje" class="col-md-12 border-top mt-4">
 	<p class="display-4">Recenzje </p>
