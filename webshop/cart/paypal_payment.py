@@ -8,9 +8,28 @@ class PaypalPayment():
 		paypalrestsdk.configure({
 			"mode": "sandbox", # sandbox or live
 			"client_id": "AfNoHbwXRtAOBeEcOzPvXLQDsW9ZwQY_2kYRlnmmaHlm1q770zLrxUPZHlmbPwIZXzvM4zmEo63Q7dGs",
-			"client_secret": "EFcLsJVDihQlZeS8aYlOoWzcPL_ghf3qWkj69uq3xcNGu6kgNSY7_Wl2yuxnLEzV6cx7fwKAPebsE1Kp" })
+			"client_secret": "EFcLsJVDihQlZeS8aYlOoWzcPL_ghf3qWkj69uq3xcNGu6kgNSY7_Wl2yuxnLEzV6cx7fwKAPebsE1Kp" 
+		})
+		'''self.experience = paypalrestsdk.WebProfile({
+			"name": "webshop",
+			"presentation": {
+				"brand_name": "Webshop: sklep Internetowy",
+				"locale_code": "PL"
+			},
+			"input_fields": {
+				"no_shipping": 1,
+				"address_override": 1
+			}
+		})
+		if not self.experience.create():
+			print(self.experience.error)
+		else: 
+			print(self.experience.id)
+			print('\n\n\n\n\n')'''
+		exp_id = 'XP-HUNU-U6ZB-HXCB-DQ9R'
 		self.payment = paypalrestsdk.Payment({
 			"intent": "sale",
+			"experience_profile_id": exp_id,
 			"payer": {
 				"payment_method": "paypal"},
 			"redirect_urls": {
@@ -27,8 +46,9 @@ class PaypalPayment():
 				"amount": {
 					"total": self.price,
 					"currency": "PLN"},
-				"description": "Zakup w sklepie internetowym"}]})
-	
+				"description": "Zakup w sklepie internetowym"}], 
+		})
+
 
 	def make_payment(self):
 		if self.payment.create():
