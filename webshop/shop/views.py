@@ -67,7 +67,7 @@ def product_detail(request, id, slug):
 		new_review, review_form = add_review(request, new_review, product)
 	else:
 		review_form = ReviewForm()
-	recommendations = choose_recommended(request, product.category, 5)
+	recommendations = choose_recommended(request, product.category, 4)
 
 	similar = choose_similar(request, product, product.category, 4)
 
@@ -80,7 +80,7 @@ def product_detail(request, id, slug):
 		if id in recent:
 			recent.remove(id)
 		recent.insert(0, id)
-		if len(recent) > 5:
+		if len(recent) > 4:
 			recent.pop()
 		request.session['recent'] = recent
 	extra_photos = ExtraPhoto.objects.filter(product=product)
