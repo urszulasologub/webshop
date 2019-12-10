@@ -19,7 +19,6 @@ def product_list(request, category_slug=None, page=1):
 	category = None
 	categories = Category.objects.all()
 	product_list = Product.objects.filter(available=True)
-	paginator = Paginator(product_list, 12)
 	dictionary = None
 	dictionary = {} 
 	for product in product_list:
@@ -28,6 +27,7 @@ def product_list(request, category_slug=None, page=1):
 	if category_slug:
 		category = get_object_or_404(Category, slug=category_slug)
 		product_list = product_list.filter(category=category)
+	paginator = Paginator(product_list, 12)
 	products = paginator.get_page(page)
 	return render(request, 'shop/product/list.html',
 				  {'category': category, 'categories': categories, 'products': products, 'dictionary': dictionary, 'paginator': paginator })
