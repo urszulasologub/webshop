@@ -102,3 +102,13 @@ class ExtraPhoto(models.Model):
 
 	def __str__(self):
 		return str(self.id) + ": " + self.product.name
+
+
+class Sale(models.Model):
+	product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='sale')
+	percentage = models.IntegerField(default=0, min_value=1, max_value=100)
+	old_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))], default=product.price)
+
+	@property
+	def new_price(self):
+		return self.old_price * (100 - percentage) * 0.01
