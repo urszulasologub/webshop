@@ -20,7 +20,7 @@
 	<!-- Bootstrap core CSS -->
 	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300" rel="stylesheet" type="text/css">
 
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/base.css' %}">
@@ -33,10 +33,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
 
 	<style>
-	
 		/* base.html */
 		body {
-			padding-top: 86px;
+			/*padding-top: 86px;*/
+			font-family: Open Sans;
 		}
 
 		.fa-shopping-cart {
@@ -150,131 +150,163 @@
 				padding-bottom: 30%;
 			}
 
-		{
-			
-			
-		/* address.html */
-	.login-page {
-		width: 500px;
-		margin: auto;
-	}
 
-	.form {
-		position: relative;
-		z-index: 1;
-		background: #FFFFFF;
-		max-width: 500px;
-		padding: 45px;
-		text-align: center;
-		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-	}
 
-	.form input {
-		outline: 0;
-		background: #f2f2f2;
-		width: 100%;
-		border: 0;
-		margin: 0 0 15px;
-		padding: 15px;
-		box-sizing: border-box;
-		font-size: 14px;
-	}
 
-	.form button {
-		font-family: "Roboto", sans-serif;
-		text-transform: uppercase;
-		outline: 0;
-		background: #007bff;
-		width: 100%;
-		border: 0;
-		padding: 15px;
-		color: #FFFFFF;
-		font-size: 14px;
-		-webkit-transition: all 0.3 ease;
-		transition: all 0.3 ease;
-		cursor: pointer;
-	}
+			/* address.html */
+			.login-page {
+				width: 500px;
+				margin: auto;
+			}
 
-	.form button:hover,
-	.form button:active,
-	.form button:focus {
-		background: #007bff;
-	}
+			.form {
+				position: relative;
+				z-index: 1;
+				background: #FFFFFF;
+				max-width: 500px;
+				padding: 45px;
+				text-align: center;
+				box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+			}
 
-	.form .message {
-		margin: 15px 0 0;
-		color: #b3b3b3;
-		font-size: 12px;
-	}
+			.form input {
+				outline: 0;
+				background: #f2f2f2;
+				width: 100%;
+				border: 0;
+				margin: 0 0 15px;
+				padding: 15px;
+				box-sizing: border-box;
+				font-size: 14px;
+			}
 
-	.form .message a {
-		color: #007bff;
-		text-decoration: none;
-	}
+			.form button {
+				font-family: "Roboto", sans-serif;
+				text-transform: uppercase;
+				outline: 0;
+				background: #007bff;
+				width: 100%;
+				border: 0;
+				padding: 15px;
+				color: #FFFFFF;
+				font-size: 14px;
+				-webkit-transition: all 0.3 ease;
+				transition: all 0.3 ease;
+				cursor: pointer;
+			}
 
-	.form .register-form {
-		display: none;
-	}
+			.form button:hover,
+			.form button:active,
+			.form button:focus {
+				background: #007bff;
+			}
 
-	.container {
-		position: relative;
-		z-index: 1;
-		margin: 0 auto;
-	}
+			.form .message {
+				margin: 15px 0 0;
+				color: #b3b3b3;
+				font-size: 12px;
+			}
 
-	.container:before,
-	.container:after {
-		content: "";
-		display: block;
-		clear: both;
-	}
+			.form .message a {
+				color: #007bff;
+				text-decoration: none;
+			}
 
-	.container .info {
-		margin: 50px auto;
-		text-align: center;
-	}
+			.form .register-form {
+				display: none;
+			}
 
-	.container .info h1 {
-		margin: 0 0 15px;
-		padding: 0;
-		font-size: 36px;
-		font-weight: 300;
-		color: #1a1a1a;
-	}
+			.container {
+				position: relative;
+				z-index: 1;
+				margin: 0 auto;
+			}
 
-	.container .info span {
-		color: #4d4d4d;
-		font-size: 12px;
-	}
+			.container:before,
+			.container:after {
+				content: "";
+				display: block;
+				clear: both;
+			}
 
-	.container .info span a {
-		color: #000000;
-		text-decoration: none;
-	}
+			.container .info {
+				margin: 50px auto;
+				text-align: center;
+			}
 
-	.container .info span .fa {
-		color: #EF3B3A;
-	}
+			.container .info h1 {
+				margin: 0 0 15px;
+				padding: 0;
+				font-size: 36px;
+				font-weight: 300;
+				color: #1a1a1a;
+			}
 
-	ul {
-		list-style-type: none;
+			.container .info span {
+				color: #4d4d4d;
+				font-size: 12px;
+			}
 
-	}
+			.container .info span a {
+				color: #000000;
+				text-decoration: none;
+			}
 
-	li {
+			.container .info span .fa {
+				color: #EF3B3A;
+			}
 
-		text-align: left;
-	}
+			ul {
+				list-style-type: none;
 
-	.btn {
-		color: white !important;
-		background-color: #007bff !important;
-	}
+			}
 
-	.btn:hover {
-		color: black !important;
-		background-color: #f2f2f2 !important;
-	}		
+			li {
+
+				text-align: left;
+			}
+
+			.btn {
+				color: white !important;
+				background-color: #007bff !important;
+			}
+
+			.btn:hover {
+				color: black !important;
+				background-color: #f2f2f2 !important;
+			}
+
+			.header-links li {
+				display: inline-block;
+				margin-right: 15px;
+				font-size: 12px;
+			}
+		}
+
+		.header-links li {
+			display: inline-block;
+			margin-right: 15px;
+			font-size: 12px;
+		}
+
+		.pull-right {
+			float: right !important;
+		}
+
+		.pull-left {
+			float: left !important;
+		}
+
+		.navbar_div {
+			justify-content: space-between !important;
+			width: 100%!important;
+			background-color: rgb(61, 70, 70);
+			}
+
+		.navbar>.container{
+			display: block;
+		}
+
 	</style>
 
 </head>
@@ -282,107 +314,126 @@
 <body>
 
 	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+	<nav id="nav_top" class="navbar navbar-expand-lg navbar-dark bg-dark p-0 ">
 		<div class="container">
-			<a class="navbar-brand" href="/">Sklep internetowy</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li>
-						<!-- Trigger/Open The Modal -->
-						<div id="wozek_z_numerkim">
-							<a id="myBtn" class="nav-link nav-item fas fa-shopping-cart">
-
-								{% with total_items=cart|length %}
-								{% if cart|length > 0 %}
-								<div class="qty">{{ total_items }}</div>
-								{% else %}
-								<div class="qty">{{ total_items }}</div>
-								{% endif %}
-								{% endwith %}
-							</a>
+			<ul class="header-links pull-left">
+				<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
+				<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
+				<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+			</ul>
+			<!--<ul class="header-links pull-right">
+				<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
+				<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+			</ul>-->
+			<ul class="header-links pull-right pt-1">
+				<li><a href="#"><i class="fab fa-facebook-square h5"></i></a></li>
+				<li><a href="#"><i class="fab fa-instagram h5"></i></a></li>
+				<li><a href="#"><i class="fab fa-twitter-square h5"></i></a></li>
+			</ul>
+		</div>
+	</nav>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-0 shadow mb-4">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col">
+					<a class="text-left text-light text-decoration-none " href="/"><h1 class="font-weight-bold">B-SHOP</h1></a>
+				</div>
+				<div class="input-group col-4 p-1">
+						<input type="search" placeholder="Czego szukamy?" aria-describedby="button-addon5" class="form-control">
+						<div class="input-group-append pb-4">
+						  <button id="button-addon5" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 						</div>
-						<!-- The Modal -->
-						<div id="myModal" class="modal">
+				</div>
+				<!-- Trigger/Open The Modal -->
+				<div id="wozek_z_numerkim" class="col text-right">
+						<a id="myBtn" class="nav-link nav-item fas fa-shopping-cart text-light">
 
-							<!-- Modal content -->
-							<div class="modal-content">
-								<span class="close">&times;</span>
+							{% with total_items=cart|length %}
+							{% if cart|length > 0 %}
+							<div class="qty">{{ total_items }}</div>
+							{% else %}
+							<div class="qty">{{ total_items }}</div>
+							{% endif %}
+							{% endwith %}
+						</a>
+					</div>
+					<!-- The Modal -->
+					<div id="myModal" class="modal">
 
-								<h1>Twój koszyk</h1>
-								<table class="cart" style="width:100%">
-									<thead>
-										<tr class="border-bottom">
-											<th>Obraz</th>
-											<th>Produkt</th>
-											<th>Ilość</th>
-											<th>Usuń</th>
-											<th>Cena jednostkowa</th>
-											<th class="num text-right">Cena</th>
-										</tr>
-									</thead>
-									<tbody>
-										{% for item in cart %}
-										{% with product=item.product %}
-										<tr>
-											<td>
-												<a href="{{ product.get_absolute_url }}">
-													<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
-														height="50" width="50">
-												</a>
-											</td>
-											<td>{{ product.name }}</td>
-											<td>{{ item.quantity }}</td>
-											<td><a href="{% url 'cart:cart_remove' product.id %}">Usuń</a></td>
-											<td class="num">{{ item.price }} PLN</td>
-											<td class="num text-right">{{ item.total_price }} PLN</td>
-										</tr>
-										{% endwith %}
-										{% endfor %}
-										<tr>
-											<td colspan="5"></td>
-											<td class="num border-top text-right">Wartość zakupów:
-												{{ cart.get_total_price }} PLN</td>
-										</tr>
-									</tbody>
-								</table>
-								<p class="text-right">
-									<a href="{% url 'shop:product_list' %}" class="button
-					        light btn btn-primary">Kontynuuj zakupy</a>
-									<a href="{% url 'cart:cart_detail' %}" class="button btn btn-primary">Przejdź do
-										podsumowania</a>
-								</p>
-							</div>
+						<!-- Modal content -->
+						<div class="modal-content">
+							<span class="close">&times;</span>
+
+							<h1>Twój koszyk</h1>
+							<table class="cart" style="width:100%">
+								<thead>
+									<tr class="border-bottom">
+										<th>Obraz</th>
+										<th>Produkt</th>
+										<th>Ilość</th>
+										<th>Usuń</th>
+										<th>Cena jednostkowa</th>
+										<th class="num text-right">Cena</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for item in cart %}
+									{% with product=item.product %}
+									<tr>
+										<td>
+											<a href="{{ product.get_absolute_url }}">
+												<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
+													height="50" width="50">
+											</a>
+										</td>
+										<td>{{ product.name }}</td>
+										<td>{{ item.quantity }}</td>
+										<td><a href="{% url 'cart:cart_remove' product.id %}">Usuń</a></td>
+										<td class="num">{{ item.price }} PLN</td>
+										<td class="num text-right">{{ item.total_price }} PLN</td>
+									</tr>
+									{% endwith %}
+									{% endfor %}
+									<tr>
+										<td colspan="5"></td>
+										<td class="num border-top text-right">Wartość zakupów:
+											{{ cart.get_total_price }} PLN</td>
+									</tr>
+								</tbody>
+							</table>
+							<p class="text-right">
+								<a href="{% url 'shop:product_list' %}" class="button
+						light btn btn-primary">Kontynuuj zakupy</a>
+								<a href="{% url 'cart:cart_detail' %}" class="button btn btn-primary">Przejdź do
+									podsumowania</a>
+							</p>
 						</div>
-					</li>
+					</div>
 
 					{% if user.is_authenticated %}
-					<li class="nav-item">
+					<div class="nav-item">
 						<a class="fas fa-user">
 						</a>
 						<a href="{% url 'profile:show_profile' %}"><span id="user_nav"
 								class="h3 color-white float-right"
 								style="color:white; padding-top: 3px">{{ user.username }}</span></a>
-					</li>
+					</div>
 
-					<li class="nav-item">
-						<a class="nav-link h4" href="{% url 'account:logout' %}">Wyloguj się</a>
-					</li>
+					<div class="nav-item col-2">
+						<a class="nav-link h4 btn btn-primary" href="{% url 'account:logout' %}">Wyloguj się</a>
+					</div>
 					{% else %}
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'account:login' %}">Logowanie</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'account:register' %}">Rejestracja</a>
-					</li>
+					<div class="nav-item col-2">
+						<a class="nav-link btn btn-primary" href="{% url 'account:login' %}">Logowanie</a>
+					</div>
+					<div class="nav-item col-2">
+						<a class="nav-link btn btn-primary" href="{% url 'account:register' %}">Rejestracja</a>
+					</div>
 					{% endif %}
-				</ul>
 			</div>
-		</div>
+		</div>	
 	</nav>
+
 
 	<div id="content" class="container">
 
