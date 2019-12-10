@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models import Avg
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from decimal import Decimal
 
 
@@ -102,3 +102,13 @@ class ExtraPhoto(models.Model):
 
 	def __str__(self):
 		return str(self.id) + ": " + self.product.name
+
+
+class Sale(models.Model):
+	product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='sale')
+	percentage = models.IntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(100)])
+	old_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
+
+	@property
+	def new_price(self):
+		return self.old_price * (100 - percentage) * 0.01
