@@ -62,7 +62,9 @@ def product_detail(request, id, slug):
 		new_review, review_form = add_review(request, new_review, product)
 	else:
 		review_form = ReviewForm()
-	recommendations = choose_recommended(request, product.category, 5)
+	recommendations = choose_recommended(request, product.category, 4)
+
+	similar = choose_similar(request, product, product.category, 4)
 
 	if not 'recent' in request.session or not request.session['recent']:
 		request.session['recent'] = [id]
@@ -73,7 +75,7 @@ def product_detail(request, id, slug):
 		if id in recent:
 			recent.remove(id)
 		recent.insert(0, id)
-		if len(recent) > 5:
+		if len(recent) > 4:
 			recent.pop()
 		request.session['recent'] = recent
 	extra_photos = ExtraPhoto.objects.filter(product=product)
@@ -85,6 +87,7 @@ def product_detail(request, id, slug):
 														'review_form': review_form,
 														'users_reviews': users_reviews,
 														'recommendations': recommendations,
+														'similar': similar,
 														'recent': show_recent,
 														'extra_photos': extra_photos})
 
@@ -137,3 +140,48 @@ def choose_recommended(request, category, amount):
 		if (i == amount):
 			break
 	return recommended_products
+
+
+def levenshtein(a, b): #algorytm liczący odległość słów
+	# "Calculates the Levenshtein distance between a and b."
+	n, m = len(a), len(b)
+	if n > m:
+		# Make sure n <= m, to use O(min(n,m)) space
+		a, b = b, a
+		n, m = m, n
+
+	current = range(n + 1)
+	for i in range(1, m + 1):
+		previous, current = current, [i] + [0] * n
+		for j in range(1, n + 1):
+			add, delete = previous[j] + 1, current[j - 1] + 1
+			change = previous[j - 1]
+			if a[j - 1] != b[i - 1]:
+				change = change + 1
+			current[j] = min(add, delete, change)
+
+	return current[n]
+
+
+def choose_similar(request, current_product, category, amount):
+	current_product_parameters = Description.objects.filter(product=current_product)
+	correct_products = Product.objects.filter(category=category).exclude(pk=current_product.pk)
+	dict = {}
+	for product in correct_products:
+		dict[product] = 0
+		for parameter in current_product_parameters:
+			if Description.objects.filter(product=product, parameter=parameter.parameter).exists():
+				other_product_parameter = Description.objects.get(product=product, parameter=parameter.parameter).description
+			else:
+				other_product_parameter = ""
+			dict[product] += levenshtein(parameter.description, other_product_parameter)
+		#print("Produkt: "+product.name + " - " + str(dict[product]))
+	dictionary = OrderedDict(sorted(dict.items(), key=operator.itemgetter(1)))
+	similar_products = []
+	i = 0
+	for product in dictionary:
+		similar_products.append(product)
+		i += 1
+		if i == amount:
+			break
+	return similar_products
