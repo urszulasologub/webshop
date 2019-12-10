@@ -68,13 +68,10 @@ def choose_address(request, id):
 			order.city = str(address_form['city'])
 			order.postal_code = str(address_form['postal_code_1']).zfill(2) + '-' + str(address_form['postal_code_2']).zfill(3)
 			cart = Cart(request)
-			if order.are_products == False:
-				order.are_products = True
-				for item in cart:
-					for amount in range(0, item['quantity']):
-						product = item['product']
-						comp = OrderComponent(order=order, product=product, price=product.price)
-						comp.save()
+			for item in cart:
+				product = item['product']
+				comp = OrderComponent(order=order, product=product, price=product.price, quantity=item['quantity'])
+				comp.save()
 			order.save()
 			cart.clear()
 			return redirect('cart:cart_checkout', id)
