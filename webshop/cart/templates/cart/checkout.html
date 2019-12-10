@@ -43,9 +43,13 @@
 			</tbody>
 		</table>
 			<p class="text-right mt-4 mb-4">
-				<a href="{% url 'shop:product_list' %}" class="button
-				light btn btn-primary btn-lg">Kontynuuj zakupy</a>
-
+				{% if user.is_authenticated %}
+					<a href="{% url 'shop:product_list' %}" class="button light btn btn-primary btn-lg">Kontynuuj zakupy</a>
+				{% else %}
+					<a href="{% url 'account:login' %}" class="button light btn btn-primary btn-lg">Logowanie</a>
+					</br><span class="h5">Aby dokonać kupna musisz być zalogowany!</span>
+				{% endif %}
+				
 			</p>
 		
 		<form action="" method="post" class="border-top">
@@ -70,8 +74,6 @@
 			<p class="text-right">
 				{% if cart.get_total_price > 0 and user.is_authenticated %}
 					<button type="submit" class="button btn btn-primary btn-lg">Kupuję i płacę</button>
-				{% else %}
-					<button type="button" class="button btn btn-primary btn-lg" disabled>Kupuję i płacę</button>
 				{% endif %}
 			</p>
 		</form>
