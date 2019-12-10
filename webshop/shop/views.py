@@ -12,30 +12,25 @@ from django.http import HttpResponseRedirect
 from statistics import mean
 import operator
 from collections import OrderedDict
+from django.core.paginator import Paginator
 
 
-def product_list(request, category_slug=None):
+def product_list(request, category_slug=None, page=1):
 	category = None
 	categories = Category.objects.all()
-	products = Product.objects.filter(available=True)
+	product_list = Product.objects.filter(available=True)
+	paginator = Paginator(product_list, 12)
 	dictionary = None
-	dictionary = {}
-	for product in products:
+	dictionary = {} 
+	for product in product_list:
 		parameters = Description.objects.filter(product=product)
 		dictionary[product] = parameters
-	#print(dictionary)
 	if category_slug:
 		category = get_object_or_404(Category, slug=category_slug)
-		products = products.filter(category=category)
-
-	#del request.session['recent'] #usuwa sesję
-
-	'''if 'recent' in request.session:
-		recent = [Product.objects.get(id=id) for id in request.session['recent']]
-	else:
-		recent = None'''
+		product_list = product_list.filter(category=category)
+	products = paginator.get_page(page)
 	return render(request, 'shop/product/list.html',
-				  {'category': category, 'categories': categories, 'products': products, 'dictionary': dictionary })
+				  {'category': category, 'categories': categories, 'products': products, 'dictionary': dictionary, 'paginator': paginator })
 
 
 @login_required

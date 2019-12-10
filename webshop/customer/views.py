@@ -18,7 +18,7 @@ def show_orders(request):
 	for order in orders:			#we need to delete every deprecated order
 		if (order.is_confirmed == False and order.expiration_date < timezone.now()) or order.are_products == False:
 			order.delete()
-	orders = Order.objects.filter(user=user)
+	orders = Order.objects.filter(user=user).order_by('-created_at')
 	order_components = []
 	for order in orders:
 		components = OrderComponent.objects.filter(order=order)
