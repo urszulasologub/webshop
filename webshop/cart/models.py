@@ -28,7 +28,7 @@ class Order(models.Model):
 	postal_code = models.CharField(max_length=6, default="00-000")
 	is_sent = models.BooleanField(default=False)
 	delivery_searching_code = models.CharField(max_length=200, null=True)
-	are_products = models.BooleanField(default=False)
+	#are_products = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add=True)
 	expiration_date = models.DateTimeField()
 
@@ -38,8 +38,16 @@ class Order(models.Model):
 		price = 0
 		components = OrderComponent.objects.filter(order=self)
 		for component in components:
-			price += component.price
+			price += (component.price * component.quantity)
 		return price
+
+	
+	@property
+	def are_products(self):
+		components = OrderComponent.objects.filter(order=self)
+		if not components:
+			return False
+		return True		
 
 
 	@property
@@ -65,6 +73,7 @@ class OrderComponent(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
 	price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
 	is_completed = models.BooleanField(default=False)
+	quantity = models.IntegerField(default=1, validators=[MinValueValidator(1)])
 
 	
 	def __str__(self):

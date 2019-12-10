@@ -103,47 +103,51 @@
 	</table>
 
 	{% if order.is_confirmed %}
-	{% if order.is_completed == False %}
-	<br><br><b>Produkty do skompletowania:</b>
-	{% for component in components %}
-	{% if component.is_completed == False %}
-	<br><br>
-	<table class="center" border="5" cellpadding="6">
-		<tr>
-			<th>ID Komponentu: </th>
-			<th>Produkt: </th>
-			<th>ID Produktu:</th>
+		{% if order.is_completed == False %}
+			<br><br><b>Produkty do skompletowania:</b>
+			{% for component in components %}
+				{% if component.is_completed == False %}
+				<br><br>
+				<table class="center" border="5" cellpadding="6">
+					<tr>
+						<th>ID Komponentu: </th>
+						<th>Produkt: </th>
+						<th>ID Produktu:</th>
+						<th>ILOŚĆ:</th>
 
-		</tr>
-		<tr>
-			<td>{{component.id }}</td>
-			<td>{{ component.product.name }}</td>
-			<td>{{ component.product.id }}</td>
-		</tr>
-	</table>
-	<a href="{% url 'staff:completed_component' component.id %}" class="btn btn-primary">Dodałem do zamówienia</a>
-	<br>
-	{% endif %}
-	{% endfor %}
-	{% endif %}
-	<br><br><b>Produkty skompletowane:</b>
-	{% for component in components %}
-	{% if component.is_completed %}
-	<table class="center" border="5" cellpadding="6">
-		<tr>
-			<th>ID Komponentu: </th>
-			<th>Produkt: </th>
-			<th>ID Produktu:</th>
+					</tr>
+					<tr>
+						<td>{{component.id }}</td>
+						<td>{{ component.product.name }}</td>
+						<td>{{ component.product.id }}</td>
+						<td>{{ component.quantity }}</td>
+					</tr>
+				</table>
+				<a href="{% url 'staff:completed_component' component.id %}" class="btn btn-primary">Dodałem do zamówienia</a>
+				<br>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		<br><br><b>Produkty skompletowane:</b>
+		{% for component in components %}
+			{% if component.is_completed %}
+				<table class="center" border="5" cellpadding="6">
+					<tr>
+						<th>ID Komponentu: </th>
+						<th>Produkt: </th>
+						<th>ID Produktu:</th>
+						<th>ILOŚĆ:</th>
 
-		</tr>
-		<tr>
-			<td>{{component.id }}</td>
-			<td>{{ component.product.name }}</td>
-			<td>{{ component.product.id }}</td>
-		</tr>
-	</table>
-	{% endif %}
-	{% endfor %}
+					</tr>
+					<tr>
+						<td>{{component.id }}</td>
+						<td>{{ component.product.name }}</td>
+						<td>{{ component.product.id }}</td>
+						<td>{{ component.quantity }}</td>
+					</tr>
+				</table>
+			{% endif %}
+		{% endfor %}
 	{% endif %}
 
 </body>

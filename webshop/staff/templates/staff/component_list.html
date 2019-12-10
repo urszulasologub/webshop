@@ -33,15 +33,17 @@
 			<th>Produkt:</th>
 			<th>ID Produktu:</th>
 			<th>Numer zamówienia:</th>
+			<th>ILOŚĆ:</th>
 
 		</tr>
 		<tr>
-			<td> {{component.id }}</td>
+			<td> {{component.id }} </td>
 			<td>{{ component.product.name }}</td>
 			<td>{{ component.product.id }}</td>
 			<td><a
 					href="{% url 'staff:show_order' component.order.id %}">{{ component.order.id|stringformat:"06d" }}</a>
 			</td>
+			<td>{{ component.quantity }}</td>
 		</tr>
 	</table>
 	<a href="{% url 'staff:completed_component' component.id %}" class="btn btn-primary">Dodałem do zamówienia</a>
