@@ -34,17 +34,35 @@ class Product(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 	producer = models.CharField(max_length=100, blank=True)
+	new_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))], default=0)
+
 
 	class Meta:
 		ordering = ('name',)
 		index_together = (('id', 'slug'),)
 
+
 	@property
 	def average_rating(self):
 		return Review.objects.filter(product=self).aggregate(Avg('rating'))['rating__avg']
 
+
+	@property
+	def sales_percent(self):
+		if self.new_price != 0:
+			return 100 - (int(self.new_price / self.price * 100))
+		return 0
+
+	
+	def return_price(self):
+		if self.new_price != 0:
+			return self.new_price
+		return self.price
+
+
 	def __str__(self):
 		return self.name
+
 
 	def get_absolute_url(self):
 		return reverse("shop:product_detail", args=[self.id, self.slug])
