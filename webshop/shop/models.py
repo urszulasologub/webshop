@@ -55,9 +55,9 @@ class Product(models.Model):
 
 	
 	def return_price(self):
-		if self.new_price != 0 and self.sales_percent != 0:
+		if self.new_price != 0:
 			return self.new_price
-		return price
+		return self.price
 
 
 	def __str__(self):

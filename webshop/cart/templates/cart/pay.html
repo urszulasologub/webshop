@@ -9,6 +9,7 @@
 				<tr class="border-bottom">
 						<th>Obraz</th>
 						<th>Produkt</th>
+						<th>Ilość</th>
 						<th class="num text-right">Cena</th>
 					</tr>
 			</thead>
@@ -21,7 +22,12 @@
 						<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}" height="50" width="50">
 					</td>
 					<td>{{ product.name }}</td>
-					<td class="num text-right">{{ product.price }} PLN</td>
+					<td>{{ component.quantity }}</td>
+					{% if product.new_price != 0%}
+						<td class="num text-right">{{ product.new_price }} PLN</td>
+					{% else %}
+						<td class="num text-right">{{ product.price }} PLN</td>
+					{% endif %}
 				</tr>
 				{% endwith %}
 				{% endfor %}
