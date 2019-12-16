@@ -119,7 +119,11 @@
 				</div>
 
 				<div id="cena" class="mt-2">
-					<h5>{{ product.price }} PLN </h5>
+					{% if product.new_price != 0 %}
+						<h4> {{ product.new_price }} PLN -{{ product.sales_percent }}%</h4>
+					{% else %}
+						<h4> {{ product.price }} PLN</h4>
+					{% endif %}
 
 					<string class="text-overflow m-0">
 					<!-- {{ product.description|linebreaks }} -->

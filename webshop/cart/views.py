@@ -70,7 +70,7 @@ def choose_address(request, id):
 			cart = Cart(request)
 			for item in cart:
 				product = item['product']
-				comp = OrderComponent(order=order, product=product, price=product.price, quantity=item['quantity'])
+				comp = OrderComponent(order=order, product=product, price=product.return_price(), quantity=item['quantity'])
 				comp.save()
 			order.save()
 			cart.clear()
