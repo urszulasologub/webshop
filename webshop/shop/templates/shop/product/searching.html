@@ -1,0 +1,13 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+	Wyniki wyszukiwania
+{% endblock %}
+
+{% block content %}
+	{% for product in products %}
+		{{ product.name }}	<!-- dopiszcie jakies ladne rzeczy, przekierowanie do wyniku, obrazek, liste produktow...-->
+		<br>
+	{% endfor %}
+{% endblock %}
