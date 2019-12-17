@@ -337,10 +337,10 @@
 					<a class="text-left text-light text-decoration-none " href="/"><h1 class="font-weight-bold">B-SHOP</h1></a>
 				</div>
 				<div class="input-group col-4 p-1">
-					<form action="{% url 'cart:cart_detail' %}">
+					<form action="{% url 'shop:searching' %}">
 						<div class="input-group-append pb-4">
-							<input type="search" placeholder="Wyszukaj..." name="search" aria-describedby="button-addon5" class="form-control">
-							<button id="button-addon5" type="submit" value="{{ request.GET.search }}" class="btn btn-primary"><i class="fa fa-search"></i></button>
+							<input type="search" placeholder="Wyszukaj..." name="search_phrase" aria-describedby="button-addon5" class="form-control">
+							<button id="button-addon5" type="submit" value="{{ request.GET.search_phrase }}" class="btn btn-primary"><i class="fa fa-search"></i></button>
 						</div>
 					</form>
 				</div>

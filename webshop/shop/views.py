@@ -185,3 +185,11 @@ def choose_similar(request, current_product, category, amount):
 		if i == amount:
 			break
 	return similar_products
+
+
+def searching(request):
+	if request.method == 'GET':
+		products = Product.objects.filter(name__contains=request.GET['search_phrase']).values('name')
+	else:
+		products = None
+	return render(request, 'shop/product/searching.html', {'products': products})	
