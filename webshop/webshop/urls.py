@@ -27,6 +27,7 @@ urlpatterns = [
 	path('parameter-autocomplete/', views.ParameterAutocomplete, name='parameter-autocomplete'),
 	path('staff/', include('staff.urls', namespace='staff')),
 	path('profile/', include('customer.urls', namespace='profile')),
+	path('social-auth/', include('social_django.urls', namespace='social')),
 ]
 
 if settings.DEBUG:

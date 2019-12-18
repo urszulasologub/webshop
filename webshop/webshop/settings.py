@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 	'django.contrib.postgres',
 	'staff',
 	'customer',
+	'social_django',
 ]
 
 MIDDLEWARE = [
@@ -144,8 +145,13 @@ LOGOUT_URL = 'logout'
 
 AUTHENTICATION_BACKENDS = (
 	'account.backends.EmailOrUsernameModelBackend',
-	'django.contrib.auth.backends.ModelBackend'
+	'django.contrib.auth.backends.ModelBackend',
+	'social_core.backends.facebook.FacebookOAuth2',
 )
+
+SOCIAL_AUTH_FACEBOOK_KEY = '474358799884559'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'bba8afa05b96df05773b8cb03d6c531e'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 SITE_URL = "http://127.0.0.1:8000"
 
