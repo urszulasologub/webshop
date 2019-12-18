@@ -29,8 +29,12 @@ def product_list(request, category_slug=None, page=1):
 		product_list = product_list.filter(category=category)
 	paginator = Paginator(product_list, 12)
 	products = paginator.get_page(page)
+
+	# sortuje po cenie malejąco ale nie wiem w jaki sposób to uruchamiać xd
+	# zamień 'products': products na 'products': sorted i będzie widać xd
+	sorted = sort_by_price(request)
 	return render(request, 'shop/product/list.html',
-				  {'category': category, 'categories': categories, 'products': products, 'dictionary': dictionary, 'paginator': paginator })
+				  {'category': category, 'categories': categories, 'products': products, 'dictionary': dictionary, 'paginator': paginator, 'sorted': sorted })
 
 
 @login_required
@@ -193,3 +197,18 @@ def searching(request):
 	else:
 		products = None
 	return render(request, 'shop/product/searching.html', {'products': products})	
+
+
+def sort_by_price(request):
+	prices = {}
+	products = Product.objects.all()
+	for product in products:
+		if product.new_price != 0:
+			prices[product] = product.new_price
+		else:
+			prices[product] = product.price
+	prices = OrderedDict(sorted(prices.items(), key=operator.itemgetter(1)))
+	products = []
+	for product in prices:
+		products.append(product)
+	return products
