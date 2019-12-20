@@ -19,3 +19,7 @@ class DescriptionForm(forms.ModelForm):
 												  #, forward=['product']
 													)
 		}
+
+
+class FilterForm(forms.Form):
+	parameters = forms.ModelMultipleChoiceField(queryset=Description.objects.all().values('description').distinct() ,widget=forms.CheckboxSelectMultiple(), required=False)

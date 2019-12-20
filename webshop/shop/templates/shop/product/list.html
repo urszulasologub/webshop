@@ -97,6 +97,19 @@
 			</a>
 			{% endfor %}
 
+			<p class="text-uppercase text-overflow h5">Filtruj</p>
+			<form action="" method="post">
+				{% for param in filter_form %}
+					<label for="param">
+						<span class="blockquote ml-4">{{ param }}</span>
+						{{ param.description }}<br>
+					</label>
+					<br>
+				{% endfor %}
+				{% csrf_token %}
+				<input type="submit" class="btn btn-primary" value="Filtruj">
+			</form>
+
 		</div>
 	</div>
 

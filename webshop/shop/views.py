@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
 from .models import Category, Product, Review, Description, Parameter, ExtraPhoto
-from .forms import ReviewForm#, DescriptionForm
+from .forms import ReviewForm, FilterForm
 from cart.forms import CartAddProductForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
@@ -21,6 +21,9 @@ def product_list(request, category_slug=None, page=1):
 	product_list = Product.objects.filter(available=True)
 	dictionary = None
 	dictionary = {} 
+	filter_form = FilterForm(request.POST)
+	if request.method == "POST" and filter_form.is_valid():
+		pass
 	for product in product_list:
 		parameters = Description.objects.filter(product=product)
 		dictionary[product] = parameters
@@ -30,7 +33,7 @@ def product_list(request, category_slug=None, page=1):
 	paginator = Paginator(product_list, 12)
 	products = paginator.get_page(page)
 	return render(request, 'shop/product/list.html',
-				  {'category': category, 'categories': categories, 'products': products, 'dictionary': dictionary, 'paginator': paginator })
+				  {'category': category, 'categories': categories, 'products': products, 'dictionary': dictionary, 'paginator': paginator, 'filter_form': filter_form })
 
 
 @login_required
