@@ -165,12 +165,12 @@
 		{% endif %}
 
 		{% for page in paginator.page_range %}
-		{% if page == paginator.get_page %}
-			<li class="page-item active"><span class="page-link">{{ page }}</span><span class="sr-only">(current)</span>
-			</li>
-		{% else %}
-			<li class="page-item "><a class="page-link" href="{% url 'shop:product_list' page %}">A {{ page }}</a></li>
-		{% endif %}
+			{% if page == products.number %}
+				<li class="page-item active"><span class="page-link">{{ page }}</span><span class="sr-only">(current)</span>
+				</li>
+			{% else %}
+				<li class="page-item "><a class="page-link" href="{% url 'shop:product_list' page %}">A {{ page }}</a></li>
+			{% endif %}
 
 		{% endfor %}
 
