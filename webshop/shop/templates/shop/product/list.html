@@ -102,7 +102,7 @@
 
 
 	<div class="product-list col-md-12 col-lg-10 text-center">
-		<div class="row">
+		<div class="row ">
 			<!--<h1>{% if category %}{{ category.name }}{% else %}Produkty{% endif %}</h1>-->
 			{% for product in products %}
 
@@ -122,7 +122,7 @@
 
 						<div id="cena" class="mt-2">
 							{% if product.new_price != 0 %}
-							<h4> {{ product.new_price }} PLN -{{ product.sales_percent }}%</h4>
+							<h4> {{ product.new_price }} PLN <span class="font-weight-bold text-danger">-{{ product.sales_percent }}%</span></h4>
 							{% else %}
 							<h4> {{ product.price }} PLN</h4>
 							{% endif %}
@@ -169,7 +169,7 @@
 				<li class="page-item active"><span class="page-link">{{ page }}</span><span class="sr-only">(current)</span>
 				</li>
 			{% else %}
-				<li class="page-item "><a class="page-link" href="{% url 'shop:product_list' page %}">A {{ page }}</a></li>
+				<li class="page-item "><a class="page-link" href="{% url 'shop:product_list' page %}">{{ page }}</a></li>
 			{% endif %}
 
 		{% endfor %}

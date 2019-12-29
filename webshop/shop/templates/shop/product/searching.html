@@ -10,4 +10,52 @@
 		{{ product.name }}	<!-- dopiszcie jakies ladne rzeczy, przekierowanie do wyniku, obrazek, liste produktow...-->
 		<br>
 	{% endfor %}
+	<div class="product-list col-md-12 col-lg-10 text-center">
+		<div class="row ">
+			<!--<h1>{% if category %}{{ category.name }}{% else %}Produkty{% endif %}</h1>-->
+			{% for product in products %}
+
+			<a href="{{ product.get_absolute_url }}">
+				<div class="col-md-6 col-lg-4">
+					<div class="item mb-4">
+						<div id="img" class="text-center">
+
+							<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.png" %} {% endif %}"
+								class="img-fluid mt-4 mb-4">
+
+						</div>
+						<div id="opis" class="">
+							<a href="{{ product.get_absolute_url }}"
+								class="text-overflow text-uppercase text-decoration-none font-weight-ligh">{{ product.name }}</a>
+						</div>
+
+						<div id="cena" class="mt-2">
+							{% if product.new_price != 0 %}
+							<h4> {{ product.new_price }} PLN <span class="font-weight-bold text-danger">-{{ product.sales_percent }}%</span></h4>
+							{% else %}
+							<h4> {{ product.price }} PLN</h4>
+							{% endif %}
+
+							<string class="text-overflow m-0">
+								<!-- {{ product.description|linebreaks }} -->
+								{% if dictionary != None %}
+								{% for item, descriptions in dictionary.items %}
+								{% if item == product%}
+								{% for description in descriptions %}
+								<p class="m-0">{{ description.parameter }}: {{ description.description }}</p>
+
+								{% endfor %}
+								{% endif %}
+								{% endfor %}
+								{% endif %}
+							</string>
+
+						</div>
+					</div>
+				</div>
+			</a>
+
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

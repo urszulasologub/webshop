@@ -13,7 +13,7 @@
 		height: 250px;
 	}
 
-	#rozmiar-tekstu {
+	.rozmiar-tekstu {
 		font-size: 20px;
 
 	}
@@ -66,23 +66,21 @@
 		border-bottom-style: groove;
 	}
 
-	#specyfikacja {
-		padding: 40px;
-	}
 
 	.item {
-		padding-top: 5px;
-		transition: all .4s;
-		-webkit-transition: all .4s;
+		transition: .4s;
+		border-style: solid;
+		border-width: 2px;
+		border-color: #dee2e6;
+		border-radius: 0.3rem;
 	}
 
 	.item:hover {
-		transform: scale(1.15);
-		-ms-transform: scale(1.15);
-		-webkit-transform: scale(1.15);
-		box-shadow: 0 0 0 #888;
-		background-color: #fff;
+		border-color: #007bff;
+		border-width: 2px;
+		text-decoration: none;
 	}
+
 
 	.img-fluid {
 		max-width: 100%;
@@ -244,17 +242,17 @@ function magnify(imgID, zoom) {
 		</div>
 
 	</div>
-	<div id="tekst" class="col-md-6 ">
+	<div id="tekst" class="col-md-6 pb-4">
 
 		<h1>{{ product.name }}</h1>
 		<!--<h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>-->
 		{% if product.new_price != 0 %}
-			<h2 class="price mb-3">{{ product.new_price }} PLN</h2><br>
-			<s><h5 class="price mb-3">{{ product.price }} PLN</h5></s>
+			<span class="h2 price mb-3 font-weight-bold">{{ product.new_price }} PLN </span>
+			<s><span class="price mb-3">{{ product.price }} PLN</h5></span></s>
 		{% else %}
 			<h2 class="price mb-3">{{ product.price }} PLN</h2>
 		{% endif %}
-		<form action="{% url 'cart:cart_add' product.id %}" method="post">
+		<form action="{% url 'cart:cart_add' product.id %}" method="post" class="pt-2">
 			{{ cart_product_form }}
 			{% csrf_token %}
 			</br><input type="submit" class="btn btn-primary mt-2" value="Dodaj do koszyka">
@@ -263,15 +261,15 @@ function magnify(imgID, zoom) {
 	</div>
 </div>
 
-<div id="specyfikacja" class="col-md-12 border-top">
+<div class="col-md-12 border-top p-2">
 	<p class="display-4">Opis</p>
-	<div id="rozmiar-tekstu">
+	<div class="rozmiar-tekstu p-2">
 		{{ product.description|linebreaks }}
 	</div>
 	<p class="display-4">Specyfikacja</p>
 
 
-	<table id="rozmiar-tekstu" class="table table-hover text-center">
+	<table class="rozmiar-tekstu" class="table table-hover text-center">
 		<tbody>
 			{% for description in descriptions %}
 			<td>{{ description.parameter }}</td>
@@ -284,30 +282,70 @@ function magnify(imgID, zoom) {
 </div>
 
 {% if recommendations %}
-<h3>Rekomendowane produkty</h3>
+<p class="display-4 p-2">Rekomendowane produkty</p>
 
 <div id="recommend" class="product-list row  col-md-12 mb-2 mt-4 text-center">
 	{% for item in recommendations %}
 	<div class="item col-md-3 mb-2 mt-4">
-		<div id="img" class="bg-light text-center">
+		<div id="img" class=" text-center">
 			<a href="{% url 'shop:product_detail' item.id item.slug %}">
 				<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
 					class="img-fluid p-2">
-				<div id="opis" class="bg-light">
-					<p class=" pl-2 text-overflow">{{ item.name }} </p>
+				<div id="opis" class="">
+					<p class="text-overflow text-uppercase text-decoration-none font-weight-ligh">{{ item.name }} </p>
 				</div>
 			</a>
 		</div>
-		<div id="cena" class="pl-2 border-bottom  bg-light">
+		<div id="cena" class="pl-2 border-bottom ">
 			{% if item.new_price == 0%}
 				<h4> {{ item.price }} PLN</h4>
 			{% else %}
-				<h4> {{ item.new_price }} PLN -{{ item.sales_percent }}%</h4>
+				<h4> {{ item.new_price  }} PLN <span class="font-weight-bold text-danger">-{{ item.sales_percent }}%</span></h4>
 			{% endif %}
 		</div>
 	</div>
 
 	{% endfor %}
+
+				<a href="{{ product.get_absolute_url }}">
+				<div class="col-md-6 col-lg-4">
+					<div class="item mb-4">
+						<div id="img" class="text-center">
+
+							<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.png" %} {% endif %}"
+								class="img-fluid mt-4 mb-4">
+
+						</div>
+						<div id="opis" class="">
+							<a href="{{ product.get_absolute_url }}"
+								class="text-overflow text-uppercase text-decoration-none font-weight-ligh">{{ product.name }}</a>
+						</div>
+
+						<div id="cena" class="mt-2">
+							{% if product.new_price != 0 %}
+							<h4> {{ product.new_price }} PLN <span class="font-weight-bold text-danger">-{{ product.sales_percent }}%</span></h4>
+							{% else %}
+							<h4> {{ product.price }} PLN</h4>
+							{% endif %}
+
+							<string class="text-overflow m-0">
+								<!-- {{ product.description|linebreaks }} -->
+								{% if dictionary != None %}
+								{% for item, descriptions in dictionary.items %}
+								{% if item == product%}
+								{% for description in descriptions %}
+								<p class="m-0">{{ description.parameter }}: {{ description.description }}</p>
+
+								{% endfor %}
+								{% endif %}
+								{% endfor %}
+								{% endif %}
+							</string>
+
+						</div>
+					</div>
+				</div>
+			</a>
 </div>
 
 {% endif %}
@@ -315,118 +353,118 @@ function magnify(imgID, zoom) {
 <br><br><br>
 
 {% if similar %}
-<h3>Podobne produkty</h3>
+<p class="display-4 p-2">Podobne produkty</p>
 
 <div id="recommend" class="product-list row  col-md-12 mb-2 mt-4 text-center">
 	{% for item in similar %}
 	<div class="item col-md-3 mb-2 mt-4">
-		<div id="img" class="bg-light text-center">
+		<div id="img" class=" text-center">
 			<a href="{% url 'shop:product_detail' item.id item.slug %}">
 				<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
 					class="img-fluid p-2">
-				<div id="opis" class="bg-light">
-					<p class=" pl-2 text-overflow">{{ item.name }} </p>
+				<div id="opis" class="">
+					<p class=" pl-2 text-overflow ">{{ item.name }} </p>
 				</div>
 			</a>
 		</div>
-		<div id="cena" class="pl-2 border-bottom  bg-light">
+		<div id="cena" class="pl-2 border-bottom  ">
 			{% if item.new_price == 0%}
 				<h4> {{ item.price }} PLN</h4>
 			{% else %}
-				<h4> {{ item.new_price }} PLN -{{ item.sales_percent }}%</h4>
+				<h4> {{ item.new_price  }} PLN <span class="font-weight-bold text-danger">-{{ item.sales_percent }}%</span></h4>
 			{% endif %}
 		</div>
 	</div>
 
 	{% endfor %}
+	
 </div>
 {% endif %}
 
+<div class="row border-bottom pb-5">
+	<div id="recenzje" class="col-md-6 border-top mt-4">
+		<p class="display-4 p-2">Recenzje </p>
+		{% for review in reviews %}
+		<div id="recenzja rozmiar-tekstu p-2 pl-4">
 
-<div id="recenzje" class="col-md-12 border-top mt-4">
-	<p class="display-4">Recenzje </p>
-	{% for review in reviews %}
-	<div id="recenzja">
+			<div id="autor"> {{ review.user.username }} </div><br>
 
-		<div id="autor"> {{ review.user.username }} </div><br>
+			{% if review.rating == 1 %}
+			<div id="ocena">★</div><br>
+			{% endif %}
+			{% if review.rating == 2 %}
+			<div id="ocena">★★</div><br>
+			{% endif %}
+			{% if review.rating == 3 %}
+			<div id="ocena">★★★</div><br>
+			{% endif %}
+			{% if review.rating == 4 %}
+			<div id="ocena">★★★★</div><br>
+			{% endif %}
+			{% if review.rating == 5 %}
+			<div id="ocena">★★★★★</div><br>
+			{% endif %}
 
-		{% if review.rating == 1 %}
-		<div id="ocena">★</div><br>
-		{% endif %}
-		{% if review.rating == 2 %}
-		<div id="ocena">★★</div><br>
-		{% endif %}
-		{% if review.rating == 3 %}
-		<div id="ocena">★★★</div><br>
-		{% endif %}
-		{% if review.rating == 4 %}
-		<div id="ocena">★★★★</div><br>
-		{% endif %}
-		{% if review.rating == 5 %}
-		<div id="ocena">★★★★★</div><br>
-		{% endif %}
+			<div id="komentarz"> {{ review.body }}</div>
 
-		<div id="komentarz"> {{ review.body }}</div>
+			{% if review.user == user %}
+			<a class="btn btn-primary" href="{% url 'shop:delete_review' review.id %}">Usuń</a>
+			{% endif %}
 
-		{% if review.user == user %}
-		<a class="btn btn-primary" href="{% url 'shop:delete_review' review.id %}">Usuń</a>
-		{% endif %}
+		</div>
+		{% empty %}
+
+		<p class="rozmiar-tekstu p-2 pl-4">Nie ma jeszcze żadnych recenzji tego produktu. </p>
+		{% endfor %}
 
 	</div>
-	{% empty %}
 
-	<p>Nie ma jeszcze żadnych recenzji tego produktu. </p>
-	{% endfor %}
+	<div id="recenzje" class="col-md-6 border-top mt-4">
+		{% if user.is_authenticated %}
+		{% if users_reviews %}
+		<!-- <br>Już napisałeś recenzję tego produktu. -->
+		{% else %}
+		{% if new_review %}
+		<!-- <h2>Pomyślnie dodano recenzję</h2> -->
+		{% else %}
+		<p class="display-4 p-2">Dodaj nową recenzję </p>
+		<form action="" method="post" class="rozmiar-tekstu pl-4">
+			<!--{{ review_form.as_p }}
+				{{ review_form.rating.label_tag }} -->
+			{{ review_form.body}} <br>
+			{{ review_form.rating}} <br> <br>
 
+			{% csrf_token %}
+			<input type="submit" class="btn btn-primary" value="Dodaj recenzję">
+		</form>
+		{% endif %}
+		{% endif %}
+		{% else %}
+		<h4 class="text-center pt-4">Aby napisać własną recenzję musisz się zalogować.</h4>
+		{% endif %}
+	</div>
 </div>
 
-<div id="recenzje" class="col-md-12 border-top mt-4">
-	{% if user.is_authenticated %}
-	{% if users_reviews %}
-	<!-- <br>Już napisałeś recenzję tego produktu. -->
-	{% else %}
-	{% if new_review %}
-	<!-- <h2>Pomyślnie dodano recenzję</h2> -->
-	{% else %}
-	<p class="display-4">Dodaj nową recenzję </p>
-	<form action="" method="post">
-		<!--{{ review_form.as_p }}
-			{{ review_form.rating.label_tag }} -->
-		{{ review_form.body}} <br>
-		{{ review_form.rating}} <br> <br>
-
-		{% csrf_token %}
-		<input type="submit" class="btn btn-primary" value="Dodaj recenzję">
-	</form>
-	{% endif %}
-	{% endif %}
-	{% else %}
-	<h4 class="text-center pt-4">Aby napisać własną recenzję musisz się zalogować.</h4>
-	{% endif %}
-</div>
-
-
-<br><br><br>
 {% if recent %}
-<h3>Ostatnio oglądane produkty</h3>
+<p class="display-4 p-2">Ostatnio oglądane produkty</h3>
 
 <div id="recommend" class="product-list row  col-md-15 mb-2 mt-4 text-center">
 	{% for item in recent %}
 	<div class="item col-md-3 mb-2 mt-4">
-		<div id="img" class="bg-light text-center">
+		<div id="img" class="text-center">
 			<a href="{% url 'shop:product_detail' item.id item.slug %}">
 				<img src="{% if item.image %}{{ item.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %}"
 					class="img-fluid p-2">
-				<div id="opis" class="bg-light">
-					<p class=" pl-2 text-overflow">{{ item.name }} </p>
+				<div id="opis" class="">
+					<p class=" pl-2 text-overflow text-decoration-none">{{ item.name }} </p>
 				</div>
 			</a>
 		</div>
-		<div id="cena" class="pl-2 border-bottom  bg-light">
+		<div id="cena" class="pl-2 ">
 			{% if item.new_price == 0%}
 				<h4> {{ item.price }} PLN</h4>
 			{% else %}
-				<h4> {{ item.new_price }} PLN -{{ item.sales_percent }}%</h4>
+				<h4> {{ item.new_price }} PLN <span class="font-weight-bold text-danger">-{{ item.sales_percent }}%</span></h4>
 			{% endif %}
 		</div>
 	</div>
