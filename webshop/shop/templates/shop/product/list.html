@@ -176,7 +176,7 @@
 
 		{% if products.has_next  %}
 			<li class="page-item">
-				<a class="page-link" href="{{ products.next_page_number }}">Previous</a>
+				<a class="page-link" href="{% url 'shop:product_list' products.next_page_number %}">Previous</a>
 			</li>
 		{% else %}
 			<li class="page-item">
