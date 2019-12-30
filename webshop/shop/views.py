@@ -184,6 +184,7 @@ def choose_similar(request, current_product, category, amount):
 		i += 1
 		if i == amount:
 			break
+	print(similar_products)
 	return similar_products
 
 
@@ -204,7 +205,10 @@ def random_products(request):
 		sample = random.sample(list, len(list))
 	else:
 		sample = random.sample(list, 4)
+
 	random_products = []
 	for pk in sample:
-		random_products.append(Product.objects.filter(pk=pk))
+		product = Product.objects.get(pk=pk)
+		random_products.append(product)
+	print(random_products)
 	return render(request, 'shop/main.html', {'products': random_products})
