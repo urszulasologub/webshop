@@ -415,12 +415,25 @@
 
 
 				<div class="collapse navbar-collapse " id="navbarSupportedContent">
-					<form action="{% url 'shop:searching' %}" class="form-inline mr-auto mt-2 mt-lg-0 w-50">
-						<input class="form-control mr-sm-2 w-75" type="search" placeholder="Wyszukaj..."
+					<form action="{% url 'shop:searching' %}" class="form-inline mr-auto w-100 d-block d-xl-none d-lg-none">
+						<input class="form-control w-75" type="search" placeholder="Wyszukaj..."
 							name="search_phrase" aria-describedby="button-addon5">
-						<button id="button-addon5" class="btn btn-outline-primary my-2 my-sm-0" type="submit"
+						<button id="button-addon5" class="btn btn-outline-primary" type="submit"
+							value="{{ request.GET.search_phrase }}"><i class="fa fa-search"></i></button>
+
+					</form>
+
+					<form action="{% url 'shop:searching' %}" class="form-inline mr-auto  w-50 d-none d-xl-block d-lg-block">
+						<input class="form-control w-75" type="search" placeholder="Wyszukaj..."
+							name="search_phrase" aria-describedby="button-addon5">
+
+						<button id="button-addon5" class="btn btn-outline-primary" type="submit"
 							value="{{ request.GET.search_phrase }}"><i class="fa fa-search"></i></button>
 					</form>
+
+					
+
+					
 					<ul class="navbar-nav my-2 my-lg-0">
 						<li class="nav-item">
 
@@ -449,22 +462,27 @@
 							</div>
 						</li>
 						{% if user.is_authenticated %}
-						<li class="nav-item mr-2">
+						<li class="nav-item mr-2 d-none d-xl-block d-lg-block">
 							<a class="nav-link fas fa-user " href="{% url 'profile:show_profile' %}"></a>
 							<a href="{% url 'profile:show_profile' %}"><span id="user_nav"
 									class="h3 color-white float-right"
 									style="color:white; padding-top: 3px">{{ user.username }}</span></a>
 						</li>
 
-						<li class="nav-item">
-							<a class="nav-link h4 btn btn-primary" href="{% url 'account:logout' %}">Wyloguj się</a>
+						<li class="nav-item ">
+							<a class="nav-link h4 btn btn-primary d-none d-xl-block d-lg-block" href="{% url 'account:logout' %}">Wyloguj się</a>
+							<a class="nav-link d-block d-xl-none d-lg-none" href="{% url 'account:logout' %}">
+								Wyloguj się
+							</a>
 						</li>
 						{% else %}
 						<li class="nav-item">
-							<a class="nav-link btn btn-primary mr-lg-2" href="{% url 'account:login' %}">Logowanie</a>
+							<a class="nav-link btn btn-primary mr-lg-2  d-none d-xl-block d-lg-block" href="{% url 'account:login' %}">Logowanie</a>
+							<a class="nav-link d-block d-xl-none d-lg-none" href="{% url 'account:login' %}">Logowanie</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link btn btn-primary" href="{% url 'account:register' %}">Rejestracja</a>
+							<a class="nav-link btn btn-primary d-none d-xl-block d-lg-block" href="{% url 'account:register' %}">Rejestracja</a>
+							<a class="nav-link d-block d-xl-none d-lg-none" href="{% url 'account:register' %}">Rejestracja</a>
 						</li>
 						{% endif %}
 					</ul>
