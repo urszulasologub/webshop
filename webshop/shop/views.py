@@ -196,7 +196,7 @@ def searching(request):
 	return render(request, 'shop/product/searching.html', {'products': products})	
 
 
-def random_products(request):
+def random_products(request, category_slug=None):
 	products = Product.objects.all().values('pk')
 	list = []
 	for product in products:
@@ -205,10 +205,13 @@ def random_products(request):
 		sample = random.sample(list, len(list))
 	else:
 		sample = random.sample(list, 4)
-
 	random_products = []
 	for pk in sample:
 		product = Product.objects.get(pk=pk)
 		random_products.append(product)
-	print(random_products)
-	return render(request, 'shop/main.html', {'products': random_products})
+
+	category = None
+	categories = Category.objects.all()
+	if category_slug:
+		category = get_object_or_404(Category, slug=category_slug)
+	return render(request, 'shop/main.html', {'category': category, 'categories': categories, 'products': random_products})
