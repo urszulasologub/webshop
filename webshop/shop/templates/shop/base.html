@@ -394,8 +394,8 @@
 				</div>
 				{% endif %}
 
-				<div id="wozek_z_numerkim">
-					<a id="myBtn" class="nav-link nav-item fas fa-shopping-cart text-light Btn">
+				<div id="wozek_z_numerkim ">
+					<a id="" class="nav-link nav-item fas fa-shopping-cart text-light Btn d-block d-xl-none d-lg-none" href="{% url 'cart:cart_detail' %}" >
 
 						{% with total_items=cart|length %}
 						{% if cart|length > 0 %}
@@ -423,7 +423,7 @@
 
 					</form>
 
-					<form action="{% url 'shop:searching' %}" class="form-inline mr-auto  w-50 d-none d-xl-block d-lg-block">
+					<form action="{% url 'shop:searching' %}" class="form-inline mr-auto  w-50 d-none d-xl-block d-lg-block pl-5 ml-5">
 						<input class="form-control w-75" type="search" placeholder="Wyszukaj..."
 							name="search_phrase" aria-describedby="button-addon5">
 
@@ -461,6 +461,20 @@
 								{% endfor %}
 							</div>
 						</li>
+
+						<div id="wozek_z_numerkim ">
+							<a id="myBtn" class="nav-link nav-item fas fa-shopping-cart text-light Btn">
+		
+								{% with total_items=cart|length %}
+								{% if cart|length > 0 %}
+								<div class="qty">{{ total_items }}</div>
+								{% else %}
+								<div class="qty">{{ total_items }}</div>
+								{% endif %}
+								{% endwith %}
+							</a>
+						</div>
+
 						{% if user.is_authenticated %}
 						<li class="nav-item mr-2 d-none d-xl-block d-lg-block">
 							<a class="nav-link fas fa-user " href="{% url 'profile:show_profile' %}"></a>

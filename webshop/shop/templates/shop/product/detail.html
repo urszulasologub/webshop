@@ -71,14 +71,13 @@
 		transition: .4s;
 		border-style: solid;
 		border-width: 2px;
-		border-color: #dee2e6;
+		border-color: transparent;
 		border-radius: 0.3rem;
 	}
 
 	.item:hover {
 		border-color: #007bff;
 		border-width: 2px;
-		text-decoration: none;
 	}
 
 
@@ -296,7 +295,7 @@ function magnify(imgID, zoom) {
 				</div>
 			</a>
 		</div>
-		<div id="cena" class="pl-2 border-bottom ">
+		<div id="cena" class="pl-2">
 			{% if item.new_price == 0%}
 				<h4> {{ item.price }} PLN</h4>
 			{% else %}
@@ -307,45 +306,6 @@ function magnify(imgID, zoom) {
 
 	{% endfor %}
 
-				<a href="{{ product.get_absolute_url }}">
-				<div class="col-md-6 col-lg-4">
-					<div class="item mb-4">
-						<div id="img" class="text-center">
-
-							<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.png" %} {% endif %}"
-								class="img-fluid mt-4 mb-4">
-
-						</div>
-						<div id="opis" class="">
-							<a href="{{ product.get_absolute_url }}"
-								class="text-overflow text-uppercase text-decoration-none font-weight-ligh">{{ product.name }}</a>
-						</div>
-
-						<div id="cena" class="mt-2">
-							{% if product.new_price != 0 %}
-							<h4> {{ product.new_price }} PLN <span class="font-weight-bold text-danger">-{{ product.sales_percent }}%</span></h4>
-							{% else %}
-							<h4> {{ product.price }} PLN</h4>
-							{% endif %}
-
-							<string class="text-overflow m-0">
-								<!-- {{ product.description|linebreaks }} -->
-								{% if dictionary != None %}
-								{% for item, descriptions in dictionary.items %}
-								{% if item == product%}
-								{% for description in descriptions %}
-								<p class="m-0">{{ description.parameter }}: {{ description.description }}</p>
-
-								{% endfor %}
-								{% endif %}
-								{% endfor %}
-								{% endif %}
-							</string>
-
-						</div>
-					</div>
-				</div>
-			</a>
 </div>
 
 {% endif %}
@@ -367,7 +327,7 @@ function magnify(imgID, zoom) {
 				</div>
 			</a>
 		</div>
-		<div id="cena" class="pl-2 border-bottom  ">
+		<div id="cena" class="pl-2">
 			{% if item.new_price == 0%}
 				<h4> {{ item.price }} PLN</h4>
 			{% else %}
@@ -385,27 +345,27 @@ function magnify(imgID, zoom) {
 	<div id="recenzje" class="col-md-6 border-top mt-4">
 		<p class="display-4 p-2">Recenzje </p>
 		{% for review in reviews %}
-		<div id="recenzja rozmiar-tekstu p-2 pl-4">
+		<div class="recenzja rozmiar-tekstu pl-4">
 
-			<div id="autor"> {{ review.user.username }} </div><br>
+			<div class=""><h5> {{ review.user.username }} </h5></div>
 
 			{% if review.rating == 1 %}
-			<div id="ocena">★</div><br>
+			<div id="ocena">★</div>
 			{% endif %}
 			{% if review.rating == 2 %}
-			<div id="ocena">★★</div><br>
+			<div id="ocena">★★</div>
 			{% endif %}
 			{% if review.rating == 3 %}
-			<div id="ocena">★★★</div><br>
+			<div id="ocena">★★★</div>
 			{% endif %}
 			{% if review.rating == 4 %}
-			<div id="ocena">★★★★</div><br>
+			<div id="ocena">★★★★</div>
 			{% endif %}
 			{% if review.rating == 5 %}
-			<div id="ocena">★★★★★</div><br>
+			<div id="ocena">★★★★★</div>
 			{% endif %}
 
-			<div id="komentarz"> {{ review.body }}</div>
+			<div class="komentarz"><p> {{ review.body }}</p></div>
 
 			{% if review.user == user %}
 			<a class="btn btn-primary" href="{% url 'shop:delete_review' review.id %}">Usuń</a>
