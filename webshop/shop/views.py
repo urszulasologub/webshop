@@ -2,7 +2,7 @@ from dal import autocomplete
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
-
+import random
 from .models import Category, Product, Review, Description, Parameter, ExtraPhoto
 from .forms import ReviewForm#, DescriptionForm
 from cart.forms import CartAddProductForm
@@ -193,3 +193,18 @@ def searching(request):
 	else:
 		products = None
 	return render(request, 'shop/product/searching.html', {'products': products})	
+
+
+def random_products(request):
+	products = Product.objects.all().values('pk')
+	list = []
+	for product in products:
+		list.append(product['pk'])
+	if len(list) < 4:
+		sample = random.sample(list, len(list))
+	else:
+		sample = random.sample(list, 4)
+	random_products = []
+	for pk in sample:
+		random_products.append(Product.objects.filter(pk=pk))
+	return render(request, 'shop/main.html', {'products': random_products})

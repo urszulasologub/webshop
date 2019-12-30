@@ -8,7 +8,7 @@ app_name = 'shop'
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
-	path('', TemplateView.as_view(template_name='shop/main.html'), name='main'),
+	path('', views.random_products, name='main'),
 	path('products/', views.product_list, name='product_list'),
 	path('<int:page>/', views.product_list, name='product_list'),
 	path('<slug:category_slug>/', views.product_list, name='product_list_by_category'),
