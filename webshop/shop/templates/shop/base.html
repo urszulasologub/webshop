@@ -383,6 +383,7 @@
 		<div class="container">
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 				<a class="navbar-brand" href="/">
+					<!-- "{% url 'shop:product_list' %}" -->
 					<h1 class="font-weight-bold">B-SHOP</h1>
 				</a>
 
@@ -462,7 +463,11 @@
 							</div>
 						</li>
 
-						<div id="wozek_z_numerkim ">
+						<h2 class="d-none d-xl-block d-lg-block">
+						<a class="nav-link nav-item fas fa-th text-light Btn" href="{% url 'shop:product_list' %}">
+						</a></h2>
+
+						<div id="wozek_z_numerkim" class="d-none d-xl-block d-lg-block">
 							<a id="myBtn" class="nav-link nav-item fas fa-shopping-cart text-light Btn">
 		
 								{% with total_items=cart|length %}
