@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<style>
+<!-- <style>
 	.item {
 		transition: .4s;
 		border-style: solid;
@@ -75,7 +75,7 @@
 		}
 
 	}
-</style>
+</style> -->
 
 
 <div class="row">
@@ -122,7 +122,8 @@
 
 						<div id="cena" class="mt-2">
 							{% if product.new_price != 0 %}
-							<h4> {{ product.new_price }} PLN <span class="font-weight-bold text-danger">-{{ product.sales_percent }}%</span></h4>
+							<h4> {{ product.new_price }} PLN <span
+									class="font-weight-bold text-danger">-{{ product.sales_percent }}%</span></h4>
 							{% else %}
 							<h4> {{ product.price }} PLN</h4>
 							{% endif %}
@@ -159,29 +160,29 @@
 		</li>
 		{% else %}
 		<li class="page-item">
-				<a class="page-link desativated">Poprzednia</a>
+			<a class="page-link desativated">Poprzednia</a>
 		</li>
 
 		{% endif %}
 
 		{% for page in paginator.page_range %}
-			{% if page == products.number %}
-				<li class="page-item active"><span class="page-link">{{ page }}</span><span class="sr-only">(current)</span>
-				</li>
-			{% else %}
-				<li class="page-item "><a class="page-link" href="{% url 'shop:product_list' page %}">{{ page }}</a></li>
-			{% endif %}
+		{% if page == products.number %}
+		<li class="page-item active"><span class="page-link">{{ page }}</span><span class="sr-only">(current)</span>
+		</li>
+		{% else %}
+		<li class="page-item "><a class="page-link" href="{% url 'shop:product_list' page %}">{{ page }}</a></li>
+		{% endif %}
 
 		{% endfor %}
 
 		{% if products.has_next  %}
-			<li class="page-item">
-				<a class="page-link" href="{% url 'shop:product_list' products.next_page_number %}">Następna</a>
-			</li>
+		<li class="page-item">
+			<a class="page-link" href="{% url 'shop:product_list' products.next_page_number %}">Następna</a>
+		</li>
 		{% else %}
-			<li class="page-item">
-					<a class="page-link desativated">Następna</a>
-			</li>
+		<li class="page-item">
+			<a class="page-link desativated">Następna</a>
+		</li>
 		{% endif %}
 	</ul>
 </nav>

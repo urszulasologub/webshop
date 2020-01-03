@@ -3,9 +3,13 @@
 
 {% block title %}
 Adres do wysyłki
+
 {% endblock %}
 
+
 {% block content %}
+
+
 
 <style>
 	.login-page {
@@ -18,7 +22,7 @@ Adres do wysyłki
 		z-index: 1;
 		background: #FFFFFF;
 		max-width: 500px;
-		padding: 45px;
+		padding: 15px;
 		text-align: center;
 		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 	}
@@ -141,7 +145,7 @@ Adres do wysyłki
 </script>
 
 
-<div class="login-page">
+<div class="container d-flex justify-content-center">
 
 	<div class="form">
 
@@ -157,43 +161,43 @@ Adres do wysyłki
 			</div>
 
 			<div class="fieldWrapper">
-					{{ address_form.surname.label_tag }} {{ address_form.surname }}
-					{% if address_form.surname.help_text %}
-					<p class="help">{{ address_form.surname.help_text|safe }}</p>
-					{% endif %}
+				{{ address_form.surname.label_tag }} {{ address_form.surname }}
+				{% if address_form.surname.help_text %}
+				<p class="help">{{ address_form.surname.help_text|safe }}</p>
+				{% endif %}
 			</div>
 
 			<div class="fieldWrapper">
-					{{ address_form.street.label_tag }} {{ address_form.street }}
-					{% if address_form.street.help_text %}
-					<p class="help">{{ address_form.street.help_text|safe }}</p>
-					{% endif %}
+				{{ address_form.street.label_tag }} {{ address_form.street }}
+				{% if address_form.street.help_text %}
+				<p class="help">{{ address_form.street.help_text|safe }}</p>
+				{% endif %}
 			</div>
 
 			<div class="fieldWrapper">
-					{{ address_form.number.label_tag }} {{ address_form.number }}
-					{% if address_form.number.help_text %}
-					<p class="help">{{ address_form.number.help_text|safe }}</p>
-					{% endif %}
+				{{ address_form.number.label_tag }} {{ address_form.number }}
+				{% if address_form.number.help_text %}
+				<p class="help">{{ address_form.number.help_text|safe }}</p>
+				{% endif %}
 			</div>
 
 			<div class="fieldWrapper">
-					{{ address_form.city.label_tag }} {{ address_form.city }}
-					{% if address_form.city.help_text %}
-					<p class="help">{{ address_form.city.help_text|safe }}</p>
-					{% endif %}
+				{{ address_form.city.label_tag }} {{ address_form.city }}
+				{% if address_form.city.help_text %}
+				<p class="help">{{ address_form.city.help_text|safe }}</p>
+				{% endif %}
 			</div>
-			
+
 			<div class="row">
 				<p class="col-12">Kod Pocztowy:</p>
-				<div class="fieldWrapper col-5">					
+				<div class="fieldWrapper col-5">
 					{{ address_form.postal_code_1 }}
 					{% if address_form.postal_code_1.help_text %}
-					
+
 					<p class="help">{{ address_form.postal_code_1.help_text|safe }}</p>
 					{% endif %}
 				</div>
-				<div class="fieldWrapper p-0 col-1">					
+				<div class="fieldWrapper p-0 col-1">
 					<p class="h1">-</p>
 				</div>
 				<div class="fieldWrapper col-6">
@@ -206,7 +210,7 @@ Adres do wysyłki
 
 			<input type="submit" class="btn" value="Przejdź dalej">
 		</form>
-		
+
 	</div>
 </div>
 
