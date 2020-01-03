@@ -322,11 +322,12 @@
 		<div class="container d-none d-xl-block d-lg-block mt-2 mb-0">
 			<ul class="header-links pull-left pl-3 mb-0">
 				<li><a class="text-light text-decoration-none" href="#"><i
-							class="text-light text-decoration-none fa fa-phone"></i> +021-95-51-84</a></li>
+							class="text-light text-decoration-none fa fa-phone"></i> +1 987 654 3210</a></li>
 				<li><a class="text-light text-decoration-none" href="#"><i
-							class="text-light text-decoration-none fa fa-envelope-o"></i> email@email.com</a></li>
+							class="text-light text-decoration-none fa fa-envelope-o"></i> shop@shop.com</a></li>
 				<li><a class="text-light text-decoration-none" href="#"><i
-							class="text-light text-decoration-none fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+							class="text-light text-decoration-none fa fa-map-marker"></i> Champ de Mars, 5 France</a>
+				</li>
 			</ul>
 			<ul class="header-links pull-right mb-0">
 				<li><a class="text-light text-decoration-none" href="#"><i class="fab fa-facebook-square h5"></i></a>
@@ -344,7 +345,7 @@
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 				<a class="navbar-brand" href="/">
 					<!-- "{% url 'shop:product_list' %}" -->
-					<h1 class="font-weight-bold">B-SHOP</h1>
+					<h1 class="font-weight-bold" id="nazwa_sklepu">B-SHOP</h1>
 				</a>
 
 				{% if user.is_authenticated %}
@@ -378,10 +379,10 @@
 
 				<div class="collapse navbar-collapse " id="navbarSupportedContent">
 					<form action="{% url 'shop:searching' %}"
-						class="form-inline mr-auto w-100 d-block d-xl-none d-lg-none">
-						<input class="form-control w-75" type="search" placeholder="Wyszukaj..." name="search_phrase"
+						class="form-inline mr-auto d-xl-none d-lg-none">
+						<input class="form-control w-100" type="search" placeholder="Wyszukaj..." name="search_phrase"
 							aria-describedby="button-addon5">
-						<button id="button-addon5" class="btn btn-outline-primary" type="submit"
+						<button id="button-addon5" class="btn btn-outline-primary w-100" type="submit"
 							value="{{ request.GET.search_phrase }}"><i class="fa fa-search"></i></button>
 
 					</form>
@@ -607,13 +608,19 @@
 
 				<div class="col-md-4">
 					<h6 class="mb-4 text-primary">Social Media</h6>
-					<p class="text-white-50"><i class="fab fa-facebook-square h4"></i>
-						Facebook</p>
-					<p class="text-white-50"><i class="fab fa-instagram h4"></i>
-						Instagram</p>
-					<p class="text-white-50"><i class="fab fa-twitter-square h4"></i>
-						Twitter
-					</p>
+					<a class="text-light text-decoration-none" href="#">
+						<p class="text-white-50"><i class="fab fa-facebook-square h4"></i>
+							Facebook</p>
+					</a>
+					<a class="text-light text-decoration-none" href="#">
+						<p class="text-white-50"><i class="fab fa-instagram h4"></i>
+							Instagram</p>
+					</a>
+					<a class="text-light text-decoration-none" href="#">
+						<p class="text-white-50"><i class="fab fa-twitter-square h4"></i>
+							Twitter
+						</p>
+					</a>
 				</div>
 			</div>
 		</div>
