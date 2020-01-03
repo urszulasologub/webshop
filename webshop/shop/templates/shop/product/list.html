@@ -155,11 +155,11 @@
 	<ul class="pagination justify-content-center">
 		{% if products.has_previous %}
 		<li class="page-item">
-			<a class="page-link" href="{% url 'shop:product_list' products.previous_page_number %}">Previous </a>
+			<a class="page-link" href="{% url 'shop:product_list' products.previous_page_number %}">Poprzednia</a>
 		</li>
 		{% else %}
 		<li class="page-item">
-				<a class="page-link desativated">Previous </a>
+				<a class="page-link desativated">Poprzednia</a>
 		</li>
 
 		{% endif %}
@@ -176,11 +176,11 @@
 
 		{% if products.has_next  %}
 			<li class="page-item">
-				<a class="page-link" href="{% url 'shop:product_list' products.next_page_number %}">Previous</a>
+				<a class="page-link" href="{% url 'shop:product_list' products.next_page_number %}">Następna</a>
 			</li>
 		{% else %}
 			<li class="page-item">
-					<a class="page-link desativated">Next</a>
+					<a class="page-link desativated">Następna</a>
 			</li>
 		{% endif %}
 	</ul>
