@@ -164,3 +164,11 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 #SESSION_COOKIE_AGE = 30 * 60 #ustawione na 30 min (ustawia się w sekundach)
 
 SITE_ID = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'twoj_email@gamil.com'
+EMAIL_HOST_PASSWORD = 'twoje_haslo'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
