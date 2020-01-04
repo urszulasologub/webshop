@@ -453,19 +453,22 @@
 								Quisquam illo praesentium sequi in cum, beatae maiores quae qui.</p>
 						</div>
 					</div>
-					<div class="container">
-						<div class="row justify-content-center">
-							<div class="col-4">
-								<input type="email" value="" name="EMAIL" class="required email form-control"
-									id="mce-EMAIL" placeholder="Email address">
-							</div>
-							<div class="col-1">
-								<button type="submit" class="btn btn-primary" id="mc-embedded-subscribe">
-									Subscribe
-								</button>
+					<form enctype="multipart/form-data" method="post" action="/newsletter/webshop/subscribe/">
+						<div class="container">
+							<div class="row justify-content-center">
+								{% csrf_token %}
+								<div class="col-4">
+									<input id="id_email_field" type="email" value="" name="email_field" class="required email form-control"
+										placeholder="Email address">
+								</div>
+								<div class="col-1">
+									<button id="id_submit" name="submi" type="submit" class="btn btn-primary">
+										Subscribe
+									</button>
+								</div>
 							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
