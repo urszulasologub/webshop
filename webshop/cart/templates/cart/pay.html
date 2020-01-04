@@ -36,6 +36,9 @@
 
 		<div class="text-right border-top">
 			<h3 class="mt-3 mb-3">Cena produktów: {{ order.price }} PLN<h3>
+			{% if order.discount is not 0 %}
+				<h3 class="mt-3 mb-3">Kupon: -{{ order.discount }} PLN<h3>
+			{% endif %}
 			<h3 class="mt-3 mb-3">Dostawa: {{ order.delivery_price }} PLN<h3>
 			<h3 class="mt-3 mb-3 border-top">Do zapłaty: {{ order.total_price }} PLN<h3>
 

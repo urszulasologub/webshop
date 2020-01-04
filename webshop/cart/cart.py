@@ -1,9 +1,8 @@
 from decimal import Decimal
 from django.conf import settings
 from shop.models import Product
-from cart.models import DeliveryType
 from django.core.exceptions import ObjectDoesNotExist
-
+from coupons.models import Coupon
 
 class Cart(object):
 	def __init__(self, request, id=1):
@@ -14,7 +13,7 @@ class Cart(object):
 			# save an empty cart in the session
 			cart = self.session[settings.CART_SESSION_ID] = {}
 		self.cart = cart
-
+		self.coupon_id = self.session.get('coupon_id')
 
 	def __iter__(self):
 		# Iterate over the items in the cart and get the products from database
@@ -31,11 +30,9 @@ class Cart(object):
 			item['total_price'] = item['price'] * item['quantity']
 			yield item
 
-
 	def __len__(self):
 		# Count all items in the cart
 		return sum(item['quantity'] for item in self.cart.values())
-
 
 	def add(self, product, quantity=1, update_quantity=False):
 		# Add a product to the cart or update its quantity
@@ -49,7 +46,6 @@ class Cart(object):
 			self.cart[product_id]['quantity'] += quantity
 		self.save()
 
-
 	def remove(self, product):
 		# Remova a product from the cart
 		product_id = str(product.id)
@@ -57,22 +53,32 @@ class Cart(object):
 			del self.cart[product_id]
 			self.save()
 
-
 	def save(self):
 		# mark the session as "modified" to make sure it gets saved
 		self.session.modified = True
 
-
 	def get_total_price(self):
 		return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
-
 
 	def get_total_price_as_string(self):
 		price = self.get_total_price()
 		return str(price)
 
-
 	def clear(self):
 		# remove cart from session
 		del self.session[settings.CART_SESSION_ID]
 		self.save()
+
+	@property
+	def coupon(self):
+		if self.coupon_id:
+			return Coupon.objects.get(id=self.coupon_id)
+		return None
+
+	def get_discount(self):
+		if self.coupon:
+			return (self.coupon.discount / Decimal('100')) * self.get_total_price()
+		return Decimal('0')
+
+	def get_total_price_after_discount(self):
+		return self.get_total_price() - self.get_discount()
