@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 	'staff',
 	'customer',
 	'social_django',
+	'coupons',
 ]
 
 MIDDLEWARE = [

@@ -21,6 +21,7 @@ from shop import views
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
+	path('coupons/', include('coupons.urls', namespace='coupons')),
 	path('', include('shop.urls', namespace='shop')),
 	path('cart/', include('cart.urls', namespace='cart')),
 	path('account/', include('account.urls')),
