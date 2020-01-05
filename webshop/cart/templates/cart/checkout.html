@@ -42,15 +42,24 @@
 				</tr>
 			</tbody>
 		</table>
-			<p class="text-right mt-4 mb-4">
-				{% if user.is_authenticated %}
-					<a href="{% url 'shop:product_list' %}" class="button light btn btn-primary btn-lg">Kontynuuj zakupy</a>
-				{% else %}
-					<a href="{% url 'account:login' %}" class="button light btn btn-primary btn-lg">Logowanie</a>
-					</br><span class="h5">Aby dokonać kupna musisz być zalogowany!</span>
-				{% endif %}
-				
-			</p>
+  
+    <p>Dodaj kupon:</p>
+		<form action="{% url 'coupons:apply' %}" method="post">
+			{{ coupon_apply_form }}
+			<input type="submit" value="Dodaj">
+			{% csrf_token %}
+		</form>
+		<p>Można użyć tylko jednego kupou na zamówienie</p>
+  
+    <p class="text-right mt-4 mb-4">
+      {% if user.is_authenticated %}
+        <a href="{% url 'shop:product_list' %}" class="button light btn btn-primary btn-lg">Kontynuuj zakupy</a>
+      {% else %}
+        <a href="{% url 'account:login' %}" class="button light btn btn-primary btn-lg">Logowanie</a>
+        </br><span class="h5">Aby dokonać kupna musisz być zalogowany!</span>
+      {% endif %}
+
+    </p>
 		
 		<form action="" method="post" class="border-top">
 			{% if user.is_authenticated %}
