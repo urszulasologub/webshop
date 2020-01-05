@@ -381,7 +381,9 @@
 		<div id="ocena">★★★★★</div><br>
 		{% endif %}
 
-		<div id="komentarz"> {{ review.body }}</div>
+		<div id="komentarz"> 
+			{{ review.body }}
+		</div>
 
 		{% if review.user == user %}
 		<a class="btn btn-primary" href="{% url 'shop:delete_review' review.id %}">Usuń</a>
@@ -407,7 +409,10 @@
 	<form action="" method="post">
 		<!--{{ review_form.as_p }}
 			{{ review_form.rating.label_tag }} -->
-		{{ review_form.body}} <br>
+		<p>
+			<textarea id="id_body" type="text" name="body" maxlength="1000" style="width: 600px; height: 150px;" required></textarea>
+		</p>
+		<!--{{ review_form.body}} <br>-->
 		{{ review_form.rating}} <br> <br>
 
 		{% csrf_token %}

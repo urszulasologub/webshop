@@ -188,12 +188,19 @@ def choose_similar(request, current_product, category, amount):
 	return similar_products
 
 
-def searching(request):
+def searching(request, page=1):
 	if request.method == 'GET':
-		products = Product.objects.filter(name__icontains=request.GET['search_phrase'])
+		product_list = Product.objects.filter(name__icontains=request.GET['search_phrase'], available=True)
+		dictionary = None
+		dictionary = {} 
+		for product in product_list:
+			parameters = Description.objects.filter(product=product)
+			dictionary[product] = parameters
+		paginator = Paginator(product_list, 12)
+		products = paginator.get_page(page)
 	else:
 		products = None
-	return render(request, 'shop/product/searching.html', {'products': products})	
+	return render(request, 'shop/product/searching.html', {'products': products, 'dictionary': dictionary, 'paginator': paginator})	
 
 
 def random_products(request, category_slug=None):
