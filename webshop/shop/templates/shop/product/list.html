@@ -8,12 +8,11 @@
 {% block content %}
 
 <style>
-
 	.item {
 		transition: .4s;
 		border-style: solid;
 		border-width: 2px;
-		border-color: #dee2e6;
+		border-color: transparent;
 		border-radius: 0.3rem;
 	}
 
@@ -38,24 +37,24 @@
 		margin-bottom: auto;
 		line-height: 25px;
 	}
-	
-	#opis{
+
+	#opis {
 		font-size: 20px;
 		font-weight: bold;
 	}
 
 
-	#sidebar{
+	#sidebar {
 		font-size: medium;
 	}
 
-	#sidebar a{
+	#sidebar a {
 		color: black;
 		transition: 10ms;
 	}
 
-	#sidebar a:hover{
-		color: #007bff; 
+	#sidebar a:hover {
+		color: #007bff;
 		font-weight: bold;
 	}
 
@@ -81,13 +80,14 @@
 
 <div class="row">
 
-	<div class=" col-md-3 col-lg-3">
+	<div class="col-lg-2 d-none d-xl-block d-lg-block">
 		<div id="sidebar" class="list-group border pl-3 pr-4 pt-2 pb-4 rounded-lg">
 
 			<p class="text-uppercase text-overflow h5">Kategorie</p>
 
-			<a href="{% url "shop:product_list" %}" class="text-left text-uppercas text-decoration-none text-overflow mt-2"
-				{% if not category %} {% endif %}>
+			<a href="{% url "shop:product_list" %}"
+				class="text-left text-uppercas text-decoration-none text-overflow mt-2" {% if not category %}
+				{% endif %}>
 				WSZYSTKIE
 			</a>
 			{% for c in categories %}
@@ -100,53 +100,92 @@
 		</div>
 	</div>
 
-	
-	<div class="product-list col-md-9 col-lg-9 text-center">
-			<div class="row">
-		<!--<h1>{% if category %}{{ category.name }}{% else %}Produkty{% endif %}</h1>-->
-		{% for product in products %}
 
-		<a href="{{ product.get_absolute_url }}"><div class="col-md-6 col-lg-4">
-			<div class="item mb-4">
-				<div id="img" class="text-center">
-					
-						<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.png" %} {% endif %}"
-							class="img-fluid mt-4 mb-4">
-					
-				</div>
-				<div id="opis" class="">
-					<a href="{{ product.get_absolute_url }}" class="text-overflow text-uppercase text-decoration-none font-weight-ligh">{{ product.name }}</a>
-				</div>
+	<div class="product-list col-md-12 col-lg-10 text-center">
+		<div class="row ">
+			<!--<h1>{% if category %}{{ category.name }}{% else %}Produkty{% endif %}</h1>-->
+			{% for product in products %}
 
-				<div id="cena" class="mt-2">
-					{% if product.new_price != 0 %}
-						<h4> {{ product.new_price }} PLN -{{ product.sales_percent }}%</h4>
-					{% else %}
-						<h4> {{ product.price }} PLN</h4>
-					{% endif %}
+			<a href="{{ product.get_absolute_url }}">
+				<div class="col-md-6 col-lg-4">
+					<div class="item mb-4">
+						<div id="img" class="text-center">
 
-					<string class="text-overflow m-0">
-					<!-- {{ product.description|linebreaks }} -->
-					{% if dictionary != None %}
-						{% for item, descriptions in dictionary.items %}
-							{% if item == product%}
-								{% for description in descriptions %}
-									<p class="m-0">{{ description.parameter }}: {{ description.description }}</p>
-									
-								{% endfor %}
+							<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no-image.png" %} {% endif %}"
+								class="img-fluid mt-4 mb-4">
+
+						</div>
+						<div id="opis" class="">
+							<a href="{{ product.get_absolute_url }}"
+								class="text-overflow text-uppercase text-decoration-none font-weight-ligh">{{ product.name }}</a>
+						</div>
+
+						<div id="cena" class="mt-2">
+							{% if product.new_price != 0 %}
+							<h4> {{ product.new_price }} PLN <span class="font-weight-bold text-danger">-{{ product.sales_percent }}%</span></h4>
+							{% else %}
+							<h4> {{ product.price }} PLN</h4>
 							{% endif %}
-						{% endfor %}
-					{% endif %}
-					</string>
 
+							<string class="text-overflow m-0">
+								<!-- {{ product.description|linebreaks }} -->
+								{% if dictionary != None %}
+								{% for item, descriptions in dictionary.items %}
+								{% if item == product%}
+								{% for description in descriptions %}
+								<p class="m-0">{{ description.parameter }}: {{ description.description }}</p>
+
+								{% endfor %}
+								{% endif %}
+								{% endfor %}
+								{% endif %}
+							</string>
+
+						</div>
+					</div>
 				</div>
-			</div>
-		</div></a>
+			</a>
 
-		{% endfor %}
-	</div>
+			{% endfor %}
+		</div>
 	</div>
 </div>
+
+<nav aria-label="Page navigation example">
+	<ul class="pagination justify-content-center">
+		{% if products.has_previous %}
+		<li class="page-item">
+			<a class="page-link" href="{% url 'shop:product_list' products.previous_page_number %}">Previous </a>
+		</li>
+		{% else %}
+		<li class="page-item">
+				<a class="page-link desativated">Previous </a>
+		</li>
+
+		{% endif %}
+
+		{% for page in paginator.page_range %}
+			{% if page == products.number %}
+				<li class="page-item active"><span class="page-link">{{ page }}</span><span class="sr-only">(current)</span>
+				</li>
+			{% else %}
+				<li class="page-item "><a class="page-link" href="{% url 'shop:product_list' page %}">{{ page }}</a></li>
+			{% endif %}
+
+		{% endfor %}
+
+		{% if products.has_next  %}
+			<li class="page-item">
+				<a class="page-link" href="{% url 'shop:product_list' products.next_page_number %}">Previous</a>
+			</li>
+		{% else %}
+			<li class="page-item">
+					<a class="page-link desativated">Next</a>
+			</li>
+		{% endif %}
+	</ul>
+</nav>
+
 
 
 <!--

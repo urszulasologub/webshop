@@ -172,4 +172,3 @@ EMAIL_HOST_USER = 'twoj_email@gamil.com'
 EMAIL_HOST_PASSWORD = 'twoje_haslo'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
