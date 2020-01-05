@@ -1,0 +1,553 @@
+/* base.html */
+body {
+	font-family: Open Sans;
+}
+
+
+.fa-shopping-cart {
+	font-size: 30px;
+}
+
+.fa-user {
+	font-size: 30px;
+	padding: 8px;
+	color: rgba(255, 255, 255, .5) !important;
+}
+
+#user_f {
+	font-family: "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.Btn {
+	color: white !important;
+}
+
+.Btn:hover {
+	color: lightslategrey !important;
+	cursor: pointer;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: fixed;
+	/* Stay in place */
+	z-index: 99 !important;
+	/* Sit on top */
+	padding-top: 100px;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.qty {
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	border-radius: 50%;
+	font-size: 10px;
+	color: #FFF;
+	background-color: #D10024;
+	float: right;
+	margin-top: -8px;
+	font-family: "arial";
+}
+
+.map-responsive {
+	overflow: hidden;
+	padding-bottom: 15%;
+	position: relative;
+	height: 0;
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+	filter: grayscale(100%);
+}
+
+.map-responsive iframe {
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+}
+
+#newsletter {
+	padding: 50px 0 50px 0;
+}
+
+@media (max-width: 991px) {
+	#nazwa_sklepu {
+		font-size: 25px;
+	}
+	
+
+	#user_nav {
+		position: absolute;
+	}
+
+	.map-responsive {
+		padding-bottom: 30%;
+	}
+
+
+
+
+	/* address.html */
+	.login-page {
+		width: 500px;
+		margin: auto;
+	}
+
+	.form {
+		position: relative;
+		z-index: 1;
+		background: #FFFFFF;
+		max-width: 500px;
+		padding: 45px;
+		text-align: center;
+		box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+	}
+
+	.form input {
+		outline: 0;
+		background: #f2f2f2;
+		width: 100%;
+		border: 0;
+		margin: 0 0 15px;
+		padding: 15px;
+		box-sizing: border-box;
+		font-size: 14px;
+	}
+
+	.form button {
+		font-family: "Roboto", sans-serif;
+		text-transform: uppercase;
+		outline: 0;
+		background: #007bff;
+		width: 100%;
+		border: 0;
+		padding: 15px;
+		color: #FFFFFF;
+		font-size: 14px;
+		-webkit-transition: all 0.3 ease;
+		transition: all 0.3 ease;
+		cursor: pointer;
+	}
+
+	.form button:hover,
+	.form button:active,
+	.form button:focus {
+		background: #007bff;
+	}
+
+	.form .message {
+		margin: 15px 0 0;
+		color: #b3b3b3;
+		font-size: 12px;
+	}
+
+	.form .message a {
+		color: #007bff;
+		text-decoration: none;
+	}
+
+	.form .register-form {
+		display: none;
+	}
+
+	.container {
+		position: relative;
+		z-index: 1;
+		margin: 0 auto;
+	}
+
+	.container:before,
+	.container:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+
+	.container .info {
+		margin: 50px auto;
+		text-align: center;
+	}
+
+	.container .info h1 {
+		margin: 0 0 15px;
+		padding: 0;
+		font-size: 36px;
+		font-weight: 300;
+		color: #1a1a1a;
+	}
+
+	.container .info span {
+		color: #4d4d4d;
+		font-size: 12px;
+	}
+
+	.container .info span a {
+		color: #000000;
+		text-decoration: none;
+	}
+
+	.container .info span .fa {
+		color: #EF3B3A;
+	}
+
+	ul {
+		list-style-type: none;
+
+	}
+
+	li {
+
+		text-align: left;
+	}
+
+	.btn {
+		color: white !important;
+		background-color: #007bff !important;
+	}
+
+	.btn:hover {
+		color: black !important;
+		background-color: #f2f2f2 !important;
+	}
+
+	.header-links li {
+		display: inline-block;
+		margin-right: 15px;
+		font-size: 12px;
+	}
+}
+
+.header-links li {
+	display: inline-block;
+	margin-right: 15px;
+	font-size: 12px;
+}
+
+.pull-right {
+	float: right !important;
+}
+
+.pull-left {
+	float: left !important;
+}
+
+.navbar_div {
+	justify-content: space-between !important;
+	width: 100% !important;
+	background-color: rgb(61, 70, 70);
+}
+
+.navbar>.container {
+	display: block;
+}
+
+/* list.html */
+
+.item {
+	transition: .4s;
+	border-style: solid;
+	border-width: 2px;
+	border-color: transparent;
+	border-radius: 0.3rem;
+}
+
+.item:hover {
+	border-color: #007bff;
+	border-width: 2px;
+}
+
+
+.img-fluid {
+	max-width: 100%;
+	height: 250px;
+}
+
+.text-overflow {
+	display: -webkit-box;
+	max-height: 50px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	margin-bottom: auto;
+	line-height: 25px;
+}
+
+#opis {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+
+#sidebar {
+	font-size: medium;
+}
+
+#sidebar a {
+	color: black;
+	transition: 10ms;
+}
+
+#sidebar a:hover {
+	color: #007bff;
+	font-weight: bold;
+}
+
+
+
+@media (max-width: 991px) {
+	.img-fluid {
+		max-width: 100%;
+		height: 200px;
+	}
+
+}
+
+
+/* detail.html */
+
+/* .img-fluid {
+			max-width: 100%;
+			height: 250px;
+		} */
+
+.rozmiar-tekstu {
+	font-size: 20px;
+
+}
+
+#autor {
+
+	font-size: 17px;
+	border-radius: 15px;
+	width: 20%;
+	max-width: 15%;
+	padding-left: 20px;
+
+}
+
+#ocena {
+
+	font-size: 25px;
+	border-radius: 15px;
+	color: gold;
+	width: 20%;
+	max-width: 15%;
+}
+
+#komentarz {
+
+	padding-right: 25px;
+	font-size: 17px;
+	border-radius: 15px;
+	width: 60%;
+}
+
+
+#recenzja {
+
+	padding: 10px;
+	border-radius: 10px;
+	display: flex;
+	/*justify-content: center; */
+	align-items: center;
+	/*
+			border-right-style: groove;
+			border-left-style: groove;
+			*/
+	border-top-style: groove;
+	border-bottom-style: groove;
+}
+
+.recommend {
+	border-top-style: groove;
+	border-bottom-style: groove;
+}
+
+
+/* .item {
+			transition: .4s;
+			border-style: solid;
+			border-width: 2px;
+			border-color: transparent;
+			border-radius: 0.3rem;
+		}
+	
+		.item:hover {
+			border-color: #007bff;
+			border-width: 2px;
+		} */
+
+
+/* .img-fluid {
+			max-width: 100%;
+			height: 250px;
+		}
+	 */
+/* .text-overflow {
+			display: -webkit-box;
+			max-height: 50px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+			margin-bottom: auto;
+			line-height: 25px;
+		} */
+
+/* #opis {
+			font-size: 20px;
+			font-weight: bold;
+		} */
+
+#slider-button {
+	background-color: black;
+	/*
+			max-height: 25px;
+			top: 50%;
+			*/
+}
+
+#tekst {
+	left: 10%;
+}
+
+
+.img-magnifier-container {
+	position: relative;
+}
+
+.img-magnifier-glass {
+	position: absolute;
+	border: 3px solid #000;
+	border-radius: 50%;
+	cursor: none;
+	width: 130px;
+	height: 130px;
+}
+
+
+
+
+@media (max-width: 991px) {
+	/* .img-fluid {
+				max-width: 100%;
+				height: 200px;
+			} */
+
+	#foto {
+		text-align: center !important;
+	}
+
+	#recenzja {
+		padding: 10px;
+		display: block;
+		border-radius: 10px;
+		align-items: center;
+		border-top-style: groove;
+		border-bottom-style: groove;
+	}
+
+	#komentarz {
+		padding-right: 25px;
+		font-size: 17px;
+		border-radius: 15px;
+		width: 100%
+	}
+
+}
+
+/* main.html */
+
+.caruzel_img {
+	object-fit: cover;
+	object-position: 0 25%;
+	height: 400px;
+}
+
+/* .item {
+			transition: .4s;
+			border-style: solid;
+			border-width: 2px;
+			border-color: transparent;
+			border-radius: 0.3rem;
+		}
+	
+		.item:hover {
+			border-color: #007bff;
+			border-width: 2px;
+		} */
+
+
+/* .img-fluid {
+			max-width: 100%;
+			height: 250px;
+		} */
+
+/* .text-overflow {
+			display: -webkit-box;
+			max-height: 50px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			margin-bottom: auto;
+			line-height: 25px;
+		} */
+
+/* #opis {
+			font-size: 20px;
+			font-weight: bold;
+		}
+	 */
+
+/* @media (max-width: 991px) {
+			.img-fluid {
+				max-width: 100%;
+				height: 200px;
+			}
+	
+		} */
