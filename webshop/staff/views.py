@@ -1,4 +1,7 @@
+from io import BytesIO
+
 import weasyprint
+from django.core.mail import EmailMessage
 from django.shortcuts import render
 from cart.models import Order, OrderComponent
 from django.contrib.admin.views.decorators import staff_member_required
@@ -105,11 +108,26 @@ def find_order(request):
 def admin_order_pdf(request, order_id):
 	order = get_object_or_404(Order, id=order_id)
 	order_details = OrderComponent.objects.filter(order=order)
-	print(order_details)
-	print(order)
 	html = render_to_string('staff/pdf.html', {'order': order, 'order_details': order_details})
 	response = HttpResponse(content_type='application/pdf')
 	response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(order.id)
 	weasyprint.HTML(string=html).write_pdf(response)
 	return response
+
+
+def send_pdf(order):
+	# create invoice e-mail
+	subject = 'Webshop - Zamówienie nr {}'.format(order.id)
+	message = 'Faktura ostatniego zamówienia znajduje się w załączniku.'
+	email = EmailMessage(subject, message, to=[order.user.email])
+	# generate PDF
+	order_details = OrderComponent.objects.filter(order=order)
+	print(order_details)
+	html = render_to_string('staff/pdf.html', {'order': order, 'order_details': order_details})
+	out = BytesIO()
+	weasyprint.HTML(string=html).write_pdf(out)
+	# attach PDF file
+	email.attach('order_{}.pdf'.format(order.id), out.getvalue(), 'application/pdf')
+	# send e-mail
+	email.send()
 

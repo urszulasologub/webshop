@@ -1,6 +1,6 @@
 <html>
 <body>
-    <h1>My Shop</h1>
+    <h1>Webshop</h1>
     <p> Zamówienie nr {{ order.id }}</br>
         <span class="secondary">
             {{ order.created|date:"M d, Y" }}
@@ -42,17 +42,19 @@
                 <td class="num">{{ item.full_price }} PLN</td>
             </tr>
         {% endfor %}
+        {% if order.discount in not 0%}
         <tr class="discount">
              <td>Obniżka</td>
             <td>-{{ order.discount }} PLN</td>
         </tr>
+        {% endif %}
         <tr class="delivery">
              <td>Koszt dostawy</td>
             <td>{{ order.delivery_price }} PLN</td>
         </tr>
         <tr class="total">
         <td colspan="3">Całość</td>
-        <td class="num">${{ order.total_price }}</td>
+        <td class="num">{{ order.total_price }} PLN</td>
         </tr>
     </tbody>
     </table>
