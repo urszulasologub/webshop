@@ -1,13 +1,14 @@
 <html>
 <body>
     <h1>Webshop</h1>
-    <p> Zamówienie nr {{ order.id }}</br>
+    <p> Zamówienie nr {{ order.id_with_zeroes }}</br>
         <span class="secondary">
             {{ order.created|date:"M d, Y" }}
         </span>
     </p>
+    <p>Data złożenia zamówienia: {{ order.created_at }}</p>
     {% if order.is_confirmed %}
-        <p>Id zapłaty?: {{ order.payment_id }}</p>
+        <p>Id zapłaty: {{ order.payment_id }}</p>
     {% endif %}
     {% if order.is_sent %}
         <p>Numer przesyłki: {{ order.delivery_searching_code }}</p>

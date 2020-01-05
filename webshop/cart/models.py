@@ -35,6 +35,9 @@ class Order(models.Model):
 	expiration_date = models.DateTimeField()
 	discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
+	def id_with_zeroes(self):
+		return str(self.id).zfill(6)
+
 	@property
 	def price(self):
 		price = 0
