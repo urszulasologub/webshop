@@ -2,7 +2,7 @@ from dal import autocomplete
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
-
+import random
 from .models import Category, Product, Review, Description, Parameter, ExtraPhoto
 from .forms import ReviewForm#, DescriptionForm
 from cart.forms import CartAddProductForm
@@ -184,12 +184,41 @@ def choose_similar(request, current_product, category, amount):
 		i += 1
 		if i == amount:
 			break
+	print(similar_products)
 	return similar_products
 
 
-def searching(request):
+def searching(request, page=1):
 	if request.method == 'GET':
-		products = Product.objects.filter(name__icontains=request.GET['search_phrase']).values('name')
+		product_list = Product.objects.filter(name__icontains=request.GET['search_phrase'], available=True)
+		dictionary = None
+		dictionary = {} 
+		for product in product_list:
+			parameters = Description.objects.filter(product=product)
+			dictionary[product] = parameters
+		paginator = Paginator(product_list, 12)
+		products = paginator.get_page(page)
 	else:
 		products = None
-	return render(request, 'shop/product/searching.html', {'products': products})	
+	return render(request, 'shop/product/searching.html', {'products': products, 'dictionary': dictionary, 'paginator': paginator})	
+
+
+def random_products(request, category_slug=None):
+	products = Product.objects.all().values('pk')
+	list = []
+	for product in products:
+		list.append(product['pk'])
+	if len(list) < 4:
+		sample = random.sample(list, len(list))
+	else:
+		sample = random.sample(list, 4)
+	random_products = []
+	for pk in sample:
+		product = Product.objects.get(pk=pk)
+		random_products.append(product)
+
+	category = None
+	categories = Category.objects.all()
+	if category_slug:
+		category = get_object_or_404(Category, slug=category_slug)
+	return render(request, 'shop/main.html', {'category': category, 'categories': categories, 'products': random_products})

@@ -130,4 +130,3 @@ def send_pdf(order):
 	email.attach('order_{}.pdf'.format(order.id), out.getvalue(), 'application/pdf')
 	# send e-mail
 	email.send()
-

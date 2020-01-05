@@ -149,7 +149,75 @@
 
                 </form>
                 <form action="" method="post" class="login-form">
-                        {{ user_form.as_p }}
+                        <!--{{ user_form.as_p }}-->
+						<!--<p><label for="id_first_name">Imię</label>
+    						<input id="id_first_name" type="text" name="first_name" maxlength="30" required>
+						</p>
+						<p><label for="id_last_name">Nazwisko</label>
+    						<input id="id_last_name" type="text" name="last_name" maxlength="30" required>
+						</p>
+						{{ user_form.day.label_tag }} {{ user_form.day }}<br>
+						{{ user_form.month.label_tag }} {{ user_form.month }}<br>
+						{{ user_form.year.label_tag }} {{ user_form.year }}<br>
+
+						<p><label for="id_email">Email</label>
+    						<input id="id_email" type="text" name="email" maxlength="254" required>
+						</p>
+						<p><label for="id_hasło">Hasło</label>
+    						<input id="id_hasło" type="text" name="hasło" required id="id_hasło">
+						</p>
+						<p><label for="id_hasło2">Powtórz hasło</label>
+    						<input id="id_hasło2" type="text" name="hasło2" required id="id_hasło2">
+						</p> -->
+
+						{{ user_form.non_field_errors }}
+						<div class="fieldWrapper">
+							<label for="{{ user_form.username.id_for_label }}">Uzytkownik</label>
+							{{ user_form.username }}
+							{{ user_form.username.errors }}
+						</div>
+						<div class="fieldWrapper">
+							<label for="{{ user_form.first_name.id_for_label }}">Imię</label>
+							{{ user_form.first_name }}
+							{{ user_form.first_name.errors }}
+						</div>
+						<div class="fieldWrapper">
+							<label for="{{ user_form.last_name.id_for_label }}">Nazwisko</label>
+							{{ user_form.last_name }}
+							{{ user_form.last_name.errors }}
+						</div>
+						<div class="fieldWrapper">
+							<label for="{{ user_form.day.id_for_label }}">Dzień</label>
+							{{ user_form.day }}
+							{{ user_form.day.errors }}
+						</div>
+						<div class="fieldWrapper">
+							<label for="{{ user_form.month.id_for_label }}">Miesiąc</label>
+							{{ user_form.month }}
+							{{ user_form.month.errors }}
+						</div>
+						<div class="fieldWrapper">
+							<label for="{{ user_form.year.id_for_label }}">Rok</label>
+							{{ user_form.year }}
+							{{ user_form.year.errors }}
+						</div>
+						<div class="fieldWrapper">
+							<label for="{{ user_form.email.id_for_label }}">Email</label>
+							{{ user_form.email }}
+							{{ user_form.email.errors }}
+						</div>
+						<div class="fieldWrapper">
+							<label for="{{ user_form.hasło.id_for_label }}">Hasło</label>
+							{{ user_form.hasło }}
+							{{ user_form.hasło.errors }}
+						</div>
+						<div class="fieldWrapper">
+							<label for="{{ user_form.hasło2.id_for_label }}">Powtórz hasło</label>
+							{{ user_form.hasło2 }}
+							{{ user_form.hasło2.errors }}
+						</div>
+
+
                         {% csrf_token %}
                         <p><input type="submit" value="Stwórz moje konto"></p>
                         <p class="message">Masz już konto. <a href="{% url 'account:login' %}">Zaloguj się</a></p>

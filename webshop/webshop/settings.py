@@ -38,12 +38,15 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
+	'django.contrib.sites',
 	'shop',
 	'cart',
 	'django.contrib.postgres',
 	'staff',
 	'customer',
 	'social_django',
+	'sorl.thumbnail',
+	'newsletter',
 	'coupons',
 ]
 
@@ -160,6 +163,8 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 #SESSION_COOKIE_AGE = 30 * 60 #ustawione na 30 min (ustawia się w sekundach)
+
+SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

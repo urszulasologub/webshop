@@ -8,7 +8,6 @@
 {% block content %}
 	{% if cart.get_total_price > 0%}
 		<h1>Twój koszyk</h1>
-		<h1>Twój koszyk</h1>
 		<table class="cart" style="width:100%">
 			<thead>
 				<tr class="border-bottom">
@@ -16,7 +15,7 @@
 					<th>Produkt</th>
 					<th>Ilość</th>
 					<th>Usuń</th>
-					<th>Cena jednostkowa</th>
+					<th><span class="d-none d-md-block d-xl-block d-lg-block">Cena jednostkowa</span></th>
 					<th class="num text-right">Cena</th>
 				</tr>
 			</thead>
@@ -32,46 +31,35 @@
 							<td>{{ product.name }}</td>
 							<td>{{ item.quantity }}</td>
 							<td><a href="{% url 'cart:cart_remove' product.id %}">Usuń</a></td>
-							<td class="num">{{ item.price }} PLN</td>
+							<td class="num"><span class="d-none d-md-block d-xl-block d-lg-block">{{ item.price }} PLN</span></td>
 							<td class="num text-right">{{ item.total_price }} PLN</td>
 						</tr>
 					{% endwith %}
 				{% endfor %}
-				{% if cart.coupon %}
-					<tr>
-						<td colspan="5"></td>
-						<td class="num border-top text-right">Cena za przedmioty: {{ cart.get_total_price }} PLN</td>
-					</tr>
-					<tr>
-						<td colspan="5"></td>
-						<td class="num border-top text-right">Kupon: "{{ cart.coupon.code }}" (-{{ cart.coupon.discount }}%) -{{ cart.get_discount }} PLN</td>
-					</tr>
-				{% endif %}
 				<tr>
-					<td colspan="5"></td>
-					<td class="num border-top text-right">Wartość zakupów: {{ cart.get_total_price_after_discount }} PLN</td>
+					<td colspan="5"></td>               	
+					<td class="num border-top text-right">Wartość zakupów: {{ cart.get_total_price }} PLN</td>
 				</tr>
-
 			</tbody>
 		</table>
-		<p>Dodaj kupon:</p>
+  
+    <p>Dodaj kupon:</p>
 		<form action="{% url 'coupons:apply' %}" method="post">
 			{{ coupon_apply_form }}
 			<input type="submit" value="Dodaj">
 			{% csrf_token %}
 		</form>
 		<p>Można użyć tylko jednego kupou na zamówienie</p>
+  
+    <p class="text-right mt-4 mb-4">
+      {% if user.is_authenticated %}
+        <a href="{% url 'shop:product_list' %}" class="button light btn btn-primary btn-lg">Kontynuuj zakupy</a>
+      {% else %}
+        <a href="{% url 'account:login' %}" class="button light btn btn-primary btn-lg">Logowanie</a>
+        </br><span class="h5">Aby dokonać kupna musisz być zalogowany!</span>
+      {% endif %}
 
-
-			<p class="text-right mt-4 mb-4">
-				{% if user.is_authenticated %}
-					<a href="{% url 'shop:product_list' %}" class="button light btn btn-primary btn-lg">Kontynuuj zakupy</a>
-				{% else %}
-					<a href="{% url 'account:login' %}" class="button light btn btn-primary btn-lg">Logowanie</a>
-					</br><span class="h5">Aby dokonać kupna musisz być zalogowany!</span>
-				{% endif %}
-				
-			</p>
+    </p>
 		
 		<form action="" method="post" class="border-top">
 			{% if user.is_authenticated %}
