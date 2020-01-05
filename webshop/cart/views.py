@@ -11,6 +11,7 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required
 import datetime
 from django.utils import timezone
+from coupons.forms import CouponApplyForm
 
 
 FREE_DELIVERY_PRICE = 500
@@ -46,11 +47,16 @@ def cart_detail(request):
 			choice = int(choice.get('delivery_type'))
 			delivery = Delivery(cart.get_total_price(), FREE_DELIVERY_PRICE)
 			delivery.set_delivery(choice)
-			new_order = Order(user=request.user, is_confirmed=False, delivery_price=delivery.get_delivery_price(), delivery_type=delivery.delivery_name, expiration_date=timezone.now() + datetime.timedelta(days=1))
+			discount = cart.get_discount()
+			new_order = Order(user=request.user, is_confirmed=False, delivery_price=delivery.get_delivery_price(), delivery_type=delivery.delivery_name, expiration_date=timezone.now() + datetime.timedelta(days=1), discount=discount)
 			new_order.save()
 			order_id = new_order.id
 			return redirect('cart:choose_address', order_id)
-	return render(request, 'cart/checkout.html', {'cart': cart, 'delivery_form': delivery_form, 'free_delivery_price': FREE_DELIVERY_PRICE})
+	coupon_apply_form = CouponApplyForm()
+	return render(request, 'cart/checkout.html', {'cart': cart,
+												  'delivery_form': delivery_form,
+												  'free_delivery_price': FREE_DELIVERY_PRICE,
+												  'coupon_apply_form': coupon_apply_form})
 
 
 @login_required
@@ -74,6 +80,7 @@ def choose_address(request, id):
 				comp.save()
 			order.save()
 			cart.clear()
+			request.session['coupon_id'] = None
 			return redirect('cart:cart_checkout', id)
 	return render(request, 'cart/address.html', {'address_form': address_form, 'order': order})
 
@@ -82,9 +89,10 @@ def choose_address(request, id):
 def cart_checkout(request, id):
 	order = get_object_or_404(Order, id=id)
 	components = OrderComponent.objects.filter(order=order)
+	#discount = order.discount
 	if request.method == 'POST':
 		return buy_now(request, id)
-	return render(request, 'cart/pay.html', {'order': order, 'components': components })
+	return render(request, 'cart/pay.html', {'order': order, 'components': components})
 
 
 @login_required

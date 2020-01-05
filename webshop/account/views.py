@@ -1,7 +1,14 @@
 from django.contrib.auth.models import User
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
+from shop.tokens import account_activation_token
 from .forms import LoginForm, UserRegistrationForm
 
 
@@ -22,7 +29,7 @@ def user_login(request):
 				return HttpResponse('Podano nieprawidłowe dane')
 		else:
 			form = LoginForm()
-	return render(request, 'account/login.html', {'form': form})
+	return render(request, 'registration/login.html', {'form': form})
 
 
 def register(request):
@@ -34,12 +41,41 @@ def register(request):
 				new_user = user_form.save(commit=False)
 				new_user.set_password(
 					user_form.cleaned_data['hasło'])
+				new_user.is_active = False
 				new_user.save()
 				update_profile(request, new_user, birthday)
-				return render(request, 'account/register_done.html', {'new_user': new_user})
+				current_site = get_current_site(request)
+				mail_subject = 'Aktywuj konto'
+				message = render_to_string('account/acc_active_email.html',
+										   {'user': new_user,
+											'domain': current_site.domain,
+											'uid': urlsafe_base64_encode(force_bytes(new_user.pk)).decode(),
+											'token': account_activation_token.make_token(new_user),
+											})
+				to_email = user_form.cleaned_data.get('email')
+				email = EmailMessage(mail_subject, message, to=[to_email])
+				email.send()
+				return HttpResponse('Powierdź swojego maila, aby dokończyć rejestrację')
+
+				#return render(request, 'account/register_done.html', {'new_user': new_user})
 	else:
 		user_form = UserRegistrationForm
 	return render(request, 'account/register.html', {'user_form': user_form})
+
+
+def activate(request, uidb64, token):
+	try:
+		uid = force_text(urlsafe_base64_decode(uidb64))
+		user = User.objects.get(pk=uid)
+	except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+		user = None
+	if user is not None and account_activation_token.check_token(user, token):
+		user.is_active = True
+		user.save()
+		# return redirect('home')
+		return HttpResponse('Dziękujemy za potwierdzenie maila. Teraz możesz się zalogować.')
+	else:
+		return HttpResponse('Link aktywacyjny jest nieważny!')
 
 
 def user_logout(request):
