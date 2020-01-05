@@ -1,5 +1,11 @@
 import paypalrestsdk
+from paypalrestsdk import Sale
 import logging
+
+logging.basicConfig(level=logging.INFO)
+
+ID = "AfNoHbwXRtAOBeEcOzPvXLQDsW9ZwQY_2kYRlnmmaHlm1q770zLrxUPZHlmbPwIZXzvM4zmEo63Q7dGs"
+SID = "EFcLsJVDihQlZeS8aYlOoWzcPL_ghf3qWkj69uq3xcNGu6kgNSY7_Wl2yuxnLEzV6cx7fwKAPebsE1Kp" 
 
 class PaypalPayment():
 	def __init__(self, request, total_price):
@@ -7,8 +13,8 @@ class PaypalPayment():
 		self.request = request
 		paypalrestsdk.configure({
 			"mode": "sandbox", # sandbox or live
-			"client_id": "AfNoHbwXRtAOBeEcOzPvXLQDsW9ZwQY_2kYRlnmmaHlm1q770zLrxUPZHlmbPwIZXzvM4zmEo63Q7dGs",
-			"client_secret": "EFcLsJVDihQlZeS8aYlOoWzcPL_ghf3qWkj69uq3xcNGu6kgNSY7_Wl2yuxnLEzV6cx7fwKAPebsE1Kp" 
+			"client_id": ID,
+			"client_secret": SID
 		})
 		'''self.experience = paypalrestsdk.WebProfile({
 			"name": "webshop",
@@ -75,3 +81,22 @@ def execute_payment(request):
 	else:
 		return False
 
+
+def make_refund(pay_id):
+	paypalrestsdk.configure({
+		"mode": "sandbox", # sandbox or live
+		"client_id": ID,
+		"client_secret": SID
+	})
+	payment = paypalrestsdk.Payment.find(pay_id)
+	print(payment.transactions[0].related_resources[0].sale.id)
+	sale_id = payment.transactions[0].related_resources[0].sale.id
+	sale = Sale.find(sale_id)
+	print(sale)
+	refund = sale.refund({})
+
+	if refund.success():
+		print("Refund[%s] Success" % (refund.id))
+	else:
+		print(refund.error)
+		raise Exception('Unable to refund')

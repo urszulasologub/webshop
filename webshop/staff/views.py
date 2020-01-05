@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import OrderButtons, FilterButton, AddDeliverySearchingCode
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+from cart.paypal_payment import *
 
 def are_components_completed(components):
 	if components != None:
