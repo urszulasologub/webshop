@@ -1,8 +1,10 @@
 from django.db import models
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from decimal import Decimal
 from django.contrib.auth.models import User
 from shop.models import Product
+from coupons.models import Coupon
+from .cart import Cart
 
 
 class DeliveryType(models.Model):
@@ -31,7 +33,7 @@ class Order(models.Model):
 	#are_products = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add=True)
 	expiration_date = models.DateTimeField()
-
+	discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
 	@property
 	def price(self):
@@ -41,7 +43,6 @@ class Order(models.Model):
 			price += (component.price * component.quantity)
 		return price
 
-	
 	@property
 	def are_products(self):
 		components = OrderComponent.objects.filter(order=self)
@@ -49,14 +50,12 @@ class Order(models.Model):
 			return False
 		return True		
 
-
 	@property
 	def total_price(self):
-		return self.price + self.delivery_price
-
+		return self.price + self.delivery_price - self.discount
 
 	def __str__(self):
-		return "#" + str(self.id).zfill(6) + ": " + str(self.user) + ' - ' + str(self.price + self.delivery_price) + " PLN"
+		return "#" + str(self.id).zfill(6) + ": " + str(self.user) + ' - ' + str(self.price + self.delivery_price - self.discount) + " PLN"
 
 
 	@property
@@ -74,7 +73,6 @@ class OrderComponent(models.Model):
 	price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
 	is_completed = models.BooleanField(default=False)
 	quantity = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-
 	
 	def __str__(self):
 		return "#" + str(self.order.id) + ": "  + str(self.product.name)
