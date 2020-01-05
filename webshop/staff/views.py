@@ -1,9 +1,13 @@
+import weasyprint
 from django.shortcuts import render
 from cart.models import Order, OrderComponent
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
+
+from webshop import settings
 from .forms import OrderButtons, FilterButton, AddDeliverySearchingCode
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 
 def are_components_completed(components):
@@ -95,3 +99,17 @@ def find_order(request):
 	else:
 		form = FilterButton()
 	return render(request, 'staff/finder.html', {'form': form, 'orders': orders})
+
+
+@staff_member_required
+def admin_order_pdf(request, order_id):
+	order = get_object_or_404(Order, id=order_id)
+	order_details = OrderComponent.objects.filter(order=order)
+	print(order_details)
+	print(order)
+	html = render_to_string('staff/pdf.html', {'order': order, 'order_details': order_details})
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(order.id)
+	weasyprint.HTML(string=html).write_pdf(response)
+	return response
+

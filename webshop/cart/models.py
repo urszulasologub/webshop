@@ -73,6 +73,9 @@ class OrderComponent(models.Model):
 	price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
 	is_completed = models.BooleanField(default=False)
 	quantity = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-	
+
+	def full_price(self):
+		return self.price * self.quantity
+
 	def __str__(self):
 		return "#" + str(self.order.id) + ": "  + str(self.product.name)

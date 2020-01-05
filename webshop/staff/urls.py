@@ -11,4 +11,5 @@ urlpatterns = [
 	path('completed_component/<int:id>/', views.completed_component, name='completed_component'),
 	#path('send_order/<int:id>', views.send_order, name='send_order'),
 	path('find_order/', views.find_order, name='find_order'),
+	path('order/<int:order_id>/pdf/', views.admin_order_pdf, name='admin_order_pdf'),
 ]
