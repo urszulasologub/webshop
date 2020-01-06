@@ -55,9 +55,8 @@ def register(request):
 				to_email = user_form.cleaned_data.get('email')
 				email = EmailMessage(mail_subject, message, to=[to_email])
 				email.send()
-				return HttpResponse('Powierdź swojego maila, aby dokończyć rejestrację')
-
-				#return render(request, 'account/register_done.html', {'new_user': new_user})
+				#HttpResponse('Powierdź swojego maila, aby dokończyć rejestrację')
+				return render(request, 'account/confirm_mail.html', {'new_user': new_user})
 	else:
 		user_form = UserRegistrationForm
 	return render(request, 'account/register.html', {'user_form': user_form})
@@ -73,9 +72,9 @@ def activate(request, uidb64, token):
 		user.is_active = True
 		user.save()
 		# return redirect('home')
-		return HttpResponse('Dziękujemy za potwierdzenie maila. Teraz możesz się zalogować.')
+		return render(request, 'account/register_done.html', {'new_user': user})
 	else:
-		return HttpResponse('Link aktywacyjny jest nieważny!')
+		return render(request, 'account/link_invalid.html')
 
 
 def user_logout(request):

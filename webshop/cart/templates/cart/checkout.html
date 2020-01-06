@@ -36,6 +36,20 @@
 						</tr>
 					{% endwith %}
 				{% endfor %}
+				{% if cart.coupon %}
+					<tr>
+						<td colspan="5"></td>
+						<td class="num border-top text-right">Cena za przedmioty: {{ cart.get_total_price }} PLN</td>
+					</tr>
+					<tr>
+						<td colspan="5"></td>
+						<td class="num border-top text-right">Kupon: "{{ cart.coupon.code }}" (-{{ cart.coupon.discount }}%) -{{ cart.get_discount }} PLN</td>
+					</tr>
+				{% endif %}
+				<tr>
+					<td colspan="5"></td>
+					<td class="num border-top text-right">Wartość zakupów: {{ cart.get_total_price_after_discount }} PLN</td>
+				</tr>
 				<tr>
 					<td colspan="5"></td>               	
 					<td class="num border-top text-right">Wartość zakupów: {{ cart.get_total_price }} PLN</td>

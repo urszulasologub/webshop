@@ -221,6 +221,11 @@
                         {% csrf_token %}
                         <p><input type="submit" value="Stwórz moje konto"></p>
                         <p class="message">Masz już konto. <a href="{% url 'account:login' %}">Zaloguj się</a></p>
+               			<div class="social">
+							<ul>
+								<li class="facebook"><a href="{% url "social:begin" "facebook" %}">Zaloguj się Facebookiem</a></li>
+							</ul>
+						</div>
                 </form>
             </div>
         </div>
