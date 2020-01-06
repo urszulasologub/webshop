@@ -54,7 +54,7 @@ def cart_detail(request):
 			delivery = Delivery(cart.get_total_price(), FREE_DELIVERY_PRICE)
 			delivery.set_delivery(choice)
 			discount = cart.get_discount()
-			new_order = Order(user=request.user, is_confirmed=False, delivery_price=delivery.get_delivery_price(), delivery_type=delivery.delivery_name, expiration_date=timezone.now() + datetime.timedelta(days=1), discount=discount)
+			new_order = Order(user=request.user, is_confirmed=False, delivery_price=delivery.get_delivery_price(), delivery_type=delivery.delivery_name, expiration_date=timezone.now() + datetime.timedelta(days=7), discount=discount)
 			new_order.save()
 			order_id = new_order.id
 			return redirect('cart:choose_address', order_id)

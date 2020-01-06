@@ -9,11 +9,12 @@ from cart.models import Order, OrderComponent
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
-
 from webshop import settings
 from .forms import OrderButtons, FilterButton, AddDeliverySearchingCode
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
+from customer.models import Complainment
+
 
 def are_components_completed(components):
 	if components != None:
@@ -94,6 +95,7 @@ def refund_order(request, id):
 	return HttpResponse(message)
 
 
+
 @staff_member_required
 def show_products(request):
 	components = OrderComponent.objects.all()
@@ -120,6 +122,20 @@ def find_order(request):
 	else:
 		form = FilterButton()
 	return render(request, 'staff/finder.html', {'form': form, 'orders': orders})
+
+
+@staff_member_required
+def read_complainments(request):
+	complainments = Complainment.objects.all()
+	return render(request, 'staff/complainments.html', {'complainments': complainments})
+
+
+@staff_member_required
+def close_complainment(request, id):
+	complainment = get_object_or_404(Complainment, id=id)
+	complainment.is_active = False
+	complainment.save()
+	return redirect('staff:complainments')
 
 
 @staff_member_required

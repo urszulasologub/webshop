@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Complainment
 
-# Register your models here.
+@admin.register(Complainment)
+class ComplainAdmin(admin.ModelAdmin):
+	pass

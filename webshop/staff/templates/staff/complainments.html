@@ -1,0 +1,29 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+
+
+{% block content %}
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Reklamacje</title>
+	</head>
+	<body>	
+		{% for complainment in complainments %}
+			Treść: {{ complainment.body }}<br>
+			Numer zamówienia: {{ complainment.order_id }}<br>
+			Uzytkownik: {{ complainment.user }}<br>
+			E-mail: {{ complainment.email }}<br>
+			Data: {{ complainment.date }}<br>
+			Czy odpowiedziano? {% if complainment.is_active %}Nie{% else %}Tak{% endif %}<br>	<!-- tu mozecie wstawic jakas ikone: np. X jeśli false-->
+			{% if complainment.is_active %}
+				<a href="{% url 'staff:close_complainment' complainment.id %}">Oznacz jako odpowiedziane</a>
+			{% endif %}
+			<br><br>
+		{% endfor %}
+	</body>
+</html>
+{% endblock %}

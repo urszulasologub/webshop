@@ -1,0 +1,52 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+
+
+{% block title %}
+	Reklamacje
+{% endblock %}
+
+	
+
+{% block content %}
+	{% if message %}
+		{{ message }}
+		<br>
+	{% else %}
+		<div class="container d-flex justify-content-center">
+
+			<form action="" method="post" class="form">
+				<p>Napisz nam na czym polega Twój problem. Pamiętaj by opisać którego produktu oraz zamówienia on dotyczy
+					oraz jakie masz od nas oczekiwania. Odpowiedź uzyskasz na podany adres email.</p>
+
+				<div class="fieldWrapper">
+					Treść<br>
+					{{ form.body }}
+					{% if form.body.help_text %}
+						<p class="help">{{ form.body.help_text|safe }}</p>
+					{% endif %}
+				</div>
+				<br>
+				<div class="fieldWrapper">
+					E-mail<br>
+					{{ form.email }}
+					{% if form.email.help_text %}
+						<p class="help">{{ form.email.help_text|safe }}</p>
+					{% endif %}
+				</div>
+				<br>
+				<div class="fieldWrapper">
+					Numer zamówienia (bez zer wiodących):<br> 
+					{{ form.order_id }}
+					{% if form.order_id.help_text %}
+						<p class="help">{{ form.order_id.help_text|safe }}</p>
+					{% endif %}
+				</div>
+				{% csrf_token %}
+				<br>
+				<input type="submit" class="btn" value="Wyślij">
+			</form>
+		</div>
+	{% endif %}
+{% endblock %}
