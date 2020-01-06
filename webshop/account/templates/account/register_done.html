@@ -3,6 +3,6 @@
 {% block title %}Witaj{% endblock %}
 
 {% block content %}
-    <h1>Witaj {{ new_user.first_name }}!</h1>
-    <p>Dziękujemy za potwierdzenie maila. Teraz możesz <a href="{% url 'account:login' %}">zalogować sie</a>.</p>
+    <h1 class="display-4 p-4 text-center">Witaj {{ new_user.first_name }}!</h1>
+    <p class="display-5 p-4 text-center">Dziękujemy za potwierdzenie maila. Teraz możesz <a class="ext-decoration-none" href="{% url 'account:login' %}">zalogować sie</a>.</p>
 {% endblock %}
