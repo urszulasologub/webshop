@@ -64,7 +64,13 @@
 		</tr>
 	</table>
 
-	<br><br><b>Opłaty</b>
+	<br><br><b>Opłaty</b><br>
+	{% if order.is_refunded %}
+		<font size="3" color="red">Dokonano zwrotu kosztów!</font>
+	{% else %}
+		<a href="{% url 'staff:refund_order' order.id %}">Zwróć koszty</a>
+	{% endif %}
+
 
 	<table class="center" border="5" cellpadding="6">
 		<tr>

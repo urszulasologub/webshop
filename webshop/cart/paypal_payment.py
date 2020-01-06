@@ -89,14 +89,11 @@ def make_refund(pay_id):
 		"client_secret": SID
 	})
 	payment = paypalrestsdk.Payment.find(pay_id)
-	print(payment.transactions[0].related_resources[0].sale.id)
 	sale_id = payment.transactions[0].related_resources[0].sale.id
 	sale = Sale.find(sale_id)
-	print(sale)
 	refund = sale.refund({})
 
 	if refund.success():
 		print("Refund[%s] Success" % (refund.id))
 	else:
-		print(refund.error)
-		raise Exception('Unable to refund')
+		raise Exception('Unable to refund: %s' % refund.error)

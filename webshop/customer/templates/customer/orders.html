@@ -83,6 +83,11 @@ Twój profil
 									src="{% if component.product.image %}{{ component.product.image.url }}{% else %}{% static 'img/no-image.png' %}{% endif %} ">
 							</th>
 						</tr>
+						{% if order.is_refunded %}
+						<tr>
+							<th><font size="3" color="red">Dokonano zwrotu pełnej kwoty!</font></th>
+						</tr>
+						{% endif %}
 						<tr>
 							<th scope="row">Produkt:</th>
 							<th>{{ component.product.name }}</th>
