@@ -1,0 +1,63 @@
+<html>
+<body>
+    <h1>Webshop</h1>
+    <p> Zamówienie nr {{ order.id_with_zeroes }}</br>
+        <span class="secondary">
+            {{ order.created|date:"M d, Y" }}
+        </span>
+    </p>
+    <p>Data złożenia zamówienia: {{ order.created_at }}</p>
+    {% if order.is_confirmed %}
+        <p>Id zapłaty: {{ order.payment_id }}</p>
+    {% endif %}
+    {% if order.is_sent %}
+        <p>Numer przesyłki: {{ order.delivery_searching_code }}</p>
+    {% endif %}
+    <h3>Dane do wysyłki</h3>
+    <p>
+        {{ order.name }} {{ order.surname }}<br>
+        {{ order.user.email }}<br>
+        {{ order.address }}<br>
+        {{ order.postal_code }}, {{ order.city }}
+    </p>
+
+    <h3>Typ dostawy</h3>
+    <p>{{ order.delivery_type }}</p>
+
+    <h3>Kupione przedmioy</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Produkt</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+            <th>Łączna suma</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in order_details %}
+            <tr class="row{% cycle '1' '2' %}">
+                <td>{{ item.product.name }}</td>
+                <td class="num">{{ item.price }} PLN</td>
+                <td class="num">{{ item.quantity }}</td>
+                <td class="num">{{ item.full_price }} PLN</td>
+            </tr>
+        {% endfor %}
+        {% if order.discount in not 0%}
+        <tr class="discount">
+             <td>Obniżka</td>
+            <td>-{{ order.discount }} PLN</td>
+        </tr>
+        {% endif %}
+        <tr class="delivery">
+             <td>Koszt dostawy</td>
+            <td>{{ order.delivery_price }} PLN</td>
+        </tr>
+        <tr class="total">
+        <td colspan="3">Całość</td>
+        <td class="num">{{ order.total_price }} PLN</td>
+        </tr>
+    </tbody>
+    </table>
+</body>
+</html>

@@ -1,12 +1,18 @@
+from cart.paypal_payment import *
+
+from io import BytesIO
+
+import weasyprint
+from django.core.mail import EmailMessage
 from django.shortcuts import render
 from cart.models import Order, OrderComponent
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
+from webshop import settings
 from .forms import OrderButtons, FilterButton, AddDeliverySearchingCode
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
-from django.http import HttpResponse
-from cart.paypal_payment import *
 from customer.models import Complainment
 
 
@@ -130,3 +136,31 @@ def close_complainment(request, id):
 	complainment.is_active = False
 	complainment.save()
 	return redirect('staff:complainments')
+
+
+@staff_member_required
+def admin_order_pdf(request, order_id):
+	order = get_object_or_404(Order, id=order_id)
+	order_details = OrderComponent.objects.filter(order=order)
+	html = render_to_string('staff/pdf.html', {'order': order, 'order_details': order_details})
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'filename="order_{}.pdf"'.format(order.id)
+	weasyprint.HTML(string=html).write_pdf(response)
+	return response
+
+
+def send_pdf(order):
+	# create invoice e-mail
+	subject = 'Webshop - Zamówienie nr {}'.format(order.id)
+	message = 'Faktura ostatniego zamówienia znajduje się w załączniku.'
+	email = EmailMessage(subject, message, to=[order.user.email])
+	# generate PDF
+	order_details = OrderComponent.objects.filter(order=order)
+	print(order_details)
+	html = render_to_string('staff/pdf.html', {'order': order, 'order_details': order_details})
+	out = BytesIO()
+	weasyprint.HTML(string=html).write_pdf(out)
+	# attach PDF file
+	email.attach('order_{}.pdf'.format(order.id), out.getvalue(), 'application/pdf')
+	# send e-mail
+	email.send()

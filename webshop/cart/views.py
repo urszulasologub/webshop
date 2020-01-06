@@ -1,4 +1,9 @@
+from io import BytesIO
+
+import weasyprint
+from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect, get_object_or_404, reverse, HttpResponseRedirect
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 from shop.models import Product
 from .cart import Cart
@@ -12,6 +17,7 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.utils import timezone
 from coupons.forms import CouponApplyForm
+from staff.views import send_pdf
 
 
 FREE_DELIVERY_PRICE = 500
@@ -118,4 +124,5 @@ def finalize(request):
 		order = get_object_or_404(Order, user=request.user, payment_id=str(request.GET.get('paymentId', None)))
 		order.is_confirmed = True
 		order.save()
+		send_pdf(order)
 	return render(request, 'cart/finalize.html', {'message': message, 'order': order})
