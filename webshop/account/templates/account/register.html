@@ -132,15 +132,6 @@
     </script>
 
 
- <!--   <h1>Stwórz konto</h1>
-    <p>Zarejestruj się używając poniższego formularza: </p>
-    <form action="." method="post">
-        {{ user_form.as_p }}
-        {% csrf_token %}
-        <p><input type="submit" value="Stwórz moje konto"></p>
-    </form>
-    <p>Masz już konto. <a href="{% url 'account:login' %}">Zaloguj się</a>.</p>
--->
 
 
     <div class="login-page">
@@ -149,26 +140,6 @@
 
                 </form>
                 <form action="" method="post" class="login-form">
-                        <!--{{ user_form.as_p }}-->
-						<!--<p><label for="id_first_name">Imię</label>
-    						<input id="id_first_name" type="text" name="first_name" maxlength="30" required>
-						</p>
-						<p><label for="id_last_name">Nazwisko</label>
-    						<input id="id_last_name" type="text" name="last_name" maxlength="30" required>
-						</p>
-						{{ user_form.day.label_tag }} {{ user_form.day }}<br>
-						{{ user_form.month.label_tag }} {{ user_form.month }}<br>
-						{{ user_form.year.label_tag }} {{ user_form.year }}<br>
-
-						<p><label for="id_email">Email</label>
-    						<input id="id_email" type="text" name="email" maxlength="254" required>
-						</p>
-						<p><label for="id_hasło">Hasło</label>
-    						<input id="id_hasło" type="text" name="hasło" required id="id_hasło">
-						</p>
-						<p><label for="id_hasło2">Powtórz hasło</label>
-    						<input id="id_hasło2" type="text" name="hasło2" required id="id_hasło2">
-						</p> -->
 
 						{{ user_form.non_field_errors }}
 						<div class="fieldWrapper">
@@ -187,9 +158,11 @@
 							{{ user_form.last_name.errors }}
 						</div>
 						<div class="fieldWrapper">
-							<label for="{{ user_form.day.id_for_label }}">Dzień</label>
-							{{ user_form.day }}
-							{{ user_form.day.errors }}
+                            <label for="{{ user_form.day.id_for_label }}">Dzień</label>
+                            <select id="inputState" class="form-control">
+                                {{ user_form.day }}
+                                {{ user_form.day.errors }}
+                            </select>
 						</div>
 						<div class="fieldWrapper">
 							<label for="{{ user_form.month.id_for_label }}">Miesiąc</label>
