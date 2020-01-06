@@ -12,4 +12,5 @@ urlpatterns = [
 	#path('send_order/<int:id>', views.send_order, name='send_order'),
 	path('find_order/', views.find_order, name='find_order'),
 	path('refund_order/<int:id>', views.refund_order, name='refund_order'),
+	
 ]
