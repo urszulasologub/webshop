@@ -310,7 +310,7 @@ body {
 	max-height: 50px;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	-webkit-line-clamp: 2;
+	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
 	margin-bottom: auto;
 	line-height: 25px;
@@ -469,6 +469,58 @@ body {
 	height: 130px;
 }
 
+#id_ilość
+{
+    display: line;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	margin-left: 5px;
+}
+
+#id_rating
+{
+    display: line;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#id_textbox, #id_body
+{
+	display: block;
+	width: 100%;
+	height: calc(1.5em + .75rem + 50px);
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color:
+	#495057;
+	background-color:
+	#fff;
+	background-clip: padding-box;
+	border: 1px solid
+	#ced4da;
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 
 
 
@@ -507,6 +559,57 @@ body {
 	object-position: 0 25%;
 	height: 400px;
 }
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: 
+	#FFFFFF;
+	max-width: 500px;
+	padding: 45px;
+	text-align: center;
+	box-shadow: 0 0 20px 0
+	rgba(0, 0, 0, 0.2), 0 5px 5px 0
+    rgba(0, 0, 0, 0.24);
+}
+
+.form input {
+    outline: 0;
+    background: 
+    #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+#id_code
+{
+	width: 25%;
+	display: block;
+	height: calc(1.5em + .75rem + 2px);
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color:
+	#495057;
+	background-color:
+	#fff;
+	background-clip: padding-box;
+	border: 1px solid
+	#ced4da;
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.tekst_maly
+{
+	font-size: small;
+}
+
 
 /* .item {
 			transition: .4s;

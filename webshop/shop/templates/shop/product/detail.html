@@ -257,7 +257,7 @@
 	</div>
 	<div id="tekst" class="col-md-6 pb-4">
 
-		<h1>{{ product.name }}</h1>
+		<h1 class="text-secondary">{{ product.name }}</h1>
 		<!--<h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>-->
 		{% if product.new_price != 0 %}
 		<span class="h2 price mb-3 font-weight-bold">{{ product.new_price }} PLN </span>
@@ -381,8 +381,10 @@
 		<div id="ocena">★★★★★</div><br>
 		{% endif %}
 
-		<div id="komentarz"> 
-			{{ review.body }}
+		<div id="komentarz">
+			<span>
+				{{ review.body }}
+			</span> 
 		</div>
 
 		{% if review.user == user %}
@@ -410,7 +412,7 @@
 		<!--{{ review_form.as_p }}
 			{{ review_form.rating.label_tag }} -->
 		<p>
-			<textarea id="id_body" type="text" name="body" maxlength="1000" style="width: 600px; height: 150px;" required></textarea>
+			<textarea id="id_textbox" type="text" name="body" maxlength="1000" required></textarea>
 		</p>
 		<!--{{ review_form.body}} <br>-->
 		{{ review_form.rating}} <br> <br>
