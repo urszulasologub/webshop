@@ -192,6 +192,8 @@ def searching(request, page=1, phrase=None):
 	paginator = None
 	if request.method == 'GET' and phrase is None:
 		phrase = request.GET["search_phrase"]
+		if len(phrase) < 1:
+			phrase = None
 	if phrase is not None:
 		product_list = Product.objects.filter(name__icontains=phrase, available=True)
 		dictionary = {} 

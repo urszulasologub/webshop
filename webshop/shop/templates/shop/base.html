@@ -382,8 +382,10 @@
 						class="form-inline mr-auto d-xl-none d-lg-none">
 						<input class="form-control w-100" type="search" placeholder="Wyszukaj..." name="search_phrase"
 							aria-describedby="button-addon5">
+						{% if request.GET.search_phrase %}
 						<button id="button-addon5" class="btn btn-outline-primary w-100" type="submit"
 							value="{{ request.GET.search_phrase }}"><i class="fa fa-search"></i></button>
+						{% endif %}
 
 					</form>
 
