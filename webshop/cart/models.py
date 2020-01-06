@@ -34,6 +34,7 @@ class Order(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	expiration_date = models.DateTimeField()
 	discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
+	is_refunded = models.BooleanField(default=False)
 
 	def id_with_zeroes(self):
 		return str(self.id).zfill(6)
