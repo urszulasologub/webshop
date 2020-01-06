@@ -142,7 +142,7 @@
 			<ul class="pagination justify-content-center">
 				{% if products.has_previous %}
 				<li class="page-item">
-					<a class="page-link" href="{% url 'shop:product_list' products.previous_page_number %}">Previous </a>
+					<a class="page-link" href="{% url 'shop:searching' products.previous_page_number phrase %}">Previous </a>
 				</li>
 				{% else %}
 				<li class="page-item">
@@ -156,14 +156,14 @@
 						<li class="page-item active"><span class="page-link">{{ page }}</span><span class="sr-only">(current)</span>
 						</li>
 					{% else %}
-						<li class="page-item "><a class="page-link" href="{% url 'shop:product_list' page %}">{{ page }}</a></li>
+						<li class="page-item "><a class="page-link" href="{% url 'shop:searching' page phrase %}">{{ page }}</a></li>
 					{% endif %}
 		
 				{% endfor %}
 		
 				{% if products.has_next  %}
 					<li class="page-item">
-						<a class="page-link" href="{% url 'shop:product_list' products.next_page_number %}">Previous</a>
+						<a class="page-link" href="{% url 'shop:searching' products.next_page_number phrase %}">Previous</a>
 					</li>
 				{% else %}
 					<li class="page-item">

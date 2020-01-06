@@ -184,14 +184,17 @@ def choose_similar(request, current_product, category, amount):
 		i += 1
 		if i == amount:
 			break
-	print(similar_products)
+	#print(similar_products)
 	return similar_products
 
 
-def searching(request, page=1):
-	if request.method == 'GET':
-		product_list = Product.objects.filter(name__icontains=request.GET['search_phrase'], available=True)
-		dictionary = None
+def searching(request, page=1, phrase=None):
+	dictionary = None
+	paginator = None
+	if request.method == 'GET' and phrase is None:
+		phrase = request.GET["search_phrase"]
+	if phrase is not None:
+		product_list = Product.objects.filter(name__icontains=phrase, available=True)
 		dictionary = {} 
 		for product in product_list:
 			parameters = Description.objects.filter(product=product)
@@ -200,7 +203,8 @@ def searching(request, page=1):
 		products = paginator.get_page(page)
 	else:
 		products = None
-	return render(request, 'shop/product/searching.html', {'products': products, 'dictionary': dictionary, 'paginator': paginator})	
+	return render(request, 'shop/product/searching.html', {'products': products, 'dictionary': dictionary, 'paginator': paginator, 'phrase': phrase})	
+
 
 
 def random_products(request, category_slug=None):
