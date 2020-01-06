@@ -36,10 +36,10 @@ def make_complainment(request):
 	form = ComplainForm()
 	message = None
 	if request.user.is_authenticated:
-		user = request.user.username
+		user = request.user
 	else:
 		message = 'Tylko zalogowani uzytkownicy mogą wysyłać reklamacje'
-	return render(request, 'customer/complain.html', {'form': form, 'message': message })
+		return render(request, 'customer/complain.html', {'form': form, 'message': message })
 	if request.method == "POST":
 		form = ComplainForm(request.POST)
 		if form.is_valid():

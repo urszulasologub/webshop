@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.utils import timezone
 from django.http import HttpResponse
 from cart.paypal_payment import *
+from customer.models import Complainment
 
 
 def are_components_completed(components):
@@ -115,3 +116,17 @@ def find_order(request):
 	else:
 		form = FilterButton()
 	return render(request, 'staff/finder.html', {'form': form, 'orders': orders})
+
+
+@staff_member_required
+def read_complainments(request):
+	complainments = Complainment.objects.all()
+	return render(request, 'staff/complainments.html', {'complainments': complainments})
+
+
+@staff_member_required
+def close_complainment(request, id):
+	complainment = get_object_or_404(Complainment, id=id)
+	complainment.is_active = False
+	complainment.save()
+	return redirect('staff:complainments')

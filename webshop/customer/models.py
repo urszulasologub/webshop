@@ -8,6 +8,9 @@ class Complainment(models.Model):
 	order_id = models.IntegerField(default=0, validators=[MinValueValidator(0)], null=True)
 	email = models.EmailField(max_length=254)
 	body = models.TextField(max_length=1000)
-	is_active = models.BooleanField(default=False)
+	date = models.DateTimeField(auto_now_add=True)
+	is_active = models.BooleanField(default=True)
 
+	class Meta:
+		ordering = ['-is_active', '-date']
 
