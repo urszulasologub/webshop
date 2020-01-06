@@ -170,7 +170,7 @@ def choose_similar(request, current_product, category, amount):
 	for product in correct_products:
 		dict[product] = 0
 		for parameter in current_product_parameters:
-			if Description.objects.filter(product=product, parameter=parameter.parameter).exists():
+			if Description.objects.filter(product=product, parameter=parameter.parameter).count() is 1:
 				other_product_parameter = Description.objects.get(product=product, parameter=parameter.parameter).description
 			else:
 				other_product_parameter = ""
@@ -184,7 +184,6 @@ def choose_similar(request, current_product, category, amount):
 		i += 1
 		if i == amount:
 			break
-	#print(similar_products)
 	return similar_products
 
 
@@ -193,6 +192,8 @@ def searching(request, page=1, phrase=None):
 	paginator = None
 	if request.method == 'GET' and phrase is None:
 		phrase = request.GET["search_phrase"]
+		if len(phrase) < 1:
+			phrase = None
 	if phrase is not None:
 		product_list = Product.objects.filter(name__icontains=phrase, available=True)
 		dictionary = {} 

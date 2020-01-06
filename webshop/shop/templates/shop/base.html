@@ -382,8 +382,10 @@
 						class="form-inline mr-auto d-xl-none d-lg-none">
 						<input class="form-control w-100" type="search" placeholder="Wyszukaj..." name="search_phrase"
 							aria-describedby="button-addon5">
+						{% if request.GET.search_phrase %}
 						<button id="button-addon5" class="btn btn-outline-primary w-100" type="submit"
 							value="{{ request.GET.search_phrase }}"><i class="fa fa-search"></i></button>
+						{% endif %}
 
 					</form>
 
@@ -429,7 +431,7 @@
 
 						<h2 class="d-none d-xl-block d-lg-block">
               
-						<a class="nav-link nav-item fas fa-th text-light Btn" href="{% url 'shop:product_list' %}">
+						<a class="nav-link nav-item fas fa-th text-light Btn mr-3" href="{% url 'shop:product_list' %}">
 						</a></h2>
 
 						<div id="wozek_z_numerkim" class="d-none d-xl-block d-lg-block">
@@ -447,10 +449,10 @@
 
 						{% if user.is_authenticated %}
 						<li class="nav-item mr-2 d-none d-xl-block d-lg-block">
-							<a class="nav-link fas fa-user " href="{% url 'profile:show_profile' %}"></a>
-							<a href="{% url 'profile:show_profile' %}"><span id="user_nav"
+							<a class="nav-link nav-item fas fa-user  text-light Btn" href="{% url 'profile:show_profile' %}"></a>
+							<!-- <a href="{% url 'profile:show_profile' %}"><span id="user_nav"
 									class="h3 color-white float-right"
-									style="color:white; padding-top: 3px">{{ user.username }}</span></a>
+									style="color:white; padding-top: 3px">{{ user.username }}</span></a> -->
 						</li>
 
 						<li class="nav-item ">
@@ -545,7 +547,7 @@
 		{% endblock %}
 	</div>
 
-	<div id="newsletter" class="container-box bg-light">
+	<div id="newsletter" class="container-box bg-light mt-5">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col">
@@ -601,6 +603,7 @@
 
 				<div class="col-md-4">
 					<h6 class="mb-4 text-primary">Kontakt</h6>
+					<a class="text-white-50 text-decoration-none" href="{% url 'profile:contact' %}"><i class="fas fa-paper-plane h4 pb-3"></i> Reklamacje</a>
 					<p class="text-white-50"><i class="fas fa-map-marker-alt h4"></i> Champ de Mars, 5 France</p>
 					<p class="text-white-50"><i class="fas fa-phone-alt h4"></i>
 
@@ -608,7 +611,7 @@
 						<p class="text-white-50"><i class="fas fa-envelope h4"></i>
 
 							shop@shop.com</p>
-					<a class="text-white-50" href="{% url 'profile:contact' %}">Reklamacje</a>
+					
 				</div>
 
 				<div class="col-md-4">

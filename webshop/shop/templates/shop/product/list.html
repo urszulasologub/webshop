@@ -117,7 +117,9 @@
 						</div>
 						<div id="opis" class="">
 							<a href="{{ product.get_absolute_url }}"
-								class="text-overflow text-uppercase text-decoration-none font-weight-ligh">{{ product.name }}</a>
+								class="text-overflow text-uppercase text-decoration-none font-weight-ligh"><string class="text-overflow m-0">
+							{{ product.name }}
+							</string></a>
 						</div>
 
 						<div id="cena" class="mt-2">
@@ -128,9 +130,9 @@
 							<h4> {{ product.price }} PLN</h4>
 							{% endif %}
 
-							<string class="text-overflow m-0">
+							<!-- <string class="text-overflow m-0"> -->
 								<!-- {{ product.description|linebreaks }} -->
-								{% if dictionary != None %}
+								<!-- {% if dictionary != None %}
 								{% for item, descriptions in dictionary.items %}
 								{% if item == product%}
 								{% for description in descriptions %}
@@ -140,7 +142,7 @@
 								{% endif %}
 								{% endfor %}
 								{% endif %}
-							</string>
+							</string> -->
 
 						</div>
 					</div>

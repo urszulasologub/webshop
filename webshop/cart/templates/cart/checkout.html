@@ -57,13 +57,13 @@
 			</tbody>
 		</table>
   
-    <p>Dodaj kupon:</p>
+    <span class="float-left">Dodaj&nbsp</span>
 		<form action="{% url 'coupons:apply' %}" method="post">
 			{{ coupon_apply_form }}
-			<input type="submit" value="Dodaj">
+			<input class="btn btn-secondary btn w-25" type="submit" value="Dodaj">
 			{% csrf_token %}
 		</form>
-		<p>Można użyć tylko jednego kupou na zamówienie</p>
+		<p class="font-weight-light tekst_maly" >Można użyć tylko jednego kupou na zamówienie</p>
   
     <p class="text-right mt-4 mb-4">
       {% if user.is_authenticated %}
