@@ -5,6 +5,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import OrderButtons, FilterButton, AddDeliverySearchingCode
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+from django.http import HttpResponse
+from cart.paypal_payment import *
+
 
 def are_components_completed(components):
 	if components != None:
@@ -67,6 +70,23 @@ def show_order(request, id):
 		form = AddDeliverySearchingCode()
 	components = OrderComponent.objects.filter(order=order)
 	return render(request, 'staff/show_order.html', {'order': order, 'components': components, 'form': form })
+
+
+@staff_member_required
+def refund_order(request, id):
+	order = get_object_or_404(Order, id=id)
+	message = 'Pieniądze za to zamówienie zostały juz zwrócone!'
+	if not order.is_refunded:
+		payment_id = order.payment_id
+		try:
+			make_refund(payment_id)
+			order.is_refunded = True
+			order.save()
+			message = 'Pomyślnie dokonano zwrotu kwoty %.2fzł za zamówienie numer %06d' % (order.price, order.id)
+		except:
+			message = 'Nie udało się zwrócić pieniędzy za to zamówienie'
+	return HttpResponse(message)
+
 
 
 @staff_member_required
