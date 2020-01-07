@@ -1,7 +1,7 @@
 {% autoescape off %}
 
-<h1 class="display-4 p-4 text-center">Witaj {{ user.username }}</h1>
-<p class="display-5 p-4 text-center">Kliknij poniższy link aby potwierdzić rejestrację</p>
+Witaj {{ user.username }}
+Kliknij poniższy link aby potwierdzić rejestrację
 
 http://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}
 {% endautoescape %}

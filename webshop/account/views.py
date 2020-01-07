@@ -44,12 +44,12 @@ def register(request):
 				new_user.is_active = False
 				new_user.save()
 				update_profile(request, new_user, birthday)
-				current_site = 'localhost:8000
+				current_site = 'localhost:8000'
 				mail_subject = 'Aktywuj konto'
 				message = render_to_string('account/acc_active_email.html',
 										   {'user': new_user,
 											'domain': current_site,
-											'uid': urlsafe_base64_encode(force_bytes(new_user.pk)).decode(),
+											'uid': urlsafe_base64_encode(force_bytes(new_user.pk)),
 											'token': account_activation_token.make_token(new_user),
 											})
 				to_email = user_form.cleaned_data.get('email')

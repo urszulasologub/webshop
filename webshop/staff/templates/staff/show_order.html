@@ -22,7 +22,7 @@
 </head>
 
 <body class="center">
-	<a href="{% url 'staff:manage_orders' %}">Powrót</a>
+	<a class="btn btn-primary" href="{% url 'staff:manage_orders' %}">Powrót</a>
 	<h4>Zamówienie numer {{ order.id|stringformat:"06d" }}</h4>
 	{% if order.is_confirmed and order.is_completed == False %}
 	<br>
@@ -44,7 +44,7 @@
 
 	<br><b>Dane kupującego</b>
 
-	<table class="center" border="5" cellpadding="6">
+	<table class="table" border="5" cellpadding="6">
 		<tr>
 			<th>Uzytkownik:</th>
 			<th>Imię: </th>
@@ -72,7 +72,7 @@
 	{% endif %}
 
 
-	<table class="center" border="5" cellpadding="6">
+	<table class="table" border="5" cellpadding="6">
 		<tr>
 			<th>Produkty:</th>
 			<th>Dostawa: </th>
@@ -90,7 +90,7 @@
 
 	<br><br><br><b>Status zamówienia:</b>
 
-	<table class="center" border="5" cellpadding="6">
+	<table class="table" border="5" cellpadding="6">
 		<tr>
 			<th>Czy opłacone? </th>
 			<th>ID płatności:</th>
@@ -114,7 +114,7 @@
 			{% for component in components %}
 				{% if component.is_completed == False %}
 				<br><br>
-				<table class="center" border="5" cellpadding="6">
+				<table class="table" border="5" cellpadding="6">
 					<tr>
 						<th>ID Komponentu: </th>
 						<th>Produkt: </th>
@@ -137,7 +137,7 @@
 		<br><br><b>Produkty skompletowane:</b>
 		{% for component in components %}
 			{% if component.is_completed %}
-				<table class="center" border="5" cellpadding="6">
+				<table class="table" border="5" cellpadding="6">
 					<tr>
 						<th>ID Komponentu: </th>
 						<th>Produkt: </th>

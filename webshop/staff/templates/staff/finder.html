@@ -13,7 +13,7 @@
 	</head>
 	<body>	
 		<br>
-		<a href="{% url 'staff:manage_orders' %}">Powrót</a>
+		<a class="btn btn-primary" href="{% url 'staff:manage_orders' %}">Powrót</a>
 		<br><br>
 		<br><b>Wyszukaj: </b></br>
 		<form action="" method="post">
@@ -23,7 +23,7 @@
 		</form>
 		<br><br><b>Znalezione zamówienia:</b>
 		{% for order in orders %}
-		<table class="center" border="5" cellpadding="6">
+		<table class="table" border="5" cellpadding="6">
 				<tr>
 					<th>Numer</th>
 					<th>Czy opłacono?</th>
