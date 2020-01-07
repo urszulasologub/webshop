@@ -14,30 +14,30 @@
 	}
 </style>
 
-<div class="center">
+<div class="">
 
 
 	<form method="POST">
 		{% csrf_token %}
 		<br>
-		<h2>Panel Obsługi</h2>
+		<h2>Panel Obsługi:</h2>
 
 
 		<br>
 
 
-		<table class="center">
+		<table class="table">
 
 			<tr>
-				<td><input type="submit" name="btn" value="Wszystkie zamówienia"></td>
-				<td><input type="submit" name="btn" value="Opłacone zamówienia"></td>
-				<td><input type="submit" name="btn" value="Opłacone zamówienia do skompletowania"></td>
-				<td><input type="submit" name="btn" value="Skompletowane zamówienia"></td>
-				<td><input type="submit" name="btn" value="Wysłane zamówienia"></td>
+				<td><input class="btn btn-primary" type="submit" name="btn" value="Wszystkie zamówienia"></td>
+				<td><input class="btn btn-primary" type="submit" name="btn" value="Opłacone zamówienia"></td>
+				<td><input class="btn btn-primary" type="submit" name="btn" value="Opłacone zamówienia do skompletowania"></td>
+				<td><input class="btn btn-primary" type="submit" name="btn" value="Skompletowane zamówienia"></td>
+				<td><input class="btn btn-primary" type="submit" name="btn" value="Wysłane zamówienia"></td>
 			</tr>
 		</table>
 
-		<br><input type="submit" name="btn" value="Lista produktów do skompletowania">
+		<br><input class="btn btn-primary" type="submit" name="btn" value="Lista produktów do skompletowania">
 		<br><br>
 		<a class="btn btn-primary" href="{% url 'staff:find_order' %}">Wyszukaj zamówienie po ID</a>
 		<a class="btn btn-primary" href="{% url 'staff:complainments' %}">Przeczytaj reklamacje</a>
@@ -51,7 +51,7 @@
 			{% if order.is_sent == False %}
 
 
-			<table class="center" border="5" cellpadding="6">
+			<table class="table" border="5" cellpadding="6">
 				<tr>
 					<th>Numer</th>
 					<th>Czy opłacono?</th>
@@ -78,7 +78,7 @@
 		<h4>Wysłane zamówienia:</h4>
 		{% for order in orders %}
 			{% if order.is_sent %}
-			<table class="center" border="5" cellpadding="6">
+			<table class="table" border="5" cellpadding="6">
 				<tr>
 					<th>Numer</th>
 					<th>Czy opłacono?</th>

@@ -31,287 +31,6 @@
 	<!-- Ensures optimal rendering on mobile devices. -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
 
-	<!-- <style>
-		/* base.html */
-		body {
-			font-family: Open Sans;
-		}
-
-		.fa-shopping-cart {
-			font-size: 30px;
-		}
-
-		.fa-user {
-			font-size: 30px;
-			padding: 8px;
-			color: rgba(255, 255, 255, .5) !important;
-		}
-
-		#user_f {
-			font-family: "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-		}
-
-		.Btn {
-			color: white !important;
-		}
-
-		.Btn:hover {
-			color: lightslategrey !important;
-			cursor: pointer;
-		}
-
-		/* The Modal (background) */
-		.modal {
-			display: none;
-			/* Hidden by default */
-			position: fixed;
-			/* Stay in place */
-			z-index: 99 !important;
-			/* Sit on top */
-			padding-top: 100px;
-			/* Location of the box */
-			left: 0;
-			top: 0;
-			width: 100%;
-			/* Full width */
-			height: 100%;
-			/* Full height */
-			overflow: auto;
-			/* Enable scroll if needed */
-			background-color: rgb(0, 0, 0);
-			/* Fallback color */
-			background-color: rgba(0, 0, 0, 0.4);
-			/* Black w/ opacity */
-		}
-
-		/* Modal Content */
-		.modal-content {
-			background-color: #fefefe;
-			margin: auto;
-			padding: 20px;
-			border: 1px solid #888;
-			width: 80%;
-		}
-
-		/* The Close Button */
-		.close {
-			color: #aaaaaa;
-			float: right;
-			font-size: 28px;
-			font-weight: bold;
-		}
-
-		.close:hover,
-		.close:focus {
-			color: #000;
-			text-decoration: none;
-			cursor: pointer;
-		}
-
-		.qty {
-			width: 20px;
-			height: 20px;
-			line-height: 20px;
-			text-align: center;
-			border-radius: 50%;
-			font-size: 10px;
-			color: #FFF;
-			background-color: #D10024;
-			float: right;
-			margin-top: -8px;
-			font-family: "arial";
-		}
-
-		.map-responsive {
-			overflow: hidden;
-			padding-bottom: 15%;
-			position: relative;
-			height: 0;
-			-webkit-filter: grayscale(100%);
-			-moz-filter: grayscale(100%);
-			-ms-filter: grayscale(100%);
-			-o-filter: grayscale(100%);
-			filter: grayscale(100%);
-		}
-
-		.map-responsive iframe {
-			left: 0;
-			top: 0;
-			height: 100%;
-			width: 100%;
-			position: absolute;
-		}
-
-		#newsletter {
-			padding: 50px 0 50px 0;
-		}
-
-		@media (max-width: 991px) {
-			#user_nav {
-				position: absolute;
-			}
-
-			.map-responsive {
-				padding-bottom: 30%;
-			}
-
-
-
-
-			/* address.html */
-			.login-page {
-				width: 500px;
-				margin: auto;
-			}
-
-			.form {
-				position: relative;
-				z-index: 1;
-				background: #FFFFFF;
-				max-width: 500px;
-				padding: 45px;
-				text-align: center;
-				box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-			}
-
-			.form input {
-				outline: 0;
-				background: #f2f2f2;
-				width: 100%;
-				border: 0;
-				margin: 0 0 15px;
-				padding: 15px;
-				box-sizing: border-box;
-				font-size: 14px;
-			}
-
-			.form button {
-				font-family: "Roboto", sans-serif;
-				text-transform: uppercase;
-				outline: 0;
-				background: #007bff;
-				width: 100%;
-				border: 0;
-				padding: 15px;
-				color: #FFFFFF;
-				font-size: 14px;
-				-webkit-transition: all 0.3 ease;
-				transition: all 0.3 ease;
-				cursor: pointer;
-			}
-
-			.form button:hover,
-			.form button:active,
-			.form button:focus {
-				background: #007bff;
-			}
-
-			.form .message {
-				margin: 15px 0 0;
-				color: #b3b3b3;
-				font-size: 12px;
-			}
-
-			.form .message a {
-				color: #007bff;
-				text-decoration: none;
-			}
-
-			.form .register-form {
-				display: none;
-			}
-
-			.container {
-				position: relative;
-				z-index: 1;
-				margin: 0 auto;
-			}
-
-			.container:before,
-			.container:after {
-				content: "";
-				display: block;
-				clear: both;
-			}
-
-			.container .info {
-				margin: 50px auto;
-				text-align: center;
-			}
-
-			.container .info h1 {
-				margin: 0 0 15px;
-				padding: 0;
-				font-size: 36px;
-				font-weight: 300;
-				color: #1a1a1a;
-			}
-
-			.container .info span {
-				color: #4d4d4d;
-				font-size: 12px;
-			}
-
-			.container .info span a {
-				color: #000000;
-				text-decoration: none;
-			}
-
-			.container .info span .fa {
-				color: #EF3B3A;
-			}
-
-			ul {
-				list-style-type: none;
-
-			}
-
-			li {
-
-				text-align: left;
-			}
-
-			.btn {
-				color: white !important;
-				background-color: #007bff !important;
-			}
-
-			.btn:hover {
-				color: black !important;
-				background-color: #f2f2f2 !important;
-			}
-
-			.header-links li {
-				display: inline-block;
-				margin-right: 15px;
-				font-size: 12px;
-			}
-		}
-
-		.header-links li {
-			display: inline-block;
-			margin-right: 15px;
-			font-size: 12px;
-		}
-
-		.pull-right {
-			float: right !important;
-		}
-
-		.pull-left {
-			float: left !important;
-		}
-
-		.navbar_div {
-			justify-content: space-between !important;
-			width: 100% !important;
-			background-color: rgb(61, 70, 70);
-		}
-
-		.navbar>.container {
-			display: block;
-		}
-	</style> -->
 
 </head>
 
@@ -322,11 +41,11 @@
 		<div class="container d-none d-xl-block d-lg-block mt-2 mb-0">
 			<ul class="header-links pull-left pl-3 mb-0">
 				<li><a class="text-light text-decoration-none" href="#"><i
-							class="text-light text-decoration-none fa fa-phone"></i> +1 987 654 3210</a></li>
+							class="text-light text-decoration-none fa fa-phone"></i> +48 85 585 58 55</a></li>
 				<li><a class="text-light text-decoration-none" href="#"><i
 							class="text-light text-decoration-none fa fa-envelope-o"></i> shop@shop.com</a></li>
 				<li><a class="text-light text-decoration-none" href="#"><i
-							class="text-light text-decoration-none fa fa-map-marker"></i> Champ de Mars, 5 France</a>
+							class="text-light text-decoration-none fa fa-map-marker"></i> Aleja Jana Pawła II 30, 93-570 Łódź</a>
 				</li>
 			</ul>
 			<ul class="header-links pull-right mb-0">
@@ -378,8 +97,7 @@
 
 
 				<div class="collapse navbar-collapse " id="navbarSupportedContent">
-					<form action="{% url 'shop:searching' %}"
-						class="form-inline mr-auto d-xl-none d-lg-none">
+					<form action="{% url 'shop:searching' %}" class="form-inline mr-auto d-xl-none d-lg-none">
 						<input class="form-control w-100" type="search" placeholder="Wyszukaj..." name="search_phrase"
 							aria-describedby="button-addon5">
 						{% if request.GET.search_phrase %}
@@ -430,9 +148,10 @@
 						</li>
 
 						<h2 class="d-none d-xl-block d-lg-block">
-              
-						<a class="nav-link nav-item fas fa-th text-light Btn mr-3" href="{% url 'shop:product_list' %}">
-						</a></h2>
+
+							<a class="nav-link nav-item fas fa-th text-light Btn mr-3"
+								href="{% url 'shop:product_list' %}">
+							</a></h2>
 
 						<div id="wozek_z_numerkim" class="d-none d-xl-block d-lg-block">
 							<a id="myBtn" class="nav-link nav-item fas fa-shopping-cart text-light Btn">
@@ -449,30 +168,31 @@
 
 						{% if user.is_authenticated %}
 						<li class="nav-item mr-2 d-none d-xl-block d-lg-block">
-							<a class="nav-link nav-item fas fa-user  text-light Btn" href="{% url 'profile:show_profile' %}"></a>
+							<a class="nav-link nav-item fas fa-user  text-light Btn"
+								href="{% url 'profile:show_profile' %}"></a>
 							<!-- <a href="{% url 'profile:show_profile' %}"><span id="user_nav"
 									class="h3 color-white float-right"
 									style="color:white; padding-top: 3px">{{ user.username }}</span></a> -->
 						</li>
 
 						<li class="nav-item ">
-							<a class="nav-link h4 btn btn-primary d-none d-xl-block d-lg-block"
+							<a class="nav-link h4 btn btn-primary d-none d-xl-block d-lg-block text-light"
 								href="{% url 'account:logout' %}">Wyloguj się</a>
-							<a class="nav-link d-block d-xl-none d-lg-none" href="{% url 'account:logout' %}">
+							<a class="nav-link d-block d-xl-none d-lg-none text-light" href="{% url 'account:logout' %}">
 								Wyloguj się
 							</a>
 						</li>
 						{% else %}
 						<li class="nav-item">
-							<a class="nav-link btn btn-primary mr-lg-2  d-none d-xl-block d-lg-block"
+							<a class="nav-link btn btn-primary mr-lg-2  d-none d-xl-block d-lg-block text-light"
 								href="{% url 'account:login' %}">Logowanie</a>
-							<a class="nav-link d-block d-xl-none d-lg-none"
+							<a class="nav-link d-block d-xl-none d-lg-none text-light"
 								href="{% url 'account:login' %}">Logowanie</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link btn btn-primary d-none d-xl-block d-lg-block"
+							<a class="nav-link btn btn-primary d-none d-xl-block d-lg-block text-light"
 								href="{% url 'account:register' %}">Rejestracja</a>
-							<a class="nav-link d-block d-xl-none d-lg-none"
+							<a class="nav-link d-block d-xl-none d-lg-none text-light"
 								href="{% url 'account:register' %}">Rejestracja</a>
 						</li>
 						{% endif %}
@@ -555,8 +275,8 @@
 					<h2 class="text-center">Newsletter</h2>
 					<div class="row justify-content-center">
 						<div class="col-6">
-							<p class="text-center pt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-								Quisquam illo praesentium sequi in cum, beatae maiores quae qui.</p>
+							<p class="text-center pt-4">Zapisz się do newslettera B-Shop i bądź na bieżąco z
+								nowościami, osobistymi rekomendacjami i ofertami specjalnymi.</p>
 						</div>
 					</div>
 					<form enctype="multipart/form-data" method="post" action="/newsletter/webshop/subscribe/">
@@ -564,12 +284,12 @@
 							<div class="row justify-content-center">
 								{% csrf_token %}
 								<div class="col-4">
-									<input id="id_email_field" type="email" value="" name="email_field" class="required email form-control"
-										placeholder="Email address">
+									<input id="id_email_field" type="email" value="" name="email_field"
+										class="required email form-control" placeholder="Adres e-mail">
 								</div>
 								<div class="col-1">
 									<button id="id_submit" name="submi" type="submit" class="btn btn-primary">
-										Subscribe
+										Subskrybuj
 									</button>
 								</div>
 							</div>
@@ -585,7 +305,7 @@
 	<div class="container-box">
 		<div class="map-responsive">
 			<iframe
-				src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France"
+				src="https://maps.google.com/maps?q=Aleja%20Jana%20Paw%C5%82a%20II%2030%2C%2093-570%20%C5%81%C3%B3d%C5%BA&t=&z=15&ie=UTF8&iwloc=&output=embed"
 				width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 		</div>
 	</div>
@@ -596,22 +316,19 @@
 			<div class="row">
 				<div class="col-md-4">
 					<h6 class="mb-4 text-primary">O nas</h6>
-					<p class="text-white-50">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae tempora
-						consectetur, sunt quia illo ipsa nihil totam eos rerum minus nesciunt quasi sapiente unde ex
-						odit earum eius iusto consequuntur.</p>
+					<p class="text-white-50">Nasza historia rozpoczęła się w 2020 roku z chwilą otwarcia pierwszego salonu stacjonarnego. Od tej pory nieustannie się rozwijamy, dzięki czemu staliśmy się ekspertami w branży komputerowej. Łączymy empatię i technologię, co pozwala nam lepiej rozumieć potrzeby Klientów.</p>
 				</div>
 
 				<div class="col-md-4">
 					<h6 class="mb-4 text-primary">Kontakt</h6>
-					<a class="text-white-50 text-decoration-none" href="{% url 'profile:contact' %}"><i class="fas fa-paper-plane h4 pb-3"></i> Reklamacje</a>
-					<p class="text-white-50"><i class="fas fa-map-marker-alt h4"></i> Champ de Mars, 5 France</p>
+					<a class="text-white-50 text-decoration-none" href="{% url 'profile:contact' %}"><i
+							class="fas fa-paper-plane h4 pb-3"></i> Reklamacje</a>
+					<p class="text-white-50"><i class="fas fa-map-marker-alt h4"></i> Aleja Jana Pawła II 30, 93-570 Łódź</p>
 					<p class="text-white-50"><i class="fas fa-phone-alt h4"></i>
+						+48 85 585 58 55</p>
+					<p class="text-white-50"><i class="fas fa-envelope h4"></i>
+						shop@shop.com</p>
 
-						+1 987 654 3210</>
-						<p class="text-white-50"><i class="fas fa-envelope h4"></i>
-
-							shop@shop.com</p>
-					
 				</div>
 
 				<div class="col-md-4">

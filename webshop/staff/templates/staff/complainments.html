@@ -11,19 +11,42 @@
 	<head>
 		<title>Reklamacje</title>
 	</head>
-	<body>	
+	<body>
 		{% for complainment in complainments %}
-			Treść: {{ complainment.body }}<br>
-			Numer zamówienia: {{ complainment.order_id }}<br>
-			Uzytkownik: {{ complainment.user }}<br>
-			E-mail: {{ complainment.email }}<br>
-			Data: {{ complainment.date }}<br>
-			Czy odpowiedziano? {% if complainment.is_active %}Nie{% else %}Tak{% endif %}<br>	<!-- tu mozecie wstawic jakas ikone: np. X jeśli false-->
-			{% if complainment.is_active %}
-				<a href="{% url 'staff:close_complainment' complainment.id %}">Oznacz jako odpowiedziane</a>
-			{% endif %}
-			<br><br>
+		<table class="table">
+			<thead>
+				<tr>
+				  <th scope="col">Treść:</th>
+				  <th scope="col">Numer zamówienia:</th>
+				  <th scope="col">Uzytkownik:</th>
+				  <th scope="col">E-mail:</th>
+				  <th scope="col">Data:</th>
+				  <th scope="col">Czy odpowiedziano?</th>
+				  {% if complainment.is_active %}
+					  <th scope="col"></th>
+					{% endif %}
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <th scope="row">{{ complainment.body }}</th>
+				  <td>{{ complainment.order_id }}</td>
+				  <td>{{ complainment.user }}</td>
+				  <td>{{ complainment.email }}</td>
+				  <td>{{ complainment.date }}</td>
+				  {% if complainment.is_active %}
+					  <td>Nie</td>
+				  {% else %}
+				  	<td>Tak</td>
+				  {% endif %}
+				  {% if complainment.is_active %}
+				  	<td><a href="{% url 'staff:close_complainment' complainment.id %}">Oznacz jako odpowiedziane</a></td>
+				   {% endif %}
+				</tr>
+		</table>
 		{% endfor %}
+
+
 	</body>
 </html>
 {% endblock %}
