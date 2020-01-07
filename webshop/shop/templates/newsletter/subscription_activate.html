@@ -1,15 +1,19 @@
-{% extends "newsletter/common.html" %}
+{% extends "shop/base.html" %}
 
 {% load i18n %}
 
 {% block title %}{% trans "Newsletter" %} {{ newsletter.title }} {{ action }} {% trans "activate" %}{% endblock title %}
 
-{% block body %}
-    <h1>{% trans "Newsletter" %} {{ newsletter.title }} {{ action }} {% trans "activate" %}</h1>
+{% block content %}
+<div class="row align-items-center">
+    <div style="padding-left:20%">
+        <h1>{% trans "Newsletter" %} {{ newsletter.title }} {{ action }} {% trans "activate" %}</h1>
 
-    <form enctype="multipart/form-data" method="post" action=".">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <p><input id="id_submit" name="submit" value="{% trans "Activate" %}" type="submit" /></p>
-    </form>
-{% endblock body %}
+        <form enctype="multipart/form-data" method="post" action=".">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <p><input id="id_submit" name="submit" value="{% trans "Activate" %}" type="submit" /></p>
+        </form>
+    </div>
+</div>
+{% endblock content %}

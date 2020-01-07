@@ -1,21 +1,26 @@
-{% extends "newsletter/common.html" %}
+{% extends "shop/base.html" %}
 
 {% load i18n %}
 
 {% block title %}{% trans "Newsletter archive" %}{% endblock title %}
 
-{% block body %}
-<table>
-    <tr>
-        <th>{% trans "Newsletter archive" %} {{ newsletter.title }}</th>
-    </tr>
-    {% for submission in latest %}
-    <tr>
-        <td><a href="{{ submission.get_absolute_url }}">{{ submission }}</a></td>
-    </tr>
-    {% endfor %}
-    <tr>
-        <td><a href="../">{% trans "Back to list" %}</a></td>
-    </tr>
-</table>
-{% endblock body %}
+{% block content %}
+<div class="row align-items-center">
+    <div style="padding-left:20%">
+        <table>
+            <tr>
+                <th>{% trans "Newsletter archive" %} {{ newsletter.title }}</th>
+            </tr>
+            {% for submission in latest %}
+            <tr>
+                <td><a href="{{ submission.get_absolute_url }}">{{ submission }}</a></td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><a href="../">{% trans "Back to list" %}</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
