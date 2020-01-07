@@ -1,11 +1,17 @@
-{% extends "newsletter/common.html" %}
+{% extends "shop/base.html" %}
 
 {% load i18n %}
 
 {% block title %}{% trans "Newsletter subscribe" %}{% endblock title %}
 
-{% block body %}
-    <h1>{% trans "Newsletter subscribe" %} {{ newsletter.title }}</h1>
+{% block content %}
+<div class="row align-items-center">
+    <div style="padding-left:20%">
+        <h1>{% trans "Newsletter subscribe" %} {{ newsletter.title }}</h1>
 
-    <p>{% trans "Your subscription request was successfully received and an activation email has been sent to you. In that email you will find a link which you need to follow in order to activate your subscription." %}</p>
-{% endblock body %}
+        <p>{% trans "Your subscription request was successfully received and an activation email has been sent to you. In that email you will find a link which you need to follow in order to activate your subscription." %}</p>
+
+    </div>
+</div>
+{% endblock content %}
+

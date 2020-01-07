@@ -44,7 +44,7 @@ def register(request):
 				new_user.is_active = False
 				new_user.save()
 				update_profile(request, new_user, birthday)
-				current_site = 'localhost:8000
+				current_site = 'localhost:8000'
 				mail_subject = 'Aktywuj konto'
 				message = render_to_string('account/acc_active_email.html',
 										   {'user': new_user,
