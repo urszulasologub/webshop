@@ -45,15 +45,16 @@
 						<td colspan="5"></td>
 						<td class="num border-top text-right">Kupon: "{{ cart.coupon.code }}" (-{{ cart.coupon.discount }}%) -{{ cart.get_discount }} PLN</td>
 					</tr>
-				{% endif %}
-				<tr>
-					<td colspan="5"></td>
-					<td class="num border-top text-right">Wartość zakupów: {{ cart.get_total_price_after_discount }} PLN</td>
-				</tr>
+					<tr>
+						<td colspan="5"></td>
+						<td class="num border-top text-right">Wartość zakupów: {{ cart.get_total_price_after_discount }} PLN</td>
+					</tr>
+				{% else %}
 				<tr>
 					<td colspan="5"></td>               	
 					<td class="num border-top text-right">Wartość zakupów: {{ cart.get_total_price }} PLN</td>
 				</tr>
+				{% endif %}
 			</tbody>
 		</table>
   

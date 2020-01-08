@@ -5,8 +5,29 @@
 {% block title %}{% trans "Newsletter subscribe" %}{% endblock title %}
 
 {% block content %}
-<div class="row align-items-center">
-    <div style="padding-left:20%">
+
+<style> 
+
+#id_name_field, #id_email_field
+{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+</style>
+
+<div class="row align-items-center text-center">
+    <div class="text-center m-auto">
         <h1>{% trans "Newsletter subscribe" %} {{ newsletter.title }}</h1>
 
         {% if error %}
@@ -17,8 +38,16 @@
         {% else %}
             <form enctype="multipart/form-data" method="post" action=".">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <p><input class="btn btn-secondary" id="id_submit" name="submit" value="{% trans "Subscribe" %}" type="submit" /></p>
+				<div class="fieldWrapper">
+					<label for="{{ form.name_field.id_for_label }}">Nazwa</label>
+					{{ form.name_field }}
+					{{ form.name_field.errors }}
+				</div>
+				<div class="fieldWrapper">
+					<label for="{{ form.email_field.id_for_label }}">E-mail</label>
+					{{ form.email_field }}
+				</div>
+                <p><input class="btn btn-secondary mt-2" id="id_submit" name="submit" value="{% trans "Subscribe" %}" type="submit" /></p>
             </form>
         {% endif %}
     </div>

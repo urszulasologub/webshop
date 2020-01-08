@@ -49,7 +49,7 @@ def register(request):
 				message = render_to_string('account/acc_active_email.html',
 										   {'user': new_user,
 											'domain': current_site,
-											'uid': urlsafe_base64_encode(force_bytes(new_user.pk)),
+											'uid': urlsafe_base64_encode(force_bytes(new_user.pk)).decode(),
 											'token': account_activation_token.make_token(new_user),
 											})
 				to_email = user_form.cleaned_data.get('email')
