@@ -1,6 +1,8 @@
 # Webshop
 Competence project for university classes
 
+![](webshop.gif)
+
 ## Features
 
 * Registering and logging in using Facebook account or traditional way
