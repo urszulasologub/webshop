@@ -102,7 +102,8 @@ You can create an account in traditional way, but you can also use your Facebook
 ![](screenshots/facebook.png)
 
 This website also looks good on mobile devices!
-![](screenshots/phone_list.png) ![](screenshots/phone_product.png)
+![](screenshots/phone_list.png) 
+![](screenshots/phone_product.png)
 
 
 ## Credits
