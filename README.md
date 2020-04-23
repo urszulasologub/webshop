@@ -99,10 +99,11 @@ Yes, we also support newsletters and registration links for new accounts
 ![](screenshots/newsletter.png)
 
 You can create an account in traditional way, but you can also use your Facebook account
-![](screenshots/facebook.png)<br>
+![](screenshots/facebook.png)
 
 This website also looks good on mobile devices!
-![](screenshots/phone_list.png) 
+<br>
+![](screenshots/phone_list.png) <br>
 ![](screenshots/phone_product.png)
 
 
