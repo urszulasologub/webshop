@@ -109,7 +109,7 @@ This website also looks good on mobile devices!
 
 ## Credits
 Project was created for competence project on Politechnika Łódzka by four people team:
-* Urszula Sołogub - Backend developer, Team leader
-* Daria Lasecka - Backend developer
-* Patryk Mazurek - Frontend developer
-* Grzegorz Nalepa - Frontend developer
+* [Urszula Sołogub](https://github.com/urszulasologub) - Backend developer, Team leader
+* [Daria Lasecka](https://github.com/darialasecka)- Backend developer
+* [Patryk Mazurek](https://github.com/Keruzamix) - Frontend developer
+* [Grzegorz Nalepa](https://github.com/grzegorz-nalepa) - Frontend developer
