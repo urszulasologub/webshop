@@ -56,55 +56,71 @@ project/Scripts/activate
 
 ## Preview
 
-You can display every currently available product in the shop...
-![](screenshots/product_list.png)
+* You can display every currently available product in the shop...
 
-...Or you can watch products filtered by categories 
-![](screenshots/laptop_category.png)
+> ![](screenshots/product_list.png)
 
-If your product database gets really big - don't worry about long loading time. There's pagination!
-![](screenshots/pagination.png)
+* ...Or you can watch products filtered by categories 
 
-We really cared to show every detail about products to users, so you can zoom in photos. Every product may contain as many photos as you want
-![](screenshots/product_preview.png)
+> ![](screenshots/laptop_category.png)
 
-Short description is not enough to encourage customer, so we also provide clear tables with specification. Depending on what product you sell - you can customize it. For example if you sell laptops, you can add information about OS, processor or RAM, but if you sell clothes, you can fill the table with information about color or material
-![](screenshots/product_details.png)
+* If your product database gets really big - don't worry about long loading time. There's pagination!
 
-You didn't find the product you like? There are sections with similar and recommended products, to help you find more interesting options
-![](screenshots/recommended.png)
+> ![](screenshots/pagination.png)
 
-There's also a section with recently viewed products
-![](screenshots/recent_products.png)
+* We really cared to show every detail about products to users, so you can zoom in photos. Every product may contain as many photos as you want
 
-If you aren't sure about purchasing a product - read some reviews. You can also add one.
-![](screenshots/reviews.png)
+> ![](screenshots/product_preview.png)
 
-After you choose the products you like, you can find them in the shopping cart. If you have a special code - you can get a discount!
-![](screenshots/your_cart.png)
+* Short description is not enough to encourage customer, so we also provide clear tables with specification. Depending on what product you sell - you can customize it. For example if you sell laptops, you can add information about OS, processor or RAM, but if you sell clothes, you can fill the table with information about color or material
 
-Choose from many delivery options
-![](screenshots/delivery.png)
+> ![](screenshots/product_details.png)
 
-Pay safely for Paypal. If you won't be satisfied - our staff may validate your complaiment and then give you refund
-![](screenshots/paypal.png)
+* You didn't find the product you like? There are sections with similar and recommended products, to help you find more interesting options
 
-Did I mention staff? Yes, our application also has a subpage for staff members, so they can provide to customers details about their order's state
-![](screenshots/staff.png)
+> ![](screenshots/recommended.png)
 
-If you buy something - wait for an e-mail with pdf containing receipt
-![](screenshots/pdf.png)
+* There's also a section with recently viewed products
 
-Yes, we also support newsletters and registration links for new accounts
-![](screenshots/newsletter.png)
+> ![](screenshots/recent_products.png)
 
-You can create an account in traditional way, but you can also use your Facebook account
-![](screenshots/facebook.png)
+* If you aren't sure about purchasing a product - read some reviews. You can also add one.
 
-This website also looks good on mobile devices!
+> ![](screenshots/reviews.png)
+
+* After you choose the products you like, you can find them in the shopping cart. If you have a special code - you can get a discount!
+
+> ![](screenshots/your_cart.png)
+
+* Choose from many delivery options
+
+> ![](screenshots/delivery.png)
+
+* Pay safely for Paypal. If you won't be satisfied - our staff may validate your complaiment and then give you refund
+
+> ![](screenshots/paypal.png)
+
+* Did I mention staff? Yes, our application also has a subpage for staff members, so they can provide to customers details about their order's state
+
+> ![](screenshots/staff.png)
+
+* If you buy something - wait for an e-mail with pdf containing receipt
+
+> ![](screenshots/pdf.png)
+
+*Yes, we also support newsletters and registration links for new accounts
+
+> ![](screenshots/newsletter.png)
+
+* You can create an account in traditional way, but you can also use your Facebook account
+
+> ![](screenshots/facebook.png)
+
+* This website also looks good on mobile devices!
 <br>
-![](screenshots/phone_list.png) <br>
-![](screenshots/phone_product.png)
+
+> ![](screenshots/phone_list.png) <br>
+> ![](screenshots/phone_product.png)
 
 
 ## Credits
