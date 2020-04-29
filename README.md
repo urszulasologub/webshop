@@ -96,7 +96,7 @@ project/Scripts/activate
 
 > ![](screenshots/delivery.png)
 
-* Pay safely for Paypal. If you won't be satisfied - our staff may validate your complaiment and then give you refund
+* Pay safely with Paypal. If you won't be satisfied - our staff may validate your complaiment and then give you refund
 
 > ![](screenshots/paypal.png)
 
